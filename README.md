@@ -49,7 +49,8 @@ Flujo: `pages → hooks → api → backend`.
 ## Configuración
 
 ```bash
+npm install -g pnpm
 cp .env.example .env
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
