@@ -3,6 +3,9 @@ import Inicio from './Inicio';
 import CofrePage from '../../modules/m08-botin/pages/CofrePage';
 import SolicitudesPage from '../../modules/m08-botin/pages/SolicitudesPage';
 import HistorialPage from '../../modules/m08-botin/pages/HistorialPage';
+import ActividadesPage from '../../modules/m09-diario-aventura/pages/ActividadesPage';
+import DetalleActividadPage from '../../modules/m09-diario-aventura/pages/DetalleActividadPage';
+import GraficasPage from '../../modules/m09-diario-aventura/pages/GraficasPage';
 
 // Rutas de toda la PWA. Cada módulo agrega aquí sus rutas desde su propia rama.
 // Convención: /lite/... para el Perfil lite y /admin/... para el panel de administrador.
@@ -16,6 +19,11 @@ export default function AppRouter() {
       <Route path="/lite/botin/cofre" element={<CofrePage />} />
       <Route path="/lite/botin/solicitudes" element={<SolicitudesPage />} />
       <Route path="/lite/botin/historial" element={<HistorialPage />} />
+
+      {/* M09 · Diario de aventura (PWA Perfil lite) */}
+      <Route path="/lite/diario" element={<ActividadesPage />} />
+      <Route path="/lite/diario/graficas" element={<GraficasPage />} />
+      <Route path="/lite/diario/:activityId" element={<DetalleActividadPage />} />
     </Routes>
   );
 }
