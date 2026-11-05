@@ -1,0 +1,531 @@
+/* Estilos del Módulo 12 (Retos y métricas de grupo).
+   Todas las clases empiezan con "m12-" para no chocar con las de otros módulos.
+   Los colores salen de las variables de src/shared/styles/global.css */
+
+.m12 h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.m12 p {
+  margin: 0;
+}
+
+/* ── Encabezado y pestañas ── */
+.m12-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.m12-header-text {
+  flex: 1;
+  min-width: 220px;
+}
+.m12-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+.m12-header p {
+  margin-top: 4px;
+  font-size: 13px;
+}
+.m12-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--panel);
+}
+.m12-user strong,
+.m12-user small {
+  display: block;
+}
+.m12-user small {
+  color: var(--oro);
+  font-size: 11px;
+}
+.m12-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 20px;
+}
+.m12-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--panel);
+}
+.m12-tab {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--texto-suave);
+  font-family: var(--fuente-pixel);
+  text-decoration: none;
+  cursor: pointer;
+}
+.m12-tab.activo {
+  background: var(--panel-alt);
+  color: var(--texto);
+}
+.m12-tabs.chicas .m12-tab {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* ── Piezas comunes ── */
+.m12-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border: 2px solid var(--borde);
+  border-radius: 14px;
+  background: var(--panel);
+  min-width: 0;
+}
+.m12-label {
+  color: var(--texto-suave);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.m12-error {
+  margin: 0 0 12px;
+  color: var(--rojo);
+}
+.m12-notice {
+  margin: 0 0 12px;
+  color: var(--verde);
+}
+.m12-area-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.m12-barra {
+  display: block;
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--panel-alt);
+  overflow: hidden;
+}
+.m12-barra > span {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+.m12-barra.pixel {
+  height: 14px;
+  border: 2px solid var(--borde);
+  background: var(--bg);
+}
+.m12-barra.pixel > span {
+  border-radius: 0;
+  background-image: repeating-linear-gradient(90deg, transparent 0 6px, rgba(0, 0, 0, 0.35) 6px 8px) !important;
+  background-blend-mode: multiply;
+}
+.m12-detalle-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.m12 input:not([type='checkbox']),
+.m12 select {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 2px solid var(--borde);
+  border-radius: 8px;
+  background: var(--bg);
+}
+.m12-fila {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── Botones ── */
+.m12-btn-chico {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--verde);
+  color: #12121a;
+  font-family: var(--fuente-pixel);
+  cursor: pointer;
+}
+.m12-btn-secundario {
+  padding: 8px 14px;
+  border: 2px solid var(--borde);
+  border-radius: 8px;
+  background: var(--bg);
+  font-family: var(--fuente-pixel);
+  cursor: pointer;
+}
+.m12-btn-texto {
+  border: 0;
+  background: none;
+  color: var(--texto-suave);
+  cursor: pointer;
+}
+.m12-btn-primario {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-bottom: 4px solid var(--verde-oscuro);
+  border-radius: var(--radio);
+  background: var(--verde);
+  color: #12121a;
+  font-family: var(--fuente-pixel);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ── 12.1 Retos ── */
+.m12-invitacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border: 2px solid var(--oro);
+  border-radius: 12px;
+  background: var(--panel);
+}
+.m12-invitacion p {
+  flex: 1;
+  min-width: 200px;
+}
+.m12-grid-retos {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.m12-lista {
+  display: grid;
+  gap: 10px;
+}
+.m12-reto {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  background: var(--panel);
+  text-align: left;
+  cursor: pointer;
+}
+.m12-reto.activo {
+  border-color: var(--verde);
+}
+.m12-reto-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.m12-reto-top strong {
+  flex: 1;
+}
+.m12-reto small {
+  color: var(--texto-suave);
+  font-size: 12px;
+}
+.m12-crear {
+  padding: 14px;
+  border: 2px dashed var(--borde);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--texto-suave);
+  font-family: var(--fuente-pixel);
+  cursor: pointer;
+}
+.m12-form {
+  gap: 10px;
+}
+.m12-invitados {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.m12-chip {
+  padding: 6px 10px;
+  border: 2px solid var(--borde);
+  border-radius: 16px;
+  background: var(--bg);
+  font-size: 13px;
+  cursor: pointer;
+}
+.m12-chip input {
+  position: absolute;
+  opacity: 0;
+}
+.m12-chip.activo {
+  border-color: var(--verde);
+}
+.m12-chip:focus-within {
+  outline: 2px solid var(--oro);
+}
+.m12-premio {
+  padding: 6px 10px;
+  border: 2px solid var(--oro);
+  border-radius: 8px;
+  color: var(--oro);
+  font-family: var(--fuente-pixel);
+  font-size: 13px;
+}
+.m12-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.m12-total b {
+  font-size: 32px;
+}
+.m12-barra-grupal {
+  display: flex;
+  gap: 2px;
+  height: 22px;
+  padding: 2px;
+  border: 2px solid var(--borde);
+  border-radius: 8px;
+  background: var(--bg);
+  overflow: hidden;
+}
+.m12-barra-grupal span {
+  border-radius: 4px;
+}
+.m12-aportes {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.m12-aportes li {
+  display: grid;
+  grid-template-columns: 36px 90px 1fr 32px;
+  align-items: center;
+  gap: 12px;
+}
+.m12-aportes b {
+  text-align: right;
+}
+
+/* ── 12.2 Métricas ── */
+.m12-grid-metricas {
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 320px);
+  gap: 16px;
+}
+.m12-leyenda {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+}
+.m12-cuadro {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.m12-cuadro.tu {
+  background: var(--verde);
+}
+.m12-cuadro.grupo {
+  border: 2px dashed var(--texto-suave);
+}
+.m12-barras {
+  display: grid;
+  grid-template-columns: 40px repeat(3, 1fr);
+  gap: 12px;
+  height: 340px;
+  padding-top: 10px;
+}
+.m12-eje {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 36px;
+  color: var(--texto-suave);
+  font-size: 11px;
+}
+.m12-grupo-barras {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.m12-par {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  border-bottom: 2px solid var(--borde);
+}
+.m12-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  width: 40%;
+  max-width: 72px;
+}
+.m12-col-tu,
+.m12-col-grupo {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  transition: height 0.3s;
+}
+.m12-col-tu {
+  background: var(--verde);
+}
+.m12-col-grupo {
+  border: 2px dashed var(--texto-suave);
+  border-bottom: 0;
+  background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(255, 255, 255, 0.06) 6px 9px);
+}
+.m12-col-label {
+  text-align: center;
+  font-weight: 600;
+}
+.m12-tarjetas {
+  display: grid;
+  gap: 12px;
+}
+.m12-tarjeta p {
+  font-size: 13px;
+}
+.m12-pts {
+  padding: 2px 8px;
+  border: 2px solid;
+  border-radius: 6px;
+  font-family: var(--fuente-pixel);
+  font-size: 13px;
+}
+.m12-pts.sube {
+  border-color: var(--verde);
+  color: var(--verde);
+}
+.m12-pts.baja {
+  border-color: var(--rojo);
+  color: var(--rojo);
+}
+
+/* ── 12.3 Por área ── */
+.m12-grid-area {
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 320px);
+  gap: 16px;
+  align-items: start;
+}
+.m12-filtro {
+  display: inline-flex;
+  margin-bottom: 12px;
+}
+.m12-ranking {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.m12-ranking li {
+  display: grid;
+  grid-template-columns: 24px 36px minmax(80px, 140px) 1fr 48px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  background: var(--panel);
+}
+.m12-ranking li.primero {
+  border-color: var(--oro);
+}
+.m12-ranking li.yo {
+  border-color: var(--verde);
+}
+.m12-ranking b {
+  text-align: right;
+}
+.m12-pos {
+  color: var(--texto-suave);
+}
+.m12-ranking li.primero .m12-pos {
+  color: var(--oro);
+}
+.m12-referente {
+  position: relative;
+  border: 2px solid var(--oro);
+  border-radius: 14px;
+  background: var(--panel);
+  overflow: hidden;
+}
+.m12-insignia {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--oro);
+  color: #12121a;
+  font-family: var(--fuente-pixel);
+  font-size: 12px;
+}
+.m12-escena {
+  display: grid;
+  place-items: center;
+  height: 220px;
+  font-size: 96px;
+}
+.m12-referente-pie {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+.m12-oro {
+  color: var(--oro);
+}
+
+/* ── Pantallas angostas ── */
+@media (max-width: 900px) {
+  .m12-grid-retos,
+  .m12-grid-metricas,
+  .m12-grid-area {
+    grid-template-columns: 1fr;
+  }
+  .m12-aportes li {
+    grid-template-columns: 36px 70px 1fr 32px;
+  }
+  .m12-ranking li {
+    grid-template-columns: 20px 36px 1fr 44px;
+  }
+  .m12-ranking li .m12-barra {
+    display: none;
+  }
+}
