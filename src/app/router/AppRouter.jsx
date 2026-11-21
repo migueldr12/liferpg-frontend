@@ -5,6 +5,9 @@ import { ModuleScreen } from "../../shared/components/ModuleScreen";
 import CofrePage from "../../modules/m08-botin/pages/CofrePage";
 import SolicitudesPage from "../../modules/m08-botin/pages/SolicitudesPage";
 import HistorialPage from "../../modules/m08-botin/pages/HistorialPage";
+import CurvaXpPage from "../../modules/m14-economia-global/pages/CurvaXpPage";
+import CatalogoPage from "../../modules/m14-economia-global/pages/CatalogoPage";
+import PushPage from "../../modules/m14-economia-global/pages/PushPage";
 import ActividadesPage from "../../modules/m09-diario-aventura/pages/ActividadesPage";
 import DetalleActividadPage from "../../modules/m09-diario-aventura/pages/DetalleActividadPage";
 import GraficasPage from "../../modules/m09-diario-aventura/pages/GraficasPage";
@@ -26,6 +29,11 @@ const implementedScreens = {
     "": <ActividadesPage />,
     detalle: <Navigate to="/lite/diario/a-5" replace />,
     graficas: <GraficasPage />,
+  },
+  m14: {
+    curva: <CurvaXpPage />,
+    catalogo: <CatalogoPage />,
+    push: <PushPage />,
   },
   m13: {
     "": <HostMonitorPage />,
