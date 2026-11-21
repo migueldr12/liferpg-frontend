@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppLayout } from '../layouts/AppLayout';
 import { ModuleScreen } from '../../shared/components/ModuleScreen';
+import AnimoStickersPage from '../../modules/m10-notificaciones/pages/AnimoStickersPage';
+import AnimoHistorialPage from '../../modules/m10-notificaciones/pages/AnimoHistorialPage';
 import { HostMonitorPage } from '../../modules/m13-sincronizacion-red/pages/HostMonitorPage';
 import { ClientsPage } from '../../modules/m13-sincronizacion-red/pages/ClientsPage';
 import { RestConsolePage } from '../../modules/m13-sincronizacion-red/pages/RestConsolePage';
@@ -11,6 +13,7 @@ import { PurgePage } from '../../modules/m15-gestion-bd/pages/PurgePage';
 import { adminModules, liteModules } from './modules';
 
 const implementedScreens = {
+  m10: { stickers: <AnimoStickersPage />, historial: <AnimoHistorialPage /> },
   m13: { '': <HostMonitorPage />, clientes: <ClientsPage />, consola: <RestConsolePage /> },
   m15: { '': <DatabaseMonitorPage />, respaldos: <BackupsPage />, purga: <PurgePage /> },
 };

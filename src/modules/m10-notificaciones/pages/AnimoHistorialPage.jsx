@@ -1,6 +1,7 @@
-import { CheckCheck } from 'lucide-react';
-import LiteLayout, { PixelAvatar, SegmentedTabs } from '../../../components/lite/LiteShell';
-import { useLiteSession, useHistorialAnimo } from '../../../hooks/useLite';
+import React from 'react';
+import { Icon } from '../../../shared/components/Icon';
+import LiteLayout, { PixelAvatar, SegmentedTabs } from '../components/LiteShell';
+import { useLiteSession, useHistorialAnimo } from '../hooks/useLite';
 
 const TABS = [
   { to: '/lite/animo/avisos', label: 'Avisos' },
@@ -40,7 +41,7 @@ export default function AnimoHistorialPage() {
         <SegmentedTabs items={viewTabs} value={view} onChange={setView} ariaLabel="Recibidos o enviados" size="sm" />
         {view === 'received' && (
           <button type="button" className="btn btn--ghost" onClick={markAllSeen} disabled={newCount === 0}>
-            <CheckCheck size={16} aria-hidden="true" />
+            <Icon name="checkcheck" size={16} />
             Marcar todo como visto
           </button>
         )}

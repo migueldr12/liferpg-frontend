@@ -1,6 +1,7 @@
-import { Send } from 'lucide-react';
-import LiteLayout, { PixelAvatar, SegmentedTabs } from '../../../components/lite/LiteShell';
-import { useLiteSession, useStickersAnimo } from '../../../hooks/useLite';
+import React from 'react';
+import { Icon } from '../../../shared/components/Icon';
+import LiteLayout, { PixelAvatar, SegmentedTabs } from '../components/LiteShell';
+import { useLiteSession, useStickersAnimo } from '../hooks/useLite';
 
 const TABS = [
   { to: '/lite/animo/avisos', label: 'Avisos' },
@@ -59,7 +60,7 @@ export default function AnimoStickersPage() {
           <h2 className="send-panel__title">Enviar a</h2>
           <FriendRecipientList friends={friends} selectedIds={selectedFriends} onToggle={toggleFriend} />
           <button type="button" className="btn" disabled={!canSend} onClick={sendSticker}>
-            <Send size={16} aria-hidden="true" />
+            <Icon name="send" size={16} />
             Enviar “{selectedSticker.label}” a {selectedFriends.size}
           </button>
           <p className="send-panel__note">Les llega como notificación push.</p>

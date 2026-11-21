@@ -19,6 +19,8 @@ const paths = {
   chevron: <path d="m9 18 6-6-6-6" />,
   spark: <path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2Z" />,
   check: <path d="m5 12 5 5L20 7" />,
+  checkcheck: <><path d="m2 12 4 4 6-6m-2 6 4 4 8-8" /></>,
+  send: <><path d="m22 2-7 20-4-9-9-4 20-7ZM11 13 22 2" /></>,
   clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
   search: <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></>,
   shield: <path d="m12 2 8 4v6c0 5-3.4 8-8 10-4.6-2-8-5-8-10V6l8-4Z" />,
