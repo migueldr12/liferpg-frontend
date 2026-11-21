@@ -1,5 +1,4 @@
 import Avatar from '../components/Avatar';
-import BotinHeader from '../components/BotinHeader';
 import { DIRECTIONS, RANGES, useHistorialBotin } from '../hooks/useHistorialBotin';
 import '../components/botin.css';
 
@@ -9,8 +8,7 @@ export default function HistorialPage() {
   const countOf = (key) => (key ? vm.counts[key] : vm.counts.todos);
 
   return (
-    <main className="page m08">
-      <BotinHeader title="Historial de botín" subtitle="Qué regalaste, a quién y cuándo" />
+    <div className="m08">
 
       {vm.error && <p className="m08-error" role="alert">{vm.error}</p>}
 
@@ -67,6 +65,6 @@ export default function HistorialPage() {
         ))}
         {!vm.loading && vm.rows.length === 0 && <p className="m08-vacio">Sin movimientos con estos filtros</p>}
       </div>
-    </main>
+    </div>
   );
 }

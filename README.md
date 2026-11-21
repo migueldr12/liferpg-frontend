@@ -1,9 +1,13 @@
 # Life-RPG · Frontend
 
-Cliente en React con Vite, organizado **por módulos** igual que `liferpg-backend`.
-El frontend es **solo UI**: no tiene reglas de negocio ni datos propios; todo lo obtiene y lo
-guarda mediante peticiones a la API REST del backend.
-Por ahora solo hay estructura (carpetas con `.gitkeep`), sin lógica.
+Cliente PWA en React con Vite, organizado **por módulos** igual que `liferpg-backend`.
+La base compartida incluye navegación y estilos para Perfil Lite y Administración.
+M13 (Host) y M15 (Datos) tienen sus tres pantallas y controles de interfaz. Mientras el
+backend no implemente los endpoints, muestran datos de demostración identificados como tales;
+las acciones que cambiarían datos del servidor permanecen deshabilitadas.
+
+Inicio rápido: `pnpm install --frozen-lockfile` y `pnpm dev`. Abre `/admin/host` o `/admin/datos`.
+Consulta [la guía de layouts](docs/layout-pwa.md) antes de implementar un módulo.
 
 ## Carpetas de cada módulo
 
@@ -21,7 +25,7 @@ Flujo: `pages → hooks → api → backend`.
 - `public/icons`: íconos del manifest de la PWA
 - `src/api`: cliente HTTP base (URL del backend, token JWT, manejo de errores) que usan todos los módulos
 - `src/config`: variables de entorno y URL del servidor (nube o LAN)
-- `src/app`: `router` (rutas de todos los módulos), `providers` (sesión, tema), `layouts`
+- `src/app`: `router` (rutas y menú de los módulos), `providers` (futura sesión), `layouts`
 - `src/assets`: `images`, `sprites` (animaciones del Tamagotchi), `icons`, `fonts`
 - `src/shared`: `components`, `hooks`, `utils`, `styles` reutilizables entre módulos
 
@@ -49,8 +53,15 @@ Flujo: `pages → hooks → api → backend`.
 ## Configuración
 
 ```bash
-npm install -g pnpm
-cp .env.example .env
-pnpm install
+corepack enable
+pnpm install --frozen-lockfile
 pnpm dev
+pnpm build
 ```
+
+Para conectar el backend, crea tu archivo `.env` a partir de `.env.example` y ajusta
+`VITE_API_URL` para tu entorno. No subas `.env` al repositorio.
+
+**Alcance acordado para esta PWA:** M10 (notificaciones de acompañamiento), M11 (resumen
+de progreso) y M12 (retos de grupo) siguen los mockups PWA y esta tabla. El documento
+«Tareas Life prg» presenta otro alcance para esos números y requiere alineación aparte.

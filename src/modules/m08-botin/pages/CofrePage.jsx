@@ -1,5 +1,4 @@
 import Avatar from '../components/Avatar';
-import BotinHeader from '../components/BotinHeader';
 import RarityTag from '../components/RarityTag';
 import { qtyText } from '../hooks/botinFormat';
 import { giftNote, useCofre } from '../hooks/useCofre';
@@ -10,8 +9,7 @@ export default function CofrePage() {
   const vm = useCofre();
 
   return (
-    <main className="page m08">
-      <BotinHeader title="Cofre del botín" subtitle="Objetos que puedes regalar · llegan a la app móvil de tu amigo" />
+    <div className="m08">
 
       {vm.error && <p className="m08-error" role="alert">{vm.error}</p>}
       {vm.notice && <p className="m08-notice" role="status">{vm.notice}</p>}
@@ -89,6 +87,6 @@ export default function CofrePage() {
           </form>
         </div>
       )}
-    </main>
+    </div>
   );
 }
