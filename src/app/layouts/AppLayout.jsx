@@ -19,7 +19,8 @@ export function AppLayout({ variant }) {
   const { pathname } = useLocation();
   const current = modules.find((module) => pathname === `${prefix}/${module.path}` || pathname.startsWith(`${prefix}/${module.path}/`)) ?? modules[0];
   const subpath = pathname.slice(`${prefix}/${current.path}`.length).replace(/^\//, '');
-  const screen = current.screens.find((item) => item.path === subpath) ?? current.screens[0];
+  const screen = current.screens.find((item) => item.path === subpath)
+    ?? (current.id === 'm09' && subpath ? current.screens.find((item) => item.path === 'detalle') : current.screens[0]);
   const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
