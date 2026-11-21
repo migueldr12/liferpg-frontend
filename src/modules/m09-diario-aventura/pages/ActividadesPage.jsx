@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import DiarioHeader from '../components/DiarioHeader';
 import FilterGroup from '../components/FilterGroup';
 import { OriginTag, StatusTag, TypeTag } from '../components/Tags';
 import { ORIGINS, STATUSES, TYPES, pointsText, typeMeta } from '../hooks/diarioFormat';
@@ -14,8 +13,7 @@ export default function ActividadesPage() {
   const n = vm.rows.length;
 
   return (
-    <main className="page m09">
-      <DiarioHeader title="Diario de aventura" subtitle="Misiones, hábitos y sesiones de enfoque en un solo lugar" />
+    <div className="m09">
 
       {vm.error && <p className="m09-error" role="alert">{vm.error}</p>}
 
@@ -63,6 +61,6 @@ export default function ActividadesPage() {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }

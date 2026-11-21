@@ -1,5 +1,4 @@
 import Avatar from '../components/Avatar';
-import BotinHeader from '../components/BotinHeader';
 import RarityTag from '../components/RarityTag';
 import { qtyText } from '../hooks/botinFormat';
 import { REQUEST_STATUS, useSolicitudes } from '../hooks/useSolicitudes';
@@ -10,8 +9,7 @@ export default function SolicitudesPage() {
   const vm = useSolicitudes();
 
   return (
-    <main className="page m08">
-      <BotinHeader title="Solicitudes de regalo" subtitle="Tus amigos te piden ayuda · tú decides qué sale de tu cofre" />
+    <div className="m08">
 
       {vm.error && <p className="m08-error" role="alert">{vm.error}</p>}
       {vm.notice && <p className="m08-notice" role="status">{vm.notice}</p>}
@@ -102,6 +100,6 @@ export default function SolicitudesPage() {
           </aside>
         </div>
       )}
-    </main>
+    </div>
   );
 }

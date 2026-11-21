@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom';
-import DiarioHeader from '../components/DiarioHeader';
 import { OriginTag, StatusTag, TypeTag } from '../components/Tags';
 import { pointsText } from '../hooks/diarioFormat';
 import { useDetalleActividad } from '../hooks/useDetalleActividad';
@@ -13,19 +12,17 @@ export default function DetalleActividadPage() {
 
   if (vm.notFound) {
     return (
-      <main className="page m09">
-        <DiarioHeader title="Actividad no encontrada" subtitle="Puede que ya no exista" detailId={activityId} />
+      <div className="m09">
         <div className="m09-vacio">
           <p>No encontramos esa actividad.</p>
           <Link to="/lite/diario" className="m09-btn-secundario">Volver al diario</Link>
         </div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="page m09">
-      <DiarioHeader title={a?.title ?? 'Cargando…'} subtitle={a?.subtitle ?? ''} detailId={activityId} />
+    <div className="m09">
 
       {vm.error && <p className="m09-error" role="alert">{vm.error}</p>}
 
@@ -132,6 +129,6 @@ export default function DetalleActividadPage() {
           </section>
         </div>
       )}
-    </main>
+    </div>
   );
 }

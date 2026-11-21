@@ -1,4 +1,3 @@
-import DiarioHeader from '../components/DiarioHeader';
 import Donut from '../components/Donut';
 import StackedBars from '../components/StackedBars';
 import { TYPES } from '../hooks/diarioFormat';
@@ -10,8 +9,7 @@ export default function GraficasPage() {
   const vm = useGraficas();
 
   return (
-    <main className="page m09">
-      <DiarioHeader title="Tus patrones" subtitle="Actividades cumplidas · cambia el rango para comparar" />
+    <div className="m09">
 
       {vm.error && <p className="m09-error" role="alert">{vm.error}</p>}
 
@@ -61,6 +59,6 @@ export default function GraficasPage() {
           )}
         </aside>
       </div>
-    </main>
+    </div>
   );
 }
