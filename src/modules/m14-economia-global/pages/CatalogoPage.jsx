@@ -1,4 +1,3 @@
-import AdminHeader from '../components/AdminHeader';
 import { CATEGORY_TYPES, ICON_OPTIONS, ITEM_GROUPS, useCatalogo } from '../hooks/useCatalogo';
 import '../components/economia.css';
 
@@ -23,8 +22,7 @@ export default function CatalogoPage() {
   const vm = useCatalogo();
 
   return (
-    <main className="page m14">
-      <AdminHeader title="Catálogo" subtitle="Alimenta la tienda (M04), el cofre (M08) y los stickers (M10)" />
+    <div className="m14">
 
       {vm.error && <p className="m14-error">{vm.error}</p>}
       {vm.notice && <p className="m14-notice">{vm.notice}</p>}
@@ -133,6 +131,6 @@ export default function CatalogoPage() {
           </section>
         </div>
       )}
-    </main>
+    </div>
   );
 }

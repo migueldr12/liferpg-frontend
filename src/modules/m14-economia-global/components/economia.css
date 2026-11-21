@@ -1,6 +1,25 @@
-/* Estilos del Módulo 14 (Balanceo de economía global).
-   Todas las clases empiezan con "m14-" para no chocar con las de otros módulos.
-   Los colores salen de las variables de src/shared/styles/global.css */
+/* M14 usa los tokens del layout compartido, sin sobrescribir estilos globales. */
+.m14 {
+  --bg: var(--background);
+  --panel: var(--surface);
+  --panel-alt: var(--surface-raised);
+  --borde: var(--border);
+  --texto: var(--text);
+  --texto-suave: var(--muted);
+  --verde: #4caf50;
+  --verde-oscuro: #1b5e20;
+  --oro: var(--yellow);
+  --morado: var(--purple);
+  --rojo: #ff747b;
+  --azul: #4abdea;
+  --radio: 10px;
+  --fuente-pixel: 'Pixelify Sans', monospace;
+  min-width: 0;
+  color: var(--texto);
+}
+.m14 .titulo-pixel { font-family: var(--fuente-pixel); }
+.m14 .texto-suave { color: var(--texto-suave); }
+.m14 :where(button, textarea, input, select) { color: var(--texto); }
 
 .m14 h2 {
   margin: 0;
