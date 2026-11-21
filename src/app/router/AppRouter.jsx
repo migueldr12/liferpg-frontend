@@ -5,6 +5,8 @@ import { ModuleScreen } from '../../shared/components/ModuleScreen';
 import ProgresoPendientesPage from '../../modules/m11-resumen-progreso/pages/lite/ProgresoPendientesPage';
 import ProgresoDiasRojosPage from '../../modules/m11-resumen-progreso/pages/lite/ProgresoDiasRojosPage';
 import ProgresoRachaPage from '../../modules/m11-resumen-progreso/pages/lite/ProgresoRachaPage';
+import AnimoStickersPage from '../../modules/m10-notificaciones/pages/AnimoStickersPage';
+import AnimoHistorialPage from '../../modules/m10-notificaciones/pages/AnimoHistorialPage';
 import ListaPartyPage from '../../modules/m07-visualizador-usuarios/pages/ListaPartyPage';
 import PerfilEspejoPage from '../../modules/m07-visualizador-usuarios/pages/PerfilEspejoPage';
 import GestorCodigosPage from '../../modules/m07-visualizador-usuarios/pages/GestorCodigosPage';
@@ -32,6 +34,7 @@ const implementedScreens = {
   m07: { '': <ListaPartyPage />, perfil: <PerfilEspejoPage />, codigos: <GestorCodigosPage /> },
   m08: { cofre: <CofrePage />, solicitudes: <SolicitudesPage />, historial: <HistorialPage /> },
   m09: { '': <ActividadesPage />, detalle: <Navigate to="/lite/diario/a-5" replace />, graficas: <GraficasPage /> },
+  m10: { stickers: <AnimoStickersPage />, historial: <AnimoHistorialPage /> },
   m11: { '': <ProgresoPendientesPage />, inactividad: <ProgresoDiasRojosPage />, racha: <ProgresoRachaPage /> },
   m12: { '': <RetosPage />, metricas: <MetricasPage />, 'por-area': <PorAreaPage /> },
   m13: { '': <HostMonitorPage />, clientes: <ClientsPage />, consola: <RestConsolePage /> },
