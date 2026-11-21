@@ -1,4 +1,5 @@
-import { Flame } from 'lucide-react';
+import React from 'react';
+import { Icon } from '../../../../shared/components/Icon';
 import LiteLayout, { PixelAvatar, SegmentedTabs } from '../../components/lite/LiteShell';
 import { useLiteSession, useRacha } from '../../hooks/useLite';
 
@@ -53,7 +54,7 @@ export default function ProgresoRachaPage() {
         <div className="racha-left">
           <section className="panel streak-card" aria-label="Racha actual">
             <div className={`streak-flame streak-flame--${status}`}>
-              <Flame size={64} aria-hidden="true" />
+              <Icon name="flame" size={64} />
             </div>
             <div>
               <span className={`streak-chip streak-chip--${status}`}>{copy.chip}</span>

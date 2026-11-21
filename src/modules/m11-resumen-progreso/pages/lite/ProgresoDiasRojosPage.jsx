@@ -1,3 +1,4 @@
+import React from 'react';
 import LiteLayout, { SegmentedTabs } from '../../components/lite/LiteShell';
 import { useLiteSession, useDiasRojos } from '../../hooks/useLite';
 

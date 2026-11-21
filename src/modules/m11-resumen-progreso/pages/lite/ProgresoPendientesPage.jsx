@@ -1,4 +1,5 @@
-import { BookOpen, Dumbbell, Target, RefreshCw } from 'lucide-react';
+import React from 'react';
+import { Icon } from '../../../../shared/components/Icon';
 import LiteLayout from '../../components/lite/LiteShell';
 import { useLiteSession, useProgresoPendientes } from '../../hooks/useLite';
 
@@ -8,9 +9,9 @@ const TABS = [
   { to: '/lite/progreso/racha', label: 'Racha' },
 ];
 const AREAS = {
-  cultura: { label: 'Cultura', icon: BookOpen },
-  fisico: { label: 'Físico', icon: Dumbbell },
-  enfoque: { label: 'Enfoque', icon: Target },
+  cultura: { label: 'Cultura', icon: 'book' },
+  fisico: { label: 'Físico', icon: 'dumbbell' },
+  enfoque: { label: 'Enfoque', icon: 'target' },
 };
 const RADIUS = 42;
 const CIRC = 2 * Math.PI * RADIUS;
@@ -28,10 +29,9 @@ function DayCard({ day, selected, onSelect }) {
 
 function PendingTaskRow({ task, onResume }) {
   const area = AREAS[task.area];
-  const Icon = area.icon;
   return (
     <li className="task-row">
-      <span className={`task-row__icon task-row__icon--${task.area}`}><Icon size={20} aria-hidden="true" /></span>
+      <span className={`task-row__icon task-row__icon--${task.area}`}><Icon name={area.icon} size={20} /></span>
       <div className="task-row__body">
         <h3 className="task-row__title">{task.title}</h3>
         <div className="task-row__tags">
@@ -40,7 +40,7 @@ function PendingTaskRow({ task, onResume }) {
         </div>
       </div>
       {task.weeklyRepeats > 1 && (
-        <span className="repeat-chip"><RefreshCw size={13} aria-hidden="true" />{task.weeklyRepeats}.ª vez esta semana</span>
+        <span className="repeat-chip"><Icon name="refresh" size={13} />{task.weeklyRepeats}.ª vez esta semana</span>
       )}
       <button type="button" className="btn" onClick={() => onResume(task)}>Retomar hoy</button>
     </li>

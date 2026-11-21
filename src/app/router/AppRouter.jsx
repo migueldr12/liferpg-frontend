@@ -2,6 +2,9 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppLayout } from '../layouts/AppLayout';
 import { ModuleScreen } from '../../shared/components/ModuleScreen';
+import ProgresoPendientesPage from '../../modules/m11-resumen-progreso/pages/lite/ProgresoPendientesPage';
+import ProgresoDiasRojosPage from '../../modules/m11-resumen-progreso/pages/lite/ProgresoDiasRojosPage';
+import ProgresoRachaPage from '../../modules/m11-resumen-progreso/pages/lite/ProgresoRachaPage';
 import { HostMonitorPage } from '../../modules/m13-sincronizacion-red/pages/HostMonitorPage';
 import { ClientsPage } from '../../modules/m13-sincronizacion-red/pages/ClientsPage';
 import { RestConsolePage } from '../../modules/m13-sincronizacion-red/pages/RestConsolePage';
@@ -11,6 +14,7 @@ import { PurgePage } from '../../modules/m15-gestion-bd/pages/PurgePage';
 import { adminModules, liteModules } from './modules';
 
 const implementedScreens = {
+  m11: { '': <ProgresoPendientesPage />, inactividad: <ProgresoDiasRojosPage />, racha: <ProgresoRachaPage /> },
   m13: { '': <HostMonitorPage />, clientes: <ClientsPage />, consola: <RestConsolePage /> },
   m15: { '': <DatabaseMonitorPage />, respaldos: <BackupsPage />, purga: <PurgePage /> },
 };

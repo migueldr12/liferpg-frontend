@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 /**
- * Hooks del perfil lite (módulo 10). Todo es MOCK por ahora:
+ * Hooks del perfil lite (módulo 11). Todo es MOCK por ahora:
  * cuando exista la API, solo cambia el interior de cada hook.
  */
 
