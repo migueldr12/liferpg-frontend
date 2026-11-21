@@ -8,6 +8,9 @@ import HistorialPage from "../../modules/m08-botin/pages/HistorialPage";
 import CurvaXpPage from "../../modules/m14-economia-global/pages/CurvaXpPage";
 import CatalogoPage from "../../modules/m14-economia-global/pages/CatalogoPage";
 import PushPage from "../../modules/m14-economia-global/pages/PushPage";
+import ActividadesPage from "../../modules/m09-diario-aventura/pages/ActividadesPage";
+import DetalleActividadPage from "../../modules/m09-diario-aventura/pages/DetalleActividadPage";
+import GraficasPage from "../../modules/m09-diario-aventura/pages/GraficasPage";
 import { HostMonitorPage } from "../../modules/m13-sincronizacion-red/pages/HostMonitorPage";
 import { ClientsPage } from "../../modules/m13-sincronizacion-red/pages/ClientsPage";
 import { RestConsolePage } from "../../modules/m13-sincronizacion-red/pages/RestConsolePage";
@@ -17,8 +20,21 @@ import { PurgePage } from "../../modules/m15-gestion-bd/pages/PurgePage";
 import { adminModules, liteModules } from "./modules";
 
 const implementedScreens = {
-  m08: { cofre: <CofrePage />, solicitudes: <SolicitudesPage />, historial: <HistorialPage /> },
-  m14: { curva: <CurvaXpPage />, catalogo: <CatalogoPage />, push: <PushPage /> },
+  m08: {
+    cofre: <CofrePage />,
+    solicitudes: <SolicitudesPage />,
+    historial: <HistorialPage />,
+  },
+  m09: {
+    "": <ActividadesPage />,
+    detalle: <Navigate to="/lite/diario/a-5" replace />,
+    graficas: <GraficasPage />,
+  },
+  m14: {
+    curva: <CurvaXpPage />,
+    catalogo: <CatalogoPage />,
+    push: <PushPage />,
+  },
   m13: {
     "": <HostMonitorPage />,
     clientes: <ClientsPage />,
@@ -69,6 +85,9 @@ function moduleRoutes(modules, prefix) {
               }
             />
           ))}
+        {module.id === "m09" && (
+          <Route path=":activityId" element={<DetalleActividadPage />} />
+        )}
         <Route
           path="*"
           element={<Navigate to={`${prefix}/${module.path}`} replace />}
