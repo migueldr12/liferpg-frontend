@@ -1,12 +1,10 @@
 import React from 'react';
-import LiteHeader from '@/shared/components/LiteHeader';
-import '../components/m07.css';
+import '../components/visualizador.css';
 
 //lo mismo, luego cambio icons
 export default function PerfilEspejoPage() {
   return (
-    <main className="page m07">
-      <LiteHeader title="Miguel · perfil espejo" subtitle="Ves su progreso tal cual, no puedes modificar nada" />
+    <div className="m07">
 
       <div className="m07-grid-espejo">
         <div className="m07-panel">
@@ -68,6 +66,6 @@ export default function PerfilEspejoPage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

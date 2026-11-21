@@ -1,3 +1,19 @@
+.m07 {
+  --bg: var(--background);
+  --panel: var(--surface);
+  --borde: var(--border);
+  --texto: var(--text);
+  --texto-suave: var(--muted);
+  --verde: #4caf50;
+  --verde-oscuro: #1b5e20;
+  --oro: var(--yellow);
+  --rojo: #ff747b;
+  --radio: 10px;
+  --fuente-pixel: 'Pixelify Sans', monospace;
+  min-width: 0;
+}
+.m07 .texto-suave { color: var(--texto-suave); }
+
 .m07 h2 {
   margin: 0;
   font-size: 20px;
@@ -142,7 +158,7 @@
 }
 .m07-grid-party {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 16px;
 }
 .m07-card-amigo {

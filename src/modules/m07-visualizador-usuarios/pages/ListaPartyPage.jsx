@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import LiteHeader from '@/shared/components/LiteHeader';
+import { useNavigate } from 'react-router-dom';
 import { AmigoCard } from '../components/AmigoCard';
-import '../components/m07.css';
+import '../components/visualizador.css';
 
 //luego cambio los avatares
 export default function ListaPartyPage() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('nivel');
 
@@ -15,8 +16,7 @@ export default function ListaPartyPage() {
   ];
 
   return (
-    <main className="page m07">
-      <LiteHeader title="Tu party" subtitle="Amigos que ven tu progreso y tú el suyo" />
+    <div className="m07">
 
       <div className="m07-controls-bar">
         <input
@@ -47,10 +47,10 @@ export default function ListaPartyPage() {
           <AmigoCard
             key={amigo.id}
             {...amigo}
-            onVerPerfil={(id) => console.log('Ver perfil:', id)}
+            onVerPerfil={() => navigate('/lite/amigos/perfil')}
           />
         ))}
       </div>
-    </main>
+    </div>
   );
 }
