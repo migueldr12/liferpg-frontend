@@ -1,12 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Icon } from './Icon';
 
 export function ModuleTabs({ module, prefix }) {
+  const { pathname } = useLocation();
   return (
     <nav className="module-tabs" aria-label={`Secciones de ${module.label}`}>
       {module.screens.map((screen) => (
-        <NavLink key={screen.label} to={`${prefix}/${module.path}${screen.path ? `/${screen.path}` : ''}`} end className={({ isActive }) => `module-tabs__link ${isActive ? 'module-tabs__link--active' : ''}`}>
+        <NavLink key={screen.label} to={`${prefix}/${module.path}${screen.path ? `/${screen.path}` : ''}`} end className={({ isActive }) => `module-tabs__link ${isActive || (module.id === 'm09' && screen.path === 'detalle' && pathname.startsWith('/lite/diario/') && pathname !== '/lite/diario/graficas') ? 'module-tabs__link--active' : ''}`}>
           {screen.label}
         </NavLink>
       ))}
