@@ -5,6 +5,9 @@ import { ModuleScreen } from "../../shared/components/ModuleScreen";
 import CofrePage from "../../modules/m08-botin/pages/CofrePage";
 import SolicitudesPage from "../../modules/m08-botin/pages/SolicitudesPage";
 import HistorialPage from "../../modules/m08-botin/pages/HistorialPage";
+import RetosPage from "../../modules/m12-retos-grupo/pages/RetosPage";
+import MetricasPage from "../../modules/m12-retos-grupo/pages/MetricasPage";
+import PorAreaPage from "../../modules/m12-retos-grupo/pages/PorAreaPage";
 import CurvaXpPage from "../../modules/m14-economia-global/pages/CurvaXpPage";
 import CatalogoPage from "../../modules/m14-economia-global/pages/CatalogoPage";
 import PushPage from "../../modules/m14-economia-global/pages/PushPage";
@@ -29,6 +32,11 @@ const implementedScreens = {
     "": <ActividadesPage />,
     detalle: <Navigate to="/lite/diario/a-5" replace />,
     graficas: <GraficasPage />,
+  },
+  m12: {
+    "": <RetosPage />,
+    metricas: <MetricasPage />,
+    "por-area": <PorAreaPage />,
   },
   m14: {
     curva: <CurvaXpPage />,
