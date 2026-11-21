@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppLayout } from '../layouts/AppLayout';
 import { ModuleScreen } from '../../shared/components/ModuleScreen';
+import AnimoStickersPage from '../../modules/m10-notificaciones/pages/AnimoStickersPage';
+import AnimoHistorialPage from '../../modules/m10-notificaciones/pages/AnimoHistorialPage';
 import ListaPartyPage from '../../modules/m07-visualizador-usuarios/pages/ListaPartyPage';
 import PerfilEspejoPage from '../../modules/m07-visualizador-usuarios/pages/PerfilEspejoPage';
 import GestorCodigosPage from '../../modules/m07-visualizador-usuarios/pages/GestorCodigosPage';
@@ -29,6 +31,7 @@ const implementedScreens = {
   m07: { '': <ListaPartyPage />, perfil: <PerfilEspejoPage />, codigos: <GestorCodigosPage /> },
   m08: { cofre: <CofrePage />, solicitudes: <SolicitudesPage />, historial: <HistorialPage /> },
   m09: { '': <ActividadesPage />, detalle: <Navigate to="/lite/diario/a-5" replace />, graficas: <GraficasPage /> },
+  m10: { stickers: <AnimoStickersPage />, historial: <AnimoHistorialPage /> },
   m12: { '': <RetosPage />, metricas: <MetricasPage />, 'por-area': <PorAreaPage /> },
   m13: { '': <HostMonitorPage />, clientes: <ClientsPage />, consola: <RestConsolePage /> },
   m14: { curva: <CurvaXpPage />, catalogo: <CatalogoPage />, push: <PushPage /> },
