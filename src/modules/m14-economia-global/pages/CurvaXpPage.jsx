@@ -1,4 +1,3 @@
-import AdminHeader from '../components/AdminHeader';
 import XpChart from '../components/XpChart';
 import { MAX_LEVEL, MILESTONES, useCurvaXp } from '../hooks/useCurvaXp';
 import '../components/economia.css';
@@ -15,8 +14,7 @@ export default function CurvaXpPage() {
   const vm = useCurvaXp();
 
   return (
-    <main className="page m14">
-      <AdminHeader title="Economía del juego" subtitle="Ni muy fácil ni frustrante · los cambios no son retroactivos" />
+    <div className="m14">
 
       {vm.loading || !vm.draft ? (
         <p className="texto-suave">Cargando economía…</p>
@@ -100,6 +98,6 @@ export default function CurvaXpPage() {
           </section>
         </div>
       )}
-    </main>
+    </div>
   );
 }

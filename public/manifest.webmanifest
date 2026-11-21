@@ -1,0 +1,13 @@
+{
+  "name": "Life-RPG",
+  "short_name": "Life-RPG",
+  "description": "Tus aventuras, tu equipo y tu progreso.",
+  "start_url": "/lite/amigos",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e1c",
+  "theme_color": "#0a0e1c",
+  "icons": [
+    { "src": "/icons/dragon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

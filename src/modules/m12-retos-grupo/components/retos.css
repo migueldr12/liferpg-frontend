@@ -1,6 +1,28 @@
-/* Estilos del Módulo 12 (Retos y métricas de grupo).
-   Todas las clases empiezan con "m12-" para no chocar con las de otros módulos.
-   Los colores salen de las variables de src/shared/styles/global.css */
+/* M12 usa los tokens del layout compartido, sin sobrescribir estilos globales. */
+.m12 {
+  --bg: var(--background);
+  --panel: var(--surface);
+  --panel-alt: var(--surface-raised);
+  --borde: var(--border);
+  --texto: var(--text);
+  --texto-suave: var(--muted);
+  --verde: #4caf50;
+  --verde-oscuro: #1b5e20;
+  --oro: var(--yellow);
+  --morado: var(--purple);
+  --rojo: #ff747b;
+  --azul: #4abdea;
+  --cultura: #b56cff;
+  --fisico: #ff7043;
+  --enfoque: #29b6f6;
+  --radio: 10px;
+  --fuente-pixel: 'Pixelify Sans', monospace;
+  min-width: 0;
+  color: var(--texto);
+}
+.m12 .titulo-pixel { font-family: var(--fuente-pixel); }
+.m12 .texto-suave { color: var(--texto-suave); }
+.m12 :where(button, textarea, input, select) { color: var(--texto); }
 
 .m12 h2 {
   margin: 0;

@@ -1,5 +1,4 @@
 import Avatar from '../components/Avatar';
-import LiteHeader from '../components/LiteHeader';
 import { ME } from '../api/retosApi';
 import { AREAS, areaMeta } from '../hooks/useRetos';
 import { useActividadArea } from '../hooks/useActividadArea';
@@ -11,8 +10,7 @@ export default function PorAreaPage() {
   const meta = areaMeta(vm.area);
 
   return (
-    <main className="page m12">
-      <LiteHeader title="Quién destaca esta semana" subtitle="Ordena a tu party por el avance semanal en un área" />
+    <div className="m12">
 
       {vm.error && <p className="m12-error">{vm.error}</p>}
 
@@ -60,6 +58,6 @@ export default function PorAreaPage() {
           </aside>
         )}
       </div>
-    </main>
+    </div>
   );
 }

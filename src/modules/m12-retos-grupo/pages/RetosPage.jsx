@@ -1,5 +1,4 @@
 import Avatar from '../components/Avatar';
-import LiteHeader from '../components/LiteHeader';
 import { AREAS, areaMeta, useRetos } from '../hooks/useRetos';
 import '../components/retos.css';
 
@@ -9,8 +8,7 @@ export default function RetosPage() {
   const c = vm.selected;
 
   return (
-    <main className="page m12">
-      <LiteHeader title="Retos de grupo" subtitle="Metas que se llenan con el esfuerzo de toda la party" />
+    <div className="m12">
 
       {/* Invitaciones pendientes (RDF118) */}
       {vm.invitations.map((inv) => (
@@ -124,6 +122,6 @@ export default function RetosPage() {
           )}
         </div>
       )}
-    </main>
+    </div>
   );
 }

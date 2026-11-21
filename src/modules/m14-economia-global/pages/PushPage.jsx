@@ -1,4 +1,3 @@
-import AdminHeader from '../components/AdminHeader';
 import { MESSAGE_MAX, TITLE_MAX, usePush } from '../hooks/usePush';
 import '../components/economia.css';
 
@@ -9,8 +8,7 @@ export default function PushPage() {
   const time = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
 
   return (
-    <main className="page m14">
-      <AdminHeader title="Notificaciones push" subtitle="Avisos y campañas de motivación a la app móvil" />
+    <div className="m14">
 
       <div className="m14-grid-push">
         {/* Formulario de envío (RDF141) */}
@@ -86,6 +84,6 @@ export default function PushPage() {
           )}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

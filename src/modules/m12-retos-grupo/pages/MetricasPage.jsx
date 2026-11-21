@@ -1,4 +1,3 @@
-import LiteHeader from '../components/LiteHeader';
 import { useMetricasGrupo } from '../hooks/useMetricasGrupo';
 import '../components/retos.css';
 
@@ -12,9 +11,7 @@ export default function MetricasPage() {
   const vm = useMetricasGrupo();
 
   return (
-    <main className="page m12">
-      <LiteHeader title="¿Cómo vas frente al grupo?"
-        subtitle={`Cumplimiento promedio de ${vm.friendsCount || 'tus'} amigos por tipo de misión`} />
+    <div className="m12">
 
       {vm.error && <p className="m12-error">{vm.error}</p>}
 
@@ -70,6 +67,6 @@ export default function MetricasPage() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
