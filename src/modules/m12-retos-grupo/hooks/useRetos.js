@@ -41,7 +41,7 @@ const toView = (c) => {
   };
 };
 
-const emptyForm = { title: '', type: 'enfoque', goal: 20, unit: 'sesiones', deadline: '', invited: [] };
+const emptyForm = { title: '', type: 'enfoque', goal: 60, metric: 'minutos', deadline: '', invited: [] };
 
 export function useRetos() {
   const [challenges, setChallenges] = useState([]);

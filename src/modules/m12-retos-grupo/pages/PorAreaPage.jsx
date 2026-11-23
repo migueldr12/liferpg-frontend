@@ -32,7 +32,7 @@ export default function PorAreaPage() {
               <li key={p.id} className={p.position === 1 ? 'primero' : p.isMe ? 'yo' : ''}>
                 <span className="m12-pos titulo-pixel">{p.position}</span>
                 <Avatar person={p} />
-                <strong>{p.isMe ? `Tú (${ME.fullName})` : p.name}</strong>
+                <strong>{p.isMe ? `Tú (${p.fullName ?? ME.fullName})` : p.name}</strong>
                 <span className="m12-barra pixel"><span style={{ width: `${(p.points / vm.max) * 100}%`, background: meta.color }} /></span>
                 <b className="titulo-pixel">+{p.points}</b>
               </li>
