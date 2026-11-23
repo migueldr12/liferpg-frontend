@@ -28,16 +28,19 @@ export default function ListaPartyPage() {
         />
         <div className="m07-sort-group">
           <span className="m07-label">ORDENAR:</span>
-          {['Nivel', 'Racha', 'Actividad'].map((item) => (
-            <button
-              key={item}
-              className="m07-btn-secundario"
-              style={{ borderColor: sortBy === item.toLowerCase() ? 'var(--verde)' : undefined }}
-              onClick={() => setSortBy(item.toLowerCase())}
-            >
-              {item}
-            </button>
-          ))}
+          <div className="m07-tabs" role="group" aria-label="Ordenar amigos">
+            {['Nivel', 'Racha', 'Actividad'].map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={`m07-tab${sortBy === item.toLowerCase() ? ' activo' : ''}`}
+                aria-pressed={sortBy === item.toLowerCase()}
+                onClick={() => setSortBy(item.toLowerCase())}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </div>
         <span><strong>6 / 30</strong> amigos</span>
       </div>

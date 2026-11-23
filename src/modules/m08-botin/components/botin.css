@@ -249,7 +249,7 @@
 }
 .m08-item.activo {
   border-color: var(--verde);
-  background: rgba(76, 175, 80, 0.14);
+  background: var(--green-soft);
 }
 .m08-item.bloqueado {
   border-style: dashed;
@@ -293,7 +293,7 @@
 }
 .m08-amigo.activo {
   border-color: var(--verde);
-  background: rgba(76, 175, 80, 0.14);
+  background: var(--green-soft);
 }
 .m08-objeto {
   display: flex;
@@ -416,7 +416,7 @@
 }
 .m08-estado.aceptada {
   border-color: var(--verde);
-  background: rgba(76, 175, 80, 0.14);
+  background: var(--green-soft);
 }
 .m08-estado.rechazada {
   border-color: var(--rojo);
@@ -442,7 +442,7 @@
 }
 .m08-opcion.activo {
   border-color: var(--verde);
-  background: rgba(76, 175, 80, 0.14);
+  background: var(--green-soft);
 }
 .m08-opcion input {
   position: absolute;

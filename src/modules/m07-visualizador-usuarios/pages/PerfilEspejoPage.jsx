@@ -26,17 +26,17 @@ export default function PerfilEspejoPage() {
           <section className="m07-panel">
             <h2>ESTADÍSTICAS · PUNTOS ACUMULADOS</h2>
             <div className="m07-barra-stat">
-              <span style={{ width: '70px' }}>Cultura</span>
+              <span className="m07-barra-label">Cultura</span>
               <div className="m07-barra-track"><div className="m07-barra-fill cultura" style={{ width: '64%' }} /></div>
               <span>640</span>
             </div>
             <div className="m07-barra-stat">
-              <span style={{ width: '70px' }}> Físico</span>
+              <span className="m07-barra-label">Físico</span>
               <div className="m07-barra-track"><div className="m07-barra-fill fisico" style={{ width: '82%' }} /></div>
               <span>820</span>
             </div>
             <div className="m07-barra-stat">
-              <span style={{ width: '70px' }}> Enfoque</span>
+              <span className="m07-barra-label">Enfoque</span>
               <div className="m07-barra-track"><div className="m07-barra-fill enfoque" style={{ width: '41%' }} /></div>
               <span>410</span>
             </div>
