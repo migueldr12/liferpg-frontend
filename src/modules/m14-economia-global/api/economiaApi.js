@@ -1,7 +1,10 @@
 // API del Módulo 14 (Balanceo de economía global · PWA Admin).
-// Mientras no esté el backend, los datos viven en memoria y cada función
-// simula su endpoint. Al conectar la API, sustituir el cuerpo de cada
-// función por la petición indicada en su comentario usando http() de src/api/httpClient.js.
+// Con "economia" en VITE_API_MODULES cada función llama al backend (solo ADMIN);
+// si no, usa los datos simulados en memoria de abajo, con las mismas reglas.
+import { http } from '../../../api/httpClient';
+import { usaApi } from '../../../config/env';
+
+const API = usaApi('economia');
 
 const MOCK_LATENCY_MS = 250;
 const delay = (value) => new Promise((resolve) => setTimeout(() => resolve(value), MOCK_LATENCY_MS));
@@ -25,12 +28,17 @@ let economyVersions = [
 
 // RDF134 · consultarCurvaXP — GET /api/v1/economia/curva
 export function getActiveEconomy() {
+  if (API) return http('/economia/curva');
   return delay(copy(economyVersions[economyVersions.length - 1]));
 }
 
 // RDF135 y RDF136 · actualizarFormulaXP / actualizarParametrosEconomia — POST /api/v1/economia/versiones
 // Cada publicación crea una versión nueva; no se modifica la anterior (no retroactivo).
 export function publishEconomy(draft) {
+  if (API) {
+    const { base, exponent, difficultyPoints, rewardPrice } = draft;
+    return http('/economia/versiones', { method: 'POST', body: { base, exponent, difficultyPoints, rewardPrice } });
+  }
   const { base, exponent, difficultyPoints, rewardPrice } = draft;
   if (!(base > 0)) return Promise.reject(new Error('La base debe ser mayor a 0.'));
   if (!(exponent >= 1 && exponent <= 2.5)) {
@@ -84,11 +92,13 @@ let items = [
 
 // RDF137 · consultar categorías — GET /api/v1/catalogo/categorias
 export function getCategories() {
+  if (API) return http('/catalogo/categorias');
   return delay(copy(categories));
 }
 
 // RDF137 · agregarCategoria — POST /api/v1/catalogo/categorias
 export function createCategory({ name, type, icon }) {
+  if (API) return http('/catalogo/categorias', { method: 'POST', body: { name, type, icon } });
   const clean = name.trim();
   if (!clean) return Promise.reject(new Error('Escribe el nombre de la categoría.'));
   if (categories.some((c) => c.name.toLowerCase() === clean.toLowerCase() && c.type === type)) {
@@ -101,6 +111,7 @@ export function createCategory({ name, type, icon }) {
 
 // RDF138 · actualizarCategoria — PUT /api/v1/catalogo/categorias/:id
 export function updateCategory(id, { name, type, icon }) {
+  if (API) return http(`/catalogo/categorias/${id}`, { method: 'PUT', body: { name, type, icon } });
   const clean = name.trim();
   if (!clean) return Promise.reject(new Error('El nombre no puede quedar vacío.'));
   categories = categories.map((c) => (c.id === id ? { ...c, name: clean, type, icon } : c));
@@ -110,6 +121,7 @@ export function updateCategory(id, { name, type, icon }) {
 // RDF138 · eliminarCategoria — DELETE /api/v1/catalogo/categorias/:id
 // Solo se puede borrar si ningún hábito, misión o artículo la usa.
 export function deleteCategory(id) {
+  if (API) return http(`/catalogo/categorias/${id}`, { method: 'DELETE' });
   const category = categories.find((c) => c.id === id);
   if (category && category.inUse > 0) {
     return Promise.reject(new Error(`"${category.name}" está en uso (${category.inUse}); no se puede eliminar.`));
@@ -120,12 +132,14 @@ export function deleteCategory(id) {
 
 // RDF140 · consultar artículos — GET /api/v1/catalogo/articulos
 export function getItems() {
+  if (API) return http('/catalogo/articulos');
   return delay(copy(items));
 }
 
 // RDF140 · administrarArticulosCatalogo (alta) — POST /api/v1/catalogo/articulos
 // RDF139 · el ícono se elige al dar de alta (en producción se sube como imagen)
 export function createItem({ name, group, icon, price, tag }) {
+  if (API) return http('/catalogo/articulos', { method: 'POST', body: { name, group, icon, price, tag: tag || null } });
   const clean = name.trim();
   if (!clean) return Promise.reject(new Error('Escribe el nombre del artículo.'));
   if (!(price >= 0)) return Promise.reject(new Error('El precio no puede ser negativo.'));
@@ -136,6 +150,7 @@ export function createItem({ name, group, icon, price, tag }) {
 
 // RDF140 · administrarArticulosCatalogo (activar/desactivar) — PATCH /api/v1/catalogo/articulos/:id
 export function setItemActive(id, active) {
+  if (API) return http(`/catalogo/articulos/${id}`, { method: 'PATCH', body: { active } });
   items = items.map((i) => (i.id === id ? { ...i, active } : i));
   return delay(copy(items.find((i) => i.id === id)));
 }
@@ -155,18 +170,22 @@ let pushHistory = [
   { id: 'p-5', title: 'Prueba de envío', message: 'Prueba interna.', target: { kind: 'usuario', username: 'valeria' }, recipients: 1, sentAt: hoursAgo(200), status: 'entregado', deliveredPct: 100 },
 ];
 
+// Jugadores activos — GET /api/v1/push/audiencia
 export function getAudienceSize() {
+  if (API) return http('/push/audiencia').then((r) => r.total);
   return delay(TOTAL_USERS);
 }
 
 // RDF142 · consultarHistorialEnvios — GET /api/v1/push/historial
 export function getPushHistory() {
+  if (API) return http('/push/historial');
   return delay(copy([...pushHistory].sort((a, b) => b.sentAt.localeCompare(a.sentAt))));
 }
 
 // RDF141 · enviarNotificacionPush — POST /api/v1/push
-// En producción el servidor lo envía por Firebase Cloud Messaging.
+// El servidor lo guarda y, si tiene las llaves de Firebase, lo envía por Firebase Cloud Messaging.
 export function sendPush({ title, message, target }) {
+  if (API) return http('/push', { method: 'POST', body: { title, message, target } });
   const t = title.trim();
   const m = message.trim();
   if (!t || !m) return Promise.reject(new Error('El título y el mensaje son obligatorios.'));

@@ -62,6 +62,24 @@ pnpm build
 Para conectar el backend, crea tu archivo `.env` a partir de `.env.example` y ajusta
 `VITE_API_URL` para tu entorno. No subas `.env` al repositorio.
 
+### Conectar un módulo al backend real
+
+Cada módulo decide si usa la API o sus datos simulados con `VITE_API_MODULES` (separados por
+coma). Ya conectados: `economia` (M14) y `retos` (M12). Ejemplo:
+
+```bash
+VITE_API_URL=http://localhost:3000/api/v1
+VITE_API_MODULES=economia,retos
+VITE_DEV_USER_ID=<_id de MongoDB>   # mientras no exista el login (M00)
+```
+
+- `src/config/env.js` expone `usaApi('modulo')`; el `api/*.js` del módulo llama a `http()` si está
+  activo y si no usa sus datos simulados, con la misma forma de respuesta.
+- `src/api/httpClient.js` manda `x-user-id` con `VITE_DEV_USER_ID` cuando no hay token y muestra el
+  mensaje `error` que responde el backend.
+- Economía (M14) es solo para administradores: en el backend, `pnpm db:admin-prueba` imprime un `_id`
+  de ADMIN. Retos (M12) funciona con cualquier jugador que tenga amigos.
+
 **Alcance acordado para esta PWA:** M10 (notificaciones de acompañamiento), M11 (resumen
 de progreso) y M12 (retos de grupo) siguen los mockups PWA y esta tabla. El documento
 «Tareas Life prg» presenta otro alcance para esos números y requiere alineación aparte.
