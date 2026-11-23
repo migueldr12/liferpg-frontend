@@ -32,11 +32,11 @@
 .pixel-avatar__ph::before { content: ''; position: absolute; left: 22%; top: 30%; width: 14%; height: 14%; background: #fff; box-shadow: 150% 0 0 #fff; }
 
 /* ---------- Tabs segmentadas ---------- */
-.progreso-lite .seg { display: inline-flex; gap: 4px; padding: 5px; background: var(--panel); border: 2px solid var(--line); border-radius: 14px; }
-.progreso-lite .seg__item { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font: 500 13px var(--font-pixel); text-decoration: none; cursor: pointer; transition: background .15s, color .15s; }
+.progreso-lite .seg { display: inline-flex; gap: 4px; padding: 4px; background: var(--panel); border: 2px solid var(--line); border-radius: var(--radius); }
+.progreso-lite .seg__item { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 0; border-radius: 7px; background: transparent; color: var(--muted); font: 400 13px var(--font-pixel); text-decoration: none; cursor: pointer; transition: background .15s, color .15s; }
 .progreso-lite .seg__item:hover { color: var(--text); }
-.progreso-lite .seg__item.is-active { background: var(--bg); color: var(--text); box-shadow: 0 3px 0 rgba(0, 0, 0, .35); }
-.progreso-lite .seg--sm .seg__item { padding: 8px 14px; font-size: 12px; }
+.progreso-lite .seg__item.is-active { background: var(--panel-2); color: var(--text); }
+.progreso-lite .seg--sm .seg__item { padding: 6px 12px; font-size: 13px; }
 
 /* ---------- Badges, pills, tags ---------- */
 .progreso-lite .badge { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 7px; border-radius: 999px; background: var(--red); color: #fff; font: 700 11px var(--font-pixel); }
@@ -54,7 +54,7 @@
 .progreso-lite .btn:hover:not(:disabled) { transform: translateY(1px); box-shadow: 0 4px 0 var(--green-deep); }
 .progreso-lite .btn:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 1px 0 var(--green-deep); }
 .progreso-lite .btn:disabled { opacity: .45; cursor: not-allowed; }
-.progreso-lite .btn--ghost { background: var(--panel); color: var(--text); border: 2px solid var(--line); box-shadow: 0 3px 0 rgba(0, 0, 0, .35); font-size: 13px; padding: 10px 16px; }
+.progreso-lite .btn--ghost { background: var(--panel); color: var(--text); border: 2px solid var(--line); box-shadow: var(--shadow-sm); font-size: 15px; padding: 10px 16px; }
 
 /* ---------- Paneles ---------- */
 .progreso-lite .panel { background: var(--panel); border: 2px solid var(--line); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow-sm); }

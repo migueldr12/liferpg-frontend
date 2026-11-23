@@ -306,6 +306,7 @@
 }
 .m12-chip.activo {
   border-color: var(--verde);
+  background: var(--green-soft);
 }
 .m12-chip:focus-within {
   outline: 2px solid var(--oro);
@@ -430,7 +431,7 @@
 .m12-col-grupo {
   border: 2px dashed var(--texto-suave);
   border-bottom: 0;
-  background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(255, 255, 255, 0.06) 6px 9px);
+  background: repeating-linear-gradient(135deg, transparent 0 6px, color-mix(in srgb, var(--text) 8%, transparent) 6px 9px);
 }
 .m12-col-label {
   text-align: center;

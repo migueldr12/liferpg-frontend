@@ -17,12 +17,13 @@ export const FormNuevoCodigo = ({ onGenerar, onCanjear }) => {
 
         <div>
           <span className="m07-label">Expira en</span>
-          <div style={{ display: 'flex', gap: '8px', marginTop: '6px' }}>
+          <div className="m07-opciones">
             {[1, 7, 30].map((d) => (
               <button
                 key={d}
-                className="m07-btn-secundario"
-                style={{ flex: 1, borderColor: dias === d ? 'var(--verde)' : undefined }}
+                type="button"
+                className={`m07-opcion${dias === d ? ' activo' : ''}`}
+                aria-pressed={dias === d}
                 onClick={() => setDias(d)}
               >
                 {d} días

@@ -26,21 +26,21 @@ export const AmigoCard = ({
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
         <div className="m07-barra-stat">
-          <span style={{ width: '30px' }}>CULTURA</span>
+          <span className="m07-barra-label">CULTURA</span>
           <div className="m07-barra-track">
             <div className="m07-barra-fill cultura" style={{ width: `${Math.min(stats.cultura / 10, 100)}%` }} />
           </div>
           <span>{stats.cultura}</span>
         </div>
         <div className="m07-barra-stat">
-          <span style={{ width: '30px' }}>FISICO</span>
+          <span className="m07-barra-label">FISICO</span>
           <div className="m07-barra-track">
             <div className="m07-barra-fill fisico" style={{ width: `${Math.min(stats.fisico / 10, 100)}%` }} />
           </div>
           <span>{stats.fisico}</span>
         </div>
         <div className="m07-barra-stat">
-          <span style={{ width: '30px' }}>ENFOQUE</span>
+          <span className="m07-barra-label">ENFOQUE</span>
           <div className="m07-barra-track">
             <div className="m07-barra-fill enfoque" style={{ width: `${Math.min(stats.enfoque / 10, 100)}%` }} />
           </div>

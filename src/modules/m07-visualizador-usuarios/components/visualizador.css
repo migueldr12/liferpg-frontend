@@ -70,7 +70,7 @@
   padding: 4px 10px;
   border: 1px solid var(--borde);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-raised);
   color: var(--texto-suave);
   font-size: 12px;
 }
@@ -124,6 +124,11 @@
   gap: 8px;
   font-size: 12px;
 }
+.m07-barra-label {
+  flex: none;
+  width: 64px;
+  color: var(--texto-suave);
+}
 .m07-barra-track {
   flex: 1;
   height: 10px;
@@ -140,6 +145,53 @@
 .m07-barra-fill.fisico { background: var(--area-fisico); }
 .m07-barra-fill.enfoque { background: var(--area-enfoque); }
 
+/* ── Pestañas (mismo patrón que M08, M09, M12 y M14) ── */
+.m07-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--panel);
+}
+.m07-tab {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--texto-suave);
+  font-family: var(--fuente-pixel);
+  font-size: 13px;
+  cursor: pointer;
+}
+.m07-tab.activo {
+  background: var(--surface-raised);
+  color: var(--texto);
+}
+
+/* ── Opciones seleccionables (mismo patrón que M08 y Admin) ── */
+.m07-opciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.m07-opcion {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--texto);
+  font-family: var(--fuente-pixel);
+  cursor: pointer;
+}
+.m07-opcion.activo {
+  border-color: var(--verde);
+  background: var(--green-soft);
+}
+
 /* ── Tu Party ── */
 .m07-controls-bar {
   display: flex;
@@ -155,7 +207,7 @@
 .m07-sort-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 .m07-grid-party {
   display: grid;

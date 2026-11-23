@@ -187,11 +187,11 @@
 }
 .m09-tag.origen-mision {
   border-color: var(--morado);
-  background: rgba(156, 39, 176, 0.18);
+  background: color-mix(in srgb, var(--purple) 18%, transparent);
 }
 .m09-tag.origen-sesion {
   border-color: var(--azul);
-  background: rgba(41, 182, 246, 0.14);
+  background: color-mix(in srgb, var(--blue) 14%, transparent);
 }
 .m09-tag.estado-hecha {
   border-color: var(--verde-oscuro);
@@ -201,7 +201,7 @@
 .m09-tag.estado-pendiente {
   border-style: dashed;
   border-color: var(--oro);
-  background: rgba(245, 197, 24, 0.14);
+  background: color-mix(in srgb, var(--yellow) 14%, transparent);
 }
 .m09-tag.estado-fallida {
   border-color: var(--rojo);
