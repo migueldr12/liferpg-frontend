@@ -1,4 +1,5 @@
 import Avatar from '../components/Avatar';
+import { METRIC_OPTIONS } from '../api/retosApi';
 import { AREAS, areaMeta, useRetos } from '../hooks/useRetos';
 import '../components/retos.css';
 
@@ -63,8 +64,10 @@ export default function RetosPage() {
                 <div className="m12-fila">
                   <input type="number" min="1" value={vm.form.goal} aria-label="Meta"
                     onChange={(e) => vm.setForm({ ...vm.form, goal: e.target.value })} />
-                  <input placeholder="Unidad (sesiones, km…)" value={vm.form.unit}
-                    onChange={(e) => vm.setForm({ ...vm.form, unit: e.target.value })} />
+                  <select value={vm.form.metric} aria-label="Qué se suma"
+                    onChange={(e) => vm.setForm({ ...vm.form, metric: e.target.value })}>
+                    {METRIC_OPTIONS.map((m) => <option key={m.key} value={m.key}>{m.label}</option>)}
+                  </select>
                 </div>
                 <span className="m12-label">Invitar amigos</span>
                 <div className="m12-invitados">
@@ -93,7 +96,7 @@ export default function RetosPage() {
                   <h2 className="titulo-pixel">{c.title}</h2>
                   <p className="texto-suave">{areaMeta(c.type).label} · {c.participants.length} participantes · {c.closeText}</p>
                 </div>
-                <span className="m12-premio" title="Recompensa para todos al llegar a la meta (RDF121)">🎁 {c.reward}</span>
+                {c.reward && <span className="m12-premio" title="Recompensa para todos al llegar a la meta (RDF121)">🎁 {c.reward}</span>}
               </div>
 
               <div className="m12-total">

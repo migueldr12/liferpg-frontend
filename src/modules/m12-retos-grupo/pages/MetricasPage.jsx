@@ -40,12 +40,12 @@ export default function MetricasPage() {
               <div key={r.key} className="m12-grupo-barras">
                 <div className="m12-par">
                   <div className="m12-col">
-                    <b className="titulo-pixel">{r.me}%</b>
-                    <span className="m12-col-tu" style={{ height: `${r.me}%` }} title={`Tú: ${r.me}%`} />
+                    <b className="titulo-pixel">{r.meText}</b>
+                    <span className="m12-col-tu" style={{ height: `${r.me}%` }} title={`Tú: ${r.meText}`} />
                   </div>
                   <div className="m12-col">
-                    <b className="titulo-pixel texto-suave">{r.group}%</b>
-                    <span className="m12-col-grupo" style={{ height: `${r.group}%` }} title={`Grupo: ${r.group}%`} />
+                    <b className="titulo-pixel texto-suave">{r.groupText}</b>
+                    <span className="m12-col-grupo" style={{ height: `${r.group}%` }} title={`Grupo: ${r.groupText}`} />
                   </div>
                 </div>
                 <span className="m12-col-label"><span className="m12-area-icon" style={{ background: r.color }}>{r.icon}</span> {r.label}</span>
@@ -60,7 +60,9 @@ export default function MetricasPage() {
             <section key={r.key} className="m12-panel m12-tarjeta">
               <div className="m12-detalle-head">
                 <strong><span className="m12-area-icon" style={{ background: r.color }}>{r.icon}</span> {r.label}</strong>
-                <span className={r.diff >= 0 ? 'm12-pts sube' : 'm12-pts baja'}>{r.diff > 0 ? '+' : ''}{r.diff} pts</span>
+                {r.hasData && (
+                  <span className={r.diff >= 0 ? 'm12-pts sube' : 'm12-pts baja'}>{r.diff > 0 ? '+' : ''}{r.diff} pts</span>
+                )}
               </div>
               <p className="texto-suave">{r.advice}</p>
             </section>

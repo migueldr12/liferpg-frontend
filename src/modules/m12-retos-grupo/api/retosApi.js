@@ -1,7 +1,19 @@
 // API del Módulo 12 (Retos y métricas de grupo · PWA Perfil lite).
-// Mientras no esté el backend, los datos viven en memoria y cada función
-// simula su endpoint. Al conectar la API, sustituir el cuerpo de cada
-// función por la petición indicada en su comentario usando http() de src/api/httpClient.js.
+// Con "retos" en VITE_API_MODULES cada función llama al backend; si no, usa los
+// datos simulados en memoria de abajo, con la misma forma de respuesta.
+import { http } from '../../../api/httpClient';
+import { usaApi } from '../../../config/env';
+
+const API = usaApi('retos');
+
+// Qué se suma en un reto (igual que el backend): hábitos cumplidos, misiones, minutos o XP
+export const METRIC_OPTIONS = [
+  { key: 'minutos', label: 'Minutos de enfoque', unit: 'min de enfoque' },
+  { key: 'habitos', label: 'Hábitos cumplidos', unit: 'hábitos cumplidos' },
+  { key: 'misiones', label: 'Misiones', unit: 'misiones' },
+  { key: 'xp', label: 'XP ganada', unit: 'XP' },
+];
+const unitOf = (metric) => METRIC_OPTIONS.find((m) => m.key === metric)?.unit ?? 'actividades';
 
 const MOCK_LATENCY_MS = 250;
 const delay = (value) => new Promise((resolve) => setTimeout(() => resolve(value), MOCK_LATENCY_MS));
@@ -60,7 +72,9 @@ let invitations = [
   },
 ];
 
+// Amigos para invitar — GET /api/v1/retos/amigos
 export function getFriends() {
+  if (API) return http('/retos/amigos');
   return delay(copy(FRIENDS));
 }
 
@@ -74,16 +88,19 @@ const withPeople = (c) => ({
 
 // RDF120 · consultarProgresoReto — GET /api/v1/retos
 export function getChallenges() {
+  if (API) return http('/retos');
   return delay(copy(challenges.map(withPeople)));
 }
 
 // RDF118 · invitaciones pendientes — GET /api/v1/retos/invitaciones
 export function getInvitations() {
+  if (API) return http('/retos/invitaciones');
   return delay(copy(invitations.map((i) => ({ ...i, fromPerson: person(i.from) }))));
 }
 
 // RDF117 · agregarRetoGrupal — POST /api/v1/retos
-export function createChallenge({ title, type, goal, unit, deadline, invited }) {
+export function createChallenge({ title, type, goal, metric, deadline, invited }) {
+  if (API) return http('/retos', { method: 'POST', body: { title, type, metric, goal, deadline, invited } });
   const clean = title.trim();
   if (!clean) return Promise.reject(new Error('Escribe el nombre del reto.'));
   if (!(goal > 0)) return Promise.reject(new Error('La meta debe ser mayor a 0.'));
@@ -93,7 +110,7 @@ export function createChallenge({ title, type, goal, unit, deadline, invited }) 
   if (!invited.length) return Promise.reject(new Error('Invita al menos a un amigo.'));
   // Los invitados aparecen cuando acepten; por ahora solo participa quien lo crea
   const challenge = {
-    id: newId('r'), title: clean, type, goal, unit: unit.trim() || 'actividades', deadline,
+    id: newId('r'), title: clean, type, goal, metric, unit: unitOf(metric), deadline,
     reward: 'Cofre raro', contributions: { [ME.id]: 0 }, invitedCount: invited.length,
   };
   challenges = [...challenges, challenge];
@@ -102,6 +119,7 @@ export function createChallenge({ title, type, goal, unit, deadline, invited }) 
 
 // RDF118 · unirseARetoGrupal — POST /api/v1/retos/invitaciones/:id (aceptar | rechazar)
 export function respondInvitation(id, accept) {
+  if (API) return http(`/retos/invitaciones/${id}`, { method: 'POST', body: { accept } });
   const invitation = invitations.find((i) => i.id === id);
   if (!invitation) return Promise.reject(new Error('La invitación ya no existe.'));
   invitations = invitations.filter((i) => i.id !== id);
@@ -124,6 +142,7 @@ const METRICS = {
 
 // RDF123 · mostrarMetricasGrupo — GET /api/v1/retos/metricas?periodo=semana|mes
 export function getGroupMetrics(period) {
+  if (API) return http(`/retos/metricas?periodo=${period}`);
   return delay({ period, friendsCount: FRIENDS.length, byType: copy(METRICS[period]) });
 }
 
@@ -142,14 +161,15 @@ const WEEKLY = {
 
 // RDF125 · filtrarAmigosPorArea — GET /api/v1/retos/actividad?area=cultura|fisico|enfoque
 export function getWeeklyActivity(area) {
+  if (API) return http(`/retos/actividad?area=${area}`);
   const ranking = PEOPLE.map((p) => ({ ...p, points: WEEKLY[p.id][area], isMe: p.id === ME.id }))
     .sort((a, b) => b.points - a.points)
     .map((p, i) => ({ ...p, position: i + 1 }));
   return delay(copy(ranking));
 }
 
-// La felicitación con sticker la envía el M10; aquí solo se simula la llamada
-// POST /api/v1/stickers
+// La felicitación con sticker la envía el M10 (POST /api/v1/stickers). Mientras el M10
+// no tenga backend, se simula también con la API activa.
 export function sendCongrats(friendId) {
   return delay({ to: person(friendId)?.name });
 }
