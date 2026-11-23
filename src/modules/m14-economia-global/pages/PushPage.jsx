@@ -77,7 +77,7 @@ export default function PushPage() {
                     <strong>{r.title}</strong>
                     <small>{r.targetText} · {r.whenText}</small>
                   </div>
-                  <span className={r.status === 'fallido' ? 'm14-estado fallido' : 'm14-estado'}>{r.statusText}</span>
+                  <span className={`m14-estado ${r.status === 'fallido' ? 'fallido' : r.status === 'en_cola' ? 'en-cola' : ''}`}>{r.statusText}</span>
                 </li>
               ))}
             </ul>

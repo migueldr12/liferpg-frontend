@@ -14,6 +14,12 @@ const formatWhen = (iso) => {
   return `${d.getDate()} ${MONTHS[d.getMonth()]} · ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 };
 
+// "en_cola": guardado en el servidor, sin enviar porque no tiene las llaves de Firebase
+const statusText = (p) => {
+  if (p.status === 'en_cola') return 'En cola';
+  return `${p.status === 'fallido' ? 'Fallido' : 'Entregado'} ${p.deliveredPct ?? 0} %`;
+};
+
 export function usePush() {
   const [audience, setAudience] = useState(0);
   const [history, setHistory] = useState([]);
@@ -59,7 +65,11 @@ export function usePush() {
       setHistory((list) => [sent, ...list]);
       setTitle('');
       setMessage('');
-      setNotice(`Aviso enviado a ${sent.recipients.toLocaleString('es-MX')} destinatario(s).`);
+      setNotice(
+        sent.status === 'en_cola'
+          ? 'Aviso guardado en cola: el servidor aún no tiene configurado Firebase.'
+          : `Aviso enviado a ${sent.recipients.toLocaleString('es-MX')} destinatario(s).`,
+      );
     } catch (e) {
       setError(e.message);
     } finally {
@@ -72,7 +82,7 @@ export function usePush() {
     ...p,
     whenText: formatWhen(p.sentAt),
     targetText: p.target.kind === 'todos' ? `Todos · ${p.recipients.toLocaleString('es-MX')}` : `@${p.target.username}`,
-    statusText: p.status === 'fallido' ? `Fallido ${p.deliveredPct} %` : `Entregado ${p.deliveredPct} %`,
+    statusText: statusText(p),
   }));
 
   return {

@@ -557,6 +557,11 @@
   border-color: var(--rojo);
   color: var(--rojo);
 }
+/* Guardado en el servidor, pendiente de enviarse por Firebase */
+.m14-estado.en-cola {
+  border-color: var(--texto-suave);
+  color: var(--texto-suave);
+}
 
 /* ── Pantallas angostas ── */
 @media (max-width: 900px) {
