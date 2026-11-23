@@ -4,18 +4,19 @@
   --borde: var(--border);
   --texto: var(--text);
   --texto-suave: var(--muted);
-  --verde: #4caf50;
-  --verde-oscuro: #1b5e20;
+  --verde: var(--green-strong);
+  --verde-oscuro: var(--green-deep);
   --oro: var(--yellow);
-  --rojo: #ff747b;
-  --radio: 10px;
-  --fuente-pixel: 'Pixelify Sans', monospace;
+  --rojo: var(--red-text);
+  --radio: var(--radius);
+  --fuente-pixel: var(--font-pixel);
   min-width: 0;
 }
 .m07 .texto-suave { color: var(--texto-suave); }
 
 .m07 h2 {
   margin: 0;
+  font-family: var(--fuente-pixel);
   font-size: 20px;
 }
 .m07 p {
@@ -87,14 +88,14 @@
 }
 .m07-btn-primario {
   width: 100%;
-  padding: 12px 16px;
+  padding: 14px;
   border: 0;
-  border-bottom: 3px solid var(--verde-oscuro);
+  border-bottom: 4px solid var(--verde-oscuro);
   border-radius: var(--radio);
   background: var(--verde);
-  color: #12121a;
+  color: var(--on-accent);
   font-family: var(--fuente-pixel);
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
 }
 .m07-btn-secundario {
@@ -135,9 +136,9 @@
   border-radius: 5px;
   transition: width 0.3s;
 }
-.m07-barra-fill.cultura { background: #ab47bc; }
-.m07-barra-fill.fisico { background: #ff7043; }
-.m07-barra-fill.enfoque { background: #26c6da; }
+.m07-barra-fill.cultura { background: var(--area-cultura); }
+.m07-barra-fill.fisico { background: var(--area-fisico); }
+.m07-barra-fill.enfoque { background: var(--area-enfoque); }
 
 /* ── Tu Party ── */
 .m07-controls-bar {

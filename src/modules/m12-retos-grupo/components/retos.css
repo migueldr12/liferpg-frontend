@@ -6,17 +6,17 @@
   --borde: var(--border);
   --texto: var(--text);
   --texto-suave: var(--muted);
-  --verde: #4caf50;
-  --verde-oscuro: #1b5e20;
+  --verde: var(--green-strong);
+  --verde-oscuro: var(--green-deep);
   --oro: var(--yellow);
   --morado: var(--purple);
-  --rojo: #ff747b;
-  --azul: #4abdea;
-  --cultura: #b56cff;
-  --fisico: #ff7043;
-  --enfoque: #29b6f6;
-  --radio: 10px;
-  --fuente-pixel: 'Pixelify Sans', monospace;
+  --rojo: var(--red-text);
+  --azul: var(--blue);
+  --cultura: var(--area-cultura);
+  --fisico: var(--area-fisico);
+  --enfoque: var(--area-enfoque);
+  --radio: var(--radius);
+  --fuente-pixel: var(--font-pixel);
   min-width: 0;
   color: var(--texto);
 }
@@ -188,11 +188,12 @@
 
 /* ── Botones ── */
 .m12-btn-chico {
-  padding: 8px 14px;
+  padding: 9px 14px;
   border: 0;
+  border-bottom: 3px solid var(--verde-oscuro);
   border-radius: 8px;
   background: var(--verde);
-  color: #12121a;
+  color: var(--on-accent);
   font-family: var(--fuente-pixel);
   cursor: pointer;
 }
@@ -217,7 +218,7 @@
   border-bottom: 4px solid var(--verde-oscuro);
   border-radius: var(--radio);
   background: var(--verde);
-  color: #12121a;
+  color: var(--on-accent);
   font-family: var(--fuente-pixel);
   font-size: 15px;
   cursor: pointer;
@@ -515,7 +516,7 @@
   padding: 4px 10px;
   border-radius: 6px;
   background: var(--oro);
-  color: #12121a;
+  color: var(--on-accent);
   font-family: var(--fuente-pixel);
   font-size: 12px;
 }
