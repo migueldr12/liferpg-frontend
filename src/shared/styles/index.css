@@ -15,6 +15,28 @@
   --yellow: #ffbf29;
   --purple: #bd68dc;
   --shadow: 0 4px 0 #0a0e1c, 0 22px 40px -14px rgba(0, 0, 0, .42);
+
+  /* Paleta compartida de los módulos. Antes cada módulo definía la suya con
+     valores distintos; ahora todos usan estos tokens y respetan el modo claro. */
+  --green-strong: #4caf50;   /* relleno de botones y estados "hecho" */
+  --green-deep: #1b5e20;     /* borde inferior y sombra de lo verde */
+  --red: #ff5a5f;            /* rellenos de alerta (insignias) */
+  --red-text: #ff747b;       /* texto y bordes de error */
+  --blue: #4abdea;
+  --orange: #ff8a3d;
+  --on-accent: #101629;      /* texto sobre rellenos claros (verde, amarillo, rojo) */
+  --tag-purple-text: #e3a8f5;
+  /* Tipos de puntos: los mismos colores que la app móvil */
+  --area-cultura: #b56cff;
+  --area-fisico: #ff7043;
+  --area-enfoque: #29b6f6;
+  --radius-sm: 8px;          /* chips y botones chicos */
+  --radius: 10px;            /* botones */
+  --radius-md: 12px;         /* filas y tarjetas internas */
+  --radius-lg: 14px;         /* paneles */
+  --shadow-sm: 0 3px 0 var(--surface-muted);
+  --font-pixel: 'Pixelify Sans', monospace;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
 :root[data-theme='light'] {
@@ -31,6 +53,8 @@
   --yellow: #a97100;
   --purple: #8435ad;
   --shadow: 0 4px 0 #cdd5e3, 0 18px 42px -18px rgba(28, 41, 68, .2);
+  --red-text: #c62828;
+  --tag-purple-text: #7b2cbf;
 }
 
 * { box-sizing: border-box; }

@@ -6,14 +6,14 @@
   --borde: var(--border);
   --texto: var(--text);
   --texto-suave: var(--muted);
-  --verde: #4caf50;
-  --verde-oscuro: #1b5e20;
+  --verde: var(--green-strong);
+  --verde-oscuro: var(--green-deep);
   --oro: var(--yellow);
   --morado: var(--purple);
-  --rojo: #ff747b;
-  --azul: #4abdea;
-  --radio: 10px;
-  --fuente-pixel: 'Pixelify Sans', monospace;
+  --rojo: var(--red-text);
+  --azul: var(--blue);
+  --radio: var(--radius);
+  --fuente-pixel: var(--font-pixel);
   min-width: 0;
   color: var(--texto);
 }
@@ -198,18 +198,19 @@
   border-bottom: 4px solid var(--verde-oscuro);
   border-radius: var(--radio);
   background: var(--verde);
-  color: #12121a;
+  color: var(--on-accent);
   font-family: var(--fuente-pixel);
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
 }
 .m14-btn-chico {
   padding: 6px 12px;
   border: 0;
+  border-bottom: 3px solid var(--verde-oscuro);
   border-radius: 8px;
   background: var(--verde);
-  color: #12121a;
-  font-weight: 700;
+  color: var(--on-accent);
+  font-family: var(--fuente-pixel);
   cursor: pointer;
 }
 .m14-btn-texto {
