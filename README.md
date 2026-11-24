@@ -62,6 +62,15 @@ pnpm build
 Para conectar el backend, crea tu archivo `.env` a partir de `.env.example` y ajusta
 `VITE_API_URL` para tu entorno. No subas `.env` al repositorio.
 
+## Assets de cada usuario
+
+- Los dibujos se definen en `src/shared/assets/registry.js`. `pnpm assets` genera los SVG en `public/catalog/**` y su `manifest.json`; `pnpm build` también los genera en `prebuild`. El backend usa ese manifiesto para poblar el catálogo común, pero **el seed no asigna artículos a los usuarios**.
+- Cada usuario obtiene sus propios artículos por compra, regalo o desbloqueo: el backend los relaciona con su `userId` en `inventory_entries` y guarda los looks equipados en `outfits`. El frontend debe usar el inventario/vestidor del usuario autenticado (o `VITE_DEV_USER_ID` en desarrollo), no asumir que todos los artículos del catálogo le pertenecen.
+- La API devuelve la clave `icon` de cada artículo (por ejemplo, `item.boina-pintor`). `CatalogIcon` la resuelve con el registro para mostrar objetos y stickers; `PixelMascot` recibe `color={profile.mascotColor}` y `equipped` con las **claves** de los artículos equipados para dibujar accesorios y fondo. Si el vestidor devuelve `catalogItemId`, hay que relacionarlo con los artículos del inventario para obtener esas claves.
+- Las URLs de `icon_assets` como `/catalog/items/pocion-hp.svg` apuntan a la raíz pública de la PWA, no a `VITE_API_URL`. Las pantallas que hoy usan `demoParty.js` muestran datos simulados hasta conectarse al perfil/inventario real.
+
+Más detalles sobre claves, archivos y generación en [docs/assets.md](docs/assets.md).
+
 ### Conectar un módulo al backend real
 
 Cada módulo decide si usa la API o sus datos simulados con `VITE_API_MODULES` (separados por
