@@ -4,9 +4,9 @@ import { createChallenge, getChallenges, getFriends, getInvitations, respondInvi
 // Hook de 12.1 Tablero de retos grupales (RF037).
 
 export const AREAS = [
-  { key: 'cultura', label: 'Cultura', icon: '📖', color: 'var(--cultura)' },
-  { key: 'fisico', label: 'Físico', icon: '🏋️', color: 'var(--fisico)' },
-  { key: 'enfoque', label: 'Enfoque', icon: '🎯', color: 'var(--enfoque)' },
+  { key: 'cultura', label: 'Cultura', icon: 'C', color: 'var(--cultura)' },
+  { key: 'fisico', label: 'Físico', icon: 'F', color: 'var(--fisico)' },
+  { key: 'enfoque', label: 'Enfoque', icon: 'E', color: 'var(--enfoque)' },
 ];
 export const areaMeta = (key) => AREAS.find((a) => a.key === key) ?? AREAS[0];
 
@@ -41,7 +41,12 @@ const toView = (c) => {
   };
 };
 
-const emptyForm = { title: '', type: 'enfoque', goal: 60, metric: 'minutos', deadline: '', invited: [] };
+const futureDate = (days) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().slice(0, 10);
+};
+const emptyForm = { title: 'Reto de enfoque · 50', type: 'enfoque', goal: 50, metric: 'minutos', deadline: '', invited: ['u-ana', 'u-lucia'] };
 
 export function useRetos() {
   const [challenges, setChallenges] = useState([]);
@@ -116,7 +121,7 @@ export function useRetos() {
     friends,
     form,
     setForm,
-    openForm: () => setForm({ ...emptyForm }),
+    openForm: () => setForm({ ...emptyForm, deadline: futureDate(14), invited: [...emptyForm.invited] }),
     closeForm: () => setForm(null),
     toggleInvited,
     saveForm,

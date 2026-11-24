@@ -18,7 +18,7 @@ const newId = (prefix) => `${prefix}-${nextId++}`;
 let economyVersions = [
   {
     version: 7,
-    base: 95,
+    base: 100,
     exponent: 1.55,
     difficultyPoints: { facil: 10, media: 25, dificil: 50, epica: 100 },
     rewardPrice: { min: 50, max: 800 },
@@ -85,9 +85,22 @@ let items = [
   { id: 'it-6', name: 'Doble XP · 24 h', group: 'tienda', icon: '⚡', price: 350, tags: ['Potenciador'], active: true },
   { id: 'it-7', name: 'Capucha de monje', group: 'exclusivos', icon: '🧘', price: 0, tags: ['Enfoque'], active: true },
   { id: 'it-8', name: 'Tenis de maratón', group: 'exclusivos', icon: '👟', price: 0, tags: ['Físico'], active: false },
+  { id: 'it-12', name: 'Aura de fundador', group: 'exclusivos', icon: '⭐', price: 0, tags: ['Fundador', 'Épico'], active: true },
+  { id: 'it-13', name: 'Marco beta', group: 'exclusivos', icon: '🎯', price: 0, tags: ['Beta'], active: true },
+  { id: 'it-14', name: 'Capa nocturna', group: 'exclusivos', icon: '🧣', price: 0, tags: ['Evento'], active: true },
+  { id: 'it-15', name: 'Insignia de foco', group: 'exclusivos', icon: '⚡', price: 0, tags: ['Racha'], active: true },
   { id: 'it-9', name: 'Cofre raro', group: 'regalables', icon: '🎁', price: 120, tags: ['Botín'], active: true },
+  { id: 'it-16', name: 'Poción amiga', group: 'regalables', icon: '🧪', price: 50, tags: ['Consumible'], active: true },
+  { id: 'it-17', name: 'Bufanda gemela', group: 'regalables', icon: '🧣', price: 80, tags: ['Ropa'], active: true },
+  { id: 'it-18', name: 'Escudo de apoyo', group: 'regalables', icon: '🛡️', price: 140, tags: ['Protección'], active: true },
+  { id: 'it-19', name: 'Caja sorpresa', group: 'regalables', icon: '🎁', price: 200, tags: ['Sorpresa'], active: false },
+  { id: 'it-20', name: 'Pase de XP', group: 'regalables', icon: '⚡', price: 250, tags: ['Potenciador'], active: true },
   { id: 'it-10', name: '¡Tú puedes!', group: 'stickers', icon: '💪', price: 0, tags: ['Ánimo'], active: true },
   { id: 'it-11', name: 'Choca esos cinco', group: 'stickers', icon: '🙌', price: 0, tags: ['Celebrar'], active: true },
+  { id: 'it-21', name: 'Respira', group: 'stickers', icon: '🧘', price: 0, tags: ['Calma'], active: true },
+  { id: 'it-22', name: 'Meta cumplida', group: 'stickers', icon: '🎯', price: 0, tags: ['Logro'], active: true },
+  { id: 'it-23', name: 'Modo música', group: 'stickers', icon: '🎵', price: 0, tags: ['Enfoque'], active: false },
+  { id: 'it-24', name: 'Eres estrella', group: 'stickers', icon: '⭐', price: 0, tags: ['Celebrar'], active: true },
 ];
 
 // RDF137 · consultar categorías — GET /api/v1/catalogo/categorias

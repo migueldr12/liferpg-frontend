@@ -48,13 +48,18 @@ export function useSolicitudes() {
 
   // RDF083: al cambiar de amigo se carga su cofre
   useEffect(() => {
-    if (!askFriendId) return;
+    if (!askFriendId) return undefined;
+    let current = true;
+    setFriendChest([]);
+    setAskItemId(null);
     getFriendChest(askFriendId)
       .then((items) => {
+        if (!current) return;
         setFriendChest(items);
         setAskItemId(items[0]?.id ?? null);
       })
-      .catch(() => setError('No se pudo cargar el cofre de tu amigo.'));
+      .catch(() => { if (current) setError('No se pudo cargar el cofre de tu amigo.'); });
+    return () => { current = false; };
   }, [askFriendId]);
 
   // RDF084: bandeja con el estado de cada solicitud
@@ -91,12 +96,14 @@ export function useSolicitudes() {
 
   const ask = async () => {
     if (!askFriend || !askItem || alreadyAsked) return;
+    const requestedFriend = askFriend;
+    const requestedItem = askItem;
     setError(null);
     setNotice(null);
     try {
-      const created = await requestGift({ friendId: askFriendId, itemId: askItemId });
+      const created = await requestGift({ friendId: requestedFriend.id, itemId: requestedItem.id });
       setMine((list) => [created, ...list]);
-      setNotice(`Le pediste ${askItem.name} a ${askFriend.name}.`);
+      setNotice(`Le pediste ${requestedItem.name} a ${requestedFriend.name}.`);
     } catch (e) {
       setError(e.message);
     }

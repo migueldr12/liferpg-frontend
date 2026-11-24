@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { ME } from '../api/retosApi';
+import Avatar from './Avatar';
 
 // Encabezado compartido de las 3 pantallas del M12 (Perfil lite):
 // tarjeta del usuario, título de la pantalla y pestañas entre vistas.
@@ -14,7 +15,7 @@ export default function LiteHeader({ title, subtitle }) {
   return (
     <header className="m12-header">
       <div className="m12-user">
-        <span className="m12-avatar" style={{ background: ME.color }} aria-hidden="true">{ME.avatar}</span>
+        <Avatar person={ME} />
         <span>
           <strong>{ME.fullName}</strong>
           <small>LV {ME.level}</small>

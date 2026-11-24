@@ -185,6 +185,7 @@ export const adminModules = [
       {
         label: "Consola REST",
         path: "consola",
+        title: "Consola REST",
         subtitle:
           "Cada petición registrada por el middleware, sin datos sensibles",
       },
@@ -207,6 +208,7 @@ export const adminModules = [
       {
         label: "Catálogo",
         path: "catalogo",
+        title: "Catálogo global",
         subtitle: "Alimenta la tienda, el cofre y los stickers",
       },
       {
@@ -233,6 +235,7 @@ export const adminModules = [
       {
         label: "Respaldos",
         path: "respaldos",
+        title: "Respaldos",
         subtitle: "Genera copias manuales de uno o todos los perfiles",
       },
       {

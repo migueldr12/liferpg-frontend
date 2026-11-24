@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getWeeklyActivity, sendCongrats } from '../api/retosApi';
+import { useNavigate } from 'react-router-dom';
+import { getWeeklyActivity } from '../api/retosApi';
 
 // Hook de 12.3 Filtros de actividad grupal (RF039): ranking semanal por área.
 
 export function useActividadArea() {
+  const navigate = useNavigate();
   const [area, setArea] = useState('cultura');
   const [ranking, setRanking] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,14 +22,13 @@ export function useActividadArea() {
       .finally(() => setLoading(false));
   }, [area]);
 
-  const max = Math.max(...ranking.map((r) => r.points), 1);
+  const max = 100;
   // El referente es el primer lugar que no eres tú
   const leader = ranking.find((r) => !r.isMe) ?? null;
 
-  const congratulate = async () => {
+  const congratulate = () => {
     if (!leader) return;
-    const { to } = await sendCongrats(leader.id);
-    setNotice(`Le enviaste un sticker de felicitación a ${to}.`);
+    navigate('/lite/animo/stickers', { state: { recipientId: leader.id, recipient: leader.name } });
   };
 
   return { area, setArea, ranking, max, leader, congratulate, loading, error, notice };

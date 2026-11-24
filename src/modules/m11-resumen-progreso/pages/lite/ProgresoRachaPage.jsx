@@ -40,7 +40,7 @@ function copyFor(status, { current, previous, best, checkinTime }) {
 export default function ProgresoRachaPage() {
   const { user, navBadges } = useLiteSession();
   const racha = useRacha();
-  const { status, setStatus, current, best, today, history, rangeLabel } = racha;
+  const { status, setStatus, current, best, history, rangeLabel, secondaryLabel, secondaryValue } = racha;
   const copy = copyFor(status, racha);
 
   return (
@@ -86,7 +86,7 @@ export default function ProgresoRachaPage() {
         <div className="racha-right">
           <div className="scene" aria-label="Tu mascota">
             <p className="scene__bubble">{copy.bubble}</p>
-            <PixelAvatar size={140} tone="#8e24aa" />
+            <PixelAvatar size={140} tone="#8e24aa" variant={status === 'active' ? 0 : status === 'atRisk' ? 1 : 2} />
           </div>
           <div className="stat-row">
             <div className="stat">
@@ -94,8 +94,8 @@ export default function ProgresoRachaPage() {
               <span className="stat__value stat__value--gold">{best} días</span>
             </div>
             <div className="stat">
-              <span className="stat__label">Hoy</span>
-              <span className="stat__value">{today.done} de {today.total}</span>
+               <span className="stat__label">{secondaryLabel}</span>
+               <span className="stat__value">{secondaryValue}</span>
             </div>
           </div>
         </div>

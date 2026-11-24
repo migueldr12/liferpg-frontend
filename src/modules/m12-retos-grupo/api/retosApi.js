@@ -29,15 +29,15 @@ const daysFromNow = (days) => {
 };
 
 // Usuario actual y su party (amigos)
-export const ME = { id: 'u-me', name: 'Tú', fullName: 'Valeria', level: 14, avatar: '🐲', color: '#9c27b0' };
+export const ME = { id: 'u-me', name: 'Tú', fullName: 'Valeria', level: 14, pet: 'dragon', color: '#9c27b0' };
 
 const FRIENDS = [
-  { id: 'u-ana', name: 'Ana', avatar: '🐳', color: '#29b6f6' },
-  { id: 'u-lucia', name: 'Lucía', avatar: '🐸', color: '#4caf50' },
-  { id: 'u-diego', name: 'Diego', avatar: '🦊', color: '#ff7043' },
-  { id: 'u-bruno', name: 'Bruno', avatar: '🦄', color: '#7e57c2' },
-  { id: 'u-mateo', name: 'Mateo', avatar: '🐺', color: '#90a4ae' },
-  { id: 'u-camila', name: 'Camila', avatar: '🐱', color: '#bdbdbd' },
+  { id: 'u-ana', name: 'Ana', pet: 'gato', color: '#29b6f6' },
+  { id: 'u-lucia', name: 'Lucía', pet: 'leon', color: '#4caf50' },
+  { id: 'u-diego', name: 'Diego', pet: 'dragon', color: '#ff7043' },
+  { id: 'u-bruno', name: 'Bruno', pet: 'leon', color: '#7e57c2' },
+  { id: 'u-mateo', name: 'Mateo', pet: 'hamster', color: '#90a4ae' },
+  { id: 'u-camila', name: 'Camila', pet: 'perro', color: '#bdbdbd' },
 ];
 
 const PEOPLE = [ME, ...FRIENDS];
@@ -137,7 +137,7 @@ export function respondInvitation(id, accept) {
 // RDF122 · calcularPromedioGrupo — lo calcula el servidor; aquí se simulan los resultados
 const METRICS = {
   semana: { cultura: { me: 72, group: 58 }, fisico: { me: 41, group: 55 }, enfoque: { me: 80, group: 64 } },
-  mes: { cultura: { me: 66, group: 60 }, fisico: { me: 52, group: 57 }, enfoque: { me: 74, group: 61 } },
+  mes: { cultura: { me: 68, group: 61 }, fisico: { me: 47, group: 52 }, enfoque: { me: 74, group: 60 } },
 };
 
 // RDF123 · mostrarMetricasGrupo — GET /api/v1/retos/metricas?periodo=semana|mes
@@ -150,13 +150,13 @@ export function getGroupMetrics(period) {
 
 // RDF124 · calcularAvanceSemanalPorArea — puntos ganados esta semana por área
 const WEEKLY = {
-  'u-me': { cultura: 64, fisico: 30, enfoque: 88 },
-  'u-ana': { cultura: 70, fisico: 45, enfoque: 52 },
-  'u-lucia': { cultura: 92, fisico: 20, enfoque: 61 },
-  'u-diego': { cultura: 30, fisico: 85, enfoque: 40 },
-  'u-bruno': { cultura: 48, fisico: 62, enfoque: 35 },
-  'u-mateo': { cultura: 22, fisico: 58, enfoque: 74 },
-  'u-camila': { cultura: 8, fisico: 12, enfoque: 19 },
+  'u-me': { cultura: 64, fisico: 48, enfoque: 72 },
+  'u-ana': { cultura: 70, fisico: 35, enfoque: 81 },
+  'u-lucia': { cultura: 92, fisico: 40, enfoque: 66 },
+  'u-diego': { cultura: 30, fisico: 95, enfoque: 44 },
+  'u-bruno': { cultura: 45, fisico: 70, enfoque: 52 },
+  'u-mateo': { cultura: 22, fisico: 31, enfoque: 18 },
+  'u-camila': { cultura: 8, fisico: 12, enfoque: 5 },
 };
 
 // RDF125 · filtrarAmigosPorArea — GET /api/v1/retos/actividad?area=cultura|fisico|enfoque

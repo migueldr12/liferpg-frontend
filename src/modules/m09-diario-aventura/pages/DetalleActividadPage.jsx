@@ -29,7 +29,16 @@ export default function DetalleActividadPage() {
       {vm.loading || !a ? (
         <p className="texto-suave">Cargando actividad…</p>
       ) : (
-        <div className="m09-grid-detalle">
+        <>
+          <header className="m09-activity-header">
+            <div>
+              <Link to="/lite/diario">← Actividades</Link>
+              <h1 className="titulo-pixel">{a.title}</h1>
+              <p className="texto-suave">{a.subtitle}</p>
+            </div>
+            <Link to="/lite/diario/graficas" className="m09-btn-secundario">Ver gráficas</Link>
+          </header>
+          <div className="m09-grid-detalle">
           {/* Detalle y puntos (RDF093) */}
           <section className="m09-panel">
             <div className="m09-ficha">
@@ -127,7 +136,8 @@ export default function DetalleActividadPage() {
               </ol>
             )}
           </section>
-        </div>
+          </div>
+        </>
       )}
     </div>
   );

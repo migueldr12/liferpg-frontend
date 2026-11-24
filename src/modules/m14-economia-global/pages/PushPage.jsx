@@ -35,8 +35,8 @@ export default function PushPage() {
           </label>
 
           <label className="m14-field">
-            <span className="m14-label">Mensaje <b>{vm.message.length}/{MESSAGE_MAX}</b></span>
-            <textarea rows={5} value={vm.message} maxLength={MESSAGE_MAX}
+            <span className={`m14-label ${vm.message.length > MESSAGE_MAX ? 'm14-counter-error' : ''}`}>Mensaje <b>{vm.message.length}/{MESSAGE_MAX}</b></span>
+            <textarea rows={5} value={vm.message}
               placeholder="Esta semana cada check-in da +10 % de XP. Tu dragón te espera."
               onChange={(e) => vm.setMessage(e.target.value)} />
           </label>
@@ -77,7 +77,7 @@ export default function PushPage() {
                     <strong>{r.title}</strong>
                     <small>{r.targetText} · {r.whenText}</small>
                   </div>
-                  <span className={`m14-estado ${r.status === 'fallido' ? 'fallido' : r.status === 'en_cola' ? 'en-cola' : ''}`}>{r.statusText}</span>
+                   <span className={`m14-estado ${r.status === 'fallido' ? 'fallido' : r.status === 'en_cola' ? 'en-cola' : r.status === 'enviando' ? 'enviando' : ''}`}>{r.statusText}</span>
                 </li>
               ))}
             </ul>

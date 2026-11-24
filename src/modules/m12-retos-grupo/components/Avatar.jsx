@@ -2,11 +2,10 @@
 export default function Avatar({ person, size = 36 }) {
   return (
     <span
-      className="m12-avatar"
-      style={{ background: person.color, width: size, height: size, fontSize: size * 0.55 }}
-      aria-hidden="true"
+      className={`m12-avatar m12-avatar--${person.id ?? 'dragon'}`}
+      style={{ '--pet-color': person.color, width: size, height: size }}
     >
-      {person.avatar}
+      <img src={`/icons/${person.pet || 'dragon'}.png`} alt="" />
     </span>
   );
 }

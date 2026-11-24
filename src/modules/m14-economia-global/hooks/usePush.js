@@ -16,6 +16,7 @@ const formatWhen = (iso) => {
 
 // "en_cola": guardado en el servidor, sin enviar porque no tiene las llaves de Firebase
 const statusText = (p) => {
+  if (p.status === 'enviando') return 'Enviando…';
   if (p.status === 'en_cola') return 'En cola';
   return `${p.status === 'fallido' ? 'Fallido' : 'Entregado'} ${p.deliveredPct ?? 0} %`;
 };
@@ -26,8 +27,8 @@ export function usePush() {
 
   const [targetKind, setTargetKind] = useState('todos');
   const [username, setUsername] = useState('');
-  const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
+  const [title, setTitle] = useState('¡Semana de rachas!');
+  const [message, setMessage] = useState('Esta semana cada check-in da +10 % de XP. Tu dragón te espera.');
 
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
@@ -52,25 +53,29 @@ export function usePush() {
   const canSend =
     !sending &&
     title.trim().length > 0 &&
+    title.length <= TITLE_MAX &&
     message.trim().length > 0 &&
+    message.length <= MESSAGE_MAX &&
     (targetKind === 'todos' || username.trim().length > 0);
 
   const send = async () => {
+    const target = targetKind === 'todos' ? { kind: 'todos' } : { kind: 'usuario', username: username.replace(/^@/, '') };
+    const pendingId = `sending-${Date.now()}`;
+    const pending = { id: pendingId, title: title.trim(), message: message.trim(), target, recipients: targetKind === 'todos' ? audience : 1, sentAt: new Date().toISOString(), status: 'enviando' };
     setSending(true);
     setError(null);
     setNotice(null);
+    setHistory((list) => [pending, ...list]);
     try {
-      const target = targetKind === 'todos' ? { kind: 'todos' } : { kind: 'usuario', username };
       const sent = await sendPush({ title, message, target });
-      setHistory((list) => [sent, ...list]);
-      setTitle('');
-      setMessage('');
+      setHistory((list) => list.map((item) => item.id === pendingId ? sent : item));
       setNotice(
         sent.status === 'en_cola'
           ? 'Aviso guardado en cola: el servidor aún no tiene configurado Firebase.'
           : `Aviso enviado a ${sent.recipients.toLocaleString('es-MX')} destinatario(s).`,
       );
     } catch (e) {
+      setHistory((list) => list.filter((item) => item.id !== pendingId));
       setError(e.message);
     } finally {
       setSending(false);

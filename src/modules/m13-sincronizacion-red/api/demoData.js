@@ -1,6 +1,11 @@
 export const hostDemo = {
-  status: 'En línea', version: 'v1.4.2', environment: 'Producción', platform: 'Azure App Service', uptime: '6 d 10 h 42 m', deployment: 'Nube', address: '—', httpsPort: 443, realtimePort: 5002,
+  status: 'En línea', version: 'v1.4.2', environment: 'Producción', platform: 'Azure App Service', uptime: '6 d 10 h 42 m', deployment: 'Nube', address: 'https://api.life-rpg.app', region: 'Central US', httpsPort: 443, realtimePort: 5002,
   latency: [39, 42, 40, 55, 43, 41, 50, 46, 41, 62, 40, 43, 41, 48, 46, 39, 42, 52, 46, 43, 44, 120, 41, 44, 42, 45, 40, 44, 43, 39],
+};
+
+export const lanHostDemo = {
+  status: 'En línea', version: 'v1.4.2', environment: 'Desarrollo', platform: 'Docker · Ubuntu 24.04', uptime: '3 h 18 m', deployment: 'LAN', address: 'https://192.168.1.42', region: 'Red local · oficina', httpsPort: 7043, realtimePort: 5002,
+  latency: [7, 6, 8, 9, 7, 7, 10, 8, 6, 7, 9, 8, 7, 6, 8, 9, 7, 8, 6, 7, 10, 8, 7, 6, 8, 7, 9, 6, 7, 8],
 };
 
 export const clientsDemo = [
@@ -26,4 +31,17 @@ export const logsDemo = [
   { id: 9, time: '14:31:56', method: 'PUT', code: 200, endpoint: '/api/misiones/458', ms: 41, user: 'lu.gomez' },
   { id: 10, time: '14:31:54', method: 'POST', code: 500, endpoint: '/api/habitos/431/checkin', ms: 636, user: 'valeria' },
   { id: 11, time: '14:31:52', method: 'POST', code: 201, endpoint: '/api/stickers/enviar', ms: 90, user: 'mateo' },
+  { id: 12, time: '14:31:50', method: 'PATCH', code: 200, endpoint: '/api/catalogo/articulos/18', ms: 53, user: 'admin.gm' },
+  { id: 13, time: '14:31:48', method: 'DELETE', code: 204, endpoint: '/api/amigos/91', ms: 31, user: 'ana.t' },
+  { id: 14, time: '14:31:46', method: 'GET', code: 200, endpoint: '/api/retos/grupo', ms: 48, user: 'bruno.p' },
+  { id: 15, time: '14:31:44', method: 'POST', code: 400, endpoint: '/api/botin/regalos', ms: 23, user: 'sofia.ruiz' },
+  { id: 16, time: '14:31:42', method: 'GET', code: 200, endpoint: '/api/diario/actividades', ms: 37, user: 'valeria' },
+  { id: 17, time: '14:31:40', method: 'PATCH', code: 200, endpoint: '/api/perfil/preferencias', ms: 28, user: 'mateo' },
+  { id: 18, time: '14:31:38', method: 'POST', code: 201, endpoint: '/api/habitos/88/checkin', ms: 62, user: 'ana.t' },
+  { id: 19, time: '14:31:36', method: 'GET', code: 503, endpoint: '/api/sincronizacion/estado', ms: 804, user: 'bruno.p' },
+  { id: 20, time: '14:31:34', method: 'DELETE', code: 204, endpoint: '/api/notificaciones/771', ms: 19, user: 'lu.gomez' },
+  { id: 21, time: '14:31:32', method: 'GET', code: 200, endpoint: '/api/inventario', ms: 35, user: 'diego.r' },
+  { id: 22, time: '14:31:30', method: 'PUT', code: 422, endpoint: '/api/misiones/700', ms: 46, user: 'valeria' },
+  { id: 23, time: '14:31:28', method: 'POST', code: 201, endpoint: '/api/retos/12/aporte', ms: 71, user: 'mateo' },
+  { id: 24, time: '14:31:26', method: 'GET', code: 200, endpoint: '/api/amigos', ms: 29, user: 'sofia.ruiz' },
 ];

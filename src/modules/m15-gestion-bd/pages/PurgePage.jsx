@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { adminApiEnabled, adminRequest, useAdminResource } from '../../../api/adminClient';
 import { ActionButton, DemoNotice, Segmented, StateBadge, Surface } from '../../../shared/components/AdminUI';
-import { purgeDemo } from '../api/demoData';
+import { applyDemoPurge, getDemoPurgeCount, purgeDemo } from '../api/demoData';
 
 const numberFormat = new Intl.NumberFormat('es-MX');
 
@@ -14,22 +14,29 @@ export function PurgePage() {
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState('');
   const [message, setMessage] = useState('');
+  const [, setDemoRevision] = useState(0);
+  const requestSequence = useRef(0);
   const categories = data?.categories ?? [];
   const history = data?.history ?? [];
-  const exampleCount = categories.filter((category) => selected.includes(category.id)).reduce((total, category) => total + category.count, 0);
+  const exampleCount = adminApiEnabled ? 0 : getDemoPurgeCount(days, selected);
 
-  function updateSelection(next) { setSelected(next); setPreview(null); setConfirmation(''); setMessage(''); }
-  function updateDays(next) { setDays(next); setPreview(null); setConfirmation(''); setMessage(''); }
+  function resetPreview() { requestSequence.current += 1; setBusy(false); setPreview(null); setConfirmation(''); setMessage(''); }
+  function updateSelection(next) { setSelected(next); resetPreview(); }
+  function updateDays(next) { setDays(next); resetPreview(); }
 
   async function getPreview() {
     setBusy(true);
     setActionError('');
+    const requestId = ++requestSequence.current;
     try {
-      setPreview(await adminRequest('data/purge/preview', { method: 'POST', body: JSON.stringify({ days, categories: selected }) }));
+      const result = adminApiEnabled
+        ? await adminRequest('data/purge/preview', { method: 'POST', body: JSON.stringify({ days, categories: selected }) })
+        : await new Promise((resolve) => window.setTimeout(() => resolve({ count: getDemoPurgeCount(days, selected) }), 350));
+      if (requestId === requestSequence.current) setPreview(result);
     } catch (cause) {
-      setActionError(cause.message);
+      if (requestId === requestSequence.current) setActionError(cause.message);
     } finally {
-      setBusy(false);
+      if (requestId === requestSequence.current) setBusy(false);
     }
   }
 
@@ -38,11 +45,12 @@ export function PurgePage() {
     setBusy(true);
     setActionError('');
     try {
-      await adminRequest('data/purge', { method: 'POST', body: JSON.stringify({ days, categories: selected, confirmation: 'PURGAR' }) });
+      if (adminApiEnabled) await adminRequest('data/purge', { method: 'POST', body: JSON.stringify({ days, categories: selected, confirmation: 'PURGAR' }) });
+      else { applyDemoPurge(days, selected); setDemoRevision((value) => value + 1); }
       setMessage('Purga completada. Revisa el registro de auditoría.');
       setConfirmation('');
       setPreview(null);
-      await refresh();
+      if (adminApiEnabled) await refresh();
     } catch (cause) {
       setActionError(cause.message);
     } finally {
@@ -56,8 +64,8 @@ export function PurgePage() {
     <div className="admin-columns admin-columns--purge">
       <Surface title="Eliminar registros anteriores a" action={<Segmented label="Antigüedad" options={[30, 90, 180].map((value) => ({ value, label: `${value} días` }))} value={days} onChange={updateDays} />}>
         <p className="admin-hint">Selecciona qué registros incluir. El servidor calculará la fecha de corte y el total antes de permitir la purga.</p>
-        <div className="purge-categories">{categories.map((category) => <label key={category.id} className={selected.includes(category.id) ? 'is-selected' : ''}><input type="checkbox" checked={selected.includes(category.id)} onChange={() => updateSelection(selected.includes(category.id) ? selected.filter((id) => id !== category.id) : [...selected, category.id])} /><span><strong>{category.label}</strong><small>{category.detail}</small></span><b>{numberFormat.format(category.count)}</b></label>)}</div>
-        <div className="purge-confirm"><div><strong>{numberFormat.format(preview?.count ?? exampleCount)}</strong><small>{preview ? 'Registros calculados por la API' : 'Registros ilustrativos · sin vista previa del servidor'}</small></div><div className="purge-confirm__actions">{adminApiEnabled && <ActionButton variant="secondary" disabled={!selected.length || busy} onClick={getPreview}>{busy ? 'Calculando…' : 'Vista previa'}</ActionButton>}<input className="admin-input" aria-label="Escribe PURGAR para confirmar" placeholder="ESCRIBE PURGAR" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} disabled={!preview} /><ActionButton variant="danger" disabled={!adminApiEnabled || !preview || confirmation !== 'PURGAR' || busy} onClick={purge}>Purgar</ActionButton></div></div>
+        <div className="purge-categories">{categories.map((category) => { const count = category.counts?.[days] ?? category.count ?? 0; return <label key={category.id} className={selected.includes(category.id) ? 'is-selected' : ''}><input type="checkbox" checked={selected.includes(category.id)} onChange={() => updateSelection(selected.includes(category.id) ? selected.filter((id) => id !== category.id) : [...selected, category.id])} /><span><strong>{category.label}</strong><small>{category.detail} · más de {days} días</small></span><b>{numberFormat.format(count)}</b></label>; })}</div>
+        <div className="purge-confirm"><div><strong>{numberFormat.format(preview?.count ?? exampleCount)}</strong><small>{preview ? 'Vista previa confirmada para estos criterios' : `Estimación exacta del demo · corte de ${days} días`}</small></div><div className="purge-confirm__actions"><ActionButton variant="secondary" disabled={!selected.length || busy} onClick={getPreview}>{busy ? 'Calculando…' : 'Vista previa'}</ActionButton><input className="admin-input" aria-label="Escribe PURGAR para confirmar" placeholder="ESCRIBE PURGAR" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} disabled={!preview} /><ActionButton variant="danger" disabled={!preview || confirmation !== 'PURGAR' || busy} onClick={purge}>Purgar</ActionButton></div></div>
       </Surface>
       <Surface title="Auditoría de purgas" subtitle="Quién, cuándo y cuántos registros"><div className="purge-history">{history.map((entry, index) => <div key={`${entry.owner}-${index}`}><strong>{entry.owner}</strong><time>{entry.date}</time><small>{entry.detail}</small><StateBadge tone="red">−{numberFormat.format(entry.count)}</StateBadge></div>)}{!history.length && <p className="admin-hint">No hay purgas registradas.</p>}</div></Surface>
     </div>

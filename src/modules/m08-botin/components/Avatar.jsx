@@ -3,10 +3,10 @@ export default function Avatar({ person, size = 36 }) {
   return (
     <span
       className="m08-avatar"
-      style={{ background: person.color, width: size, height: size, fontSize: size * 0.55 }}
+      style={{ background: person.color, width: size, height: size }}
       aria-hidden="true"
     >
-      {person.avatar}
+      <img src={`/icons/${person.pet || 'dragon'}.png`} alt="" />
     </span>
   );
 }

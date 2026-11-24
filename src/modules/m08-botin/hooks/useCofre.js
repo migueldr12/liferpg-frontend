@@ -42,22 +42,28 @@ export function useCofre() {
   const friend = friends.find((f) => f.id === friendId) ?? null;
 
   const pickItem = (item) => {
-    if (!item.giftable) return;
+    if (!item.giftable || sending) return;
     setItemId(item.id);
+    setNotice(null);
+  };
+
+  const pickFriend = (id) => {
+    if (sending) return;
+    setFriendId(id);
     setNotice(null);
   };
 
   // RDF082: enviar el objeto elegido al amigo elegido
   const send = async () => {
     if (!selected?.giftable || !friend || sending) return;
+    const sentItemId = selected.id;
+    const sentFriendId = friend.id;
     setSending(true);
     setError(null);
     setNotice(null);
     try {
-      const res = await sendGift({ friendId, itemId, message });
+      const res = await sendGift({ friendId: sentFriendId, itemId: sentItemId, message });
       setChest(res.chest);
-      // Si se acabó el objeto, se pasa al siguiente que se pueda regalar
-      if (!res.chest.find((i) => i.id === itemId)?.giftable) setItemId(firstGiftable(res.chest));
       setNotice(`Enviaste ${res.item} a ${res.to}. Le llegará una notificación push.`);
     } catch (e) {
       setError(e.message);
@@ -72,7 +78,7 @@ export function useCofre() {
     selected,
     pickItem,
     friend,
-    setFriendId,
+    pickFriend,
     message,
     setMessage,
     canSend: !!selected?.giftable && !!friend && !sending,

@@ -12,7 +12,7 @@ const TABS = [
 function StickerCard({ sticker, selected, onSelect }) {
   return (
     <button type="button" className={`sticker-card${selected ? ' is-selected' : ''}`} aria-pressed={selected} onClick={() => onSelect(sticker.id)}>
-      <PixelAvatar src={sticker.src} size={124} tone={sticker.tone} />
+      <PixelAvatar size={124} tone={sticker.tone} variant={sticker.variant} />
       {sticker.label}
     </button>
   );
@@ -26,7 +26,7 @@ function FriendRecipientList({ friends, selectedIds, onToggle }) {
         return (
           <label key={f.id} className={`friend${selected ? ' is-selected' : ''}`}>
             <input type="checkbox" checked={selected} onChange={() => onToggle(f.id)} />
-            <PixelAvatar src={f.avatar} size={38} tone={f.tone} />
+            <PixelAvatar size={38} tone={f.tone} variant={f.variant} src={`/icons/${f.pet || 'dragon'}.png`} />
             <span className="friend__info">
               <span className="friend__name">{f.name}</span>
               <span className="friend__status">{f.status}</span>
@@ -43,7 +43,7 @@ export default function AnimoStickersPage() {
   const { user, navBadges } = useLiteSession();
   const {
     categories, category, changeCategory, stickers, selectedSticker, selectSticker,
-    friends, selectedFriends, toggleFriend, canSend, sendSticker,
+    friends, selectedFriends, toggleFriend, canSend, sent, sendSticker,
   } = useStickersAnimo();
 
   return (
@@ -60,8 +60,8 @@ export default function AnimoStickersPage() {
           <h2 className="send-panel__title">Enviar a</h2>
           <FriendRecipientList friends={friends} selectedIds={selectedFriends} onToggle={toggleFriend} />
           <button type="button" className="btn" disabled={!canSend} onClick={sendSticker}>
-            <Icon name="send" size={16} />
-            Enviar “{selectedSticker.label}” a {selectedFriends.size}
+            <Icon name={sent ? 'check' : 'send'} size={16} />
+            {sent ? '¡Enviado!' : `Enviar “${selectedSticker.label}” a ${selectedFriends.size}`}
           </button>
           <p className="send-panel__note">Les llega como notificación push.</p>
         </aside>

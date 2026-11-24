@@ -69,7 +69,7 @@ export function useHistorialBotin() {
     range,
     setRange,
     counts,
-    rows: visible,
+    rows: visible.slice(0, 8),
     loading,
     error,
   };

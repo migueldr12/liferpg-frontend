@@ -51,7 +51,8 @@ export function useActividades() {
     filters,
     setFilter,
     clearFilters: () => setFilters(emptyFilters),
-    rows: view,
+    total: view.length,
+    rows: view.slice(0, 8),
     loading,
     error,
   };

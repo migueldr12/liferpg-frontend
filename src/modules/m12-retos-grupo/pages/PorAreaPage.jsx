@@ -34,7 +34,7 @@ export default function PorAreaPage() {
                 <Avatar person={p} />
                 <strong>{p.isMe ? `Tú (${p.fullName ?? ME.fullName})` : p.name}</strong>
                 <span className="m12-barra pixel"><span style={{ width: `${(p.points / vm.max) * 100}%`, background: meta.color }} /></span>
-                <b className="titulo-pixel">+{p.points}</b>
+                <b className="titulo-pixel">{p.points}/100</b>
               </li>
             ))}
           </ol>
@@ -45,12 +45,12 @@ export default function PorAreaPage() {
           <aside className="m12-referente">
             <span className="m12-insignia">Referente en {meta.label}</span>
             <div className="m12-escena" style={{ background: `linear-gradient(${vm.leader.color}55, var(--panel))` }}>
-              <span>{vm.leader.avatar}</span>
+              <Avatar person={vm.leader} size={120} />
             </div>
             <div className="m12-referente-pie">
               <div className="m12-detalle-head">
                 <strong className="titulo-pixel">{vm.leader.name}</strong>
-                <b className="m12-oro">+{vm.leader.points} pts</b>
+                <b className="m12-oro">{vm.leader.points}/100</b>
               </div>
               {vm.notice && <p className="m12-notice">{vm.notice}</p>}
               <button className="m12-btn-primario" onClick={vm.congratulate}>Felicitar con sticker</button>

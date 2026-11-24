@@ -28,13 +28,13 @@ export default function CurvaXpPage() {
 
             <label className="m14-slider">
               <span className="m14-label">Base <b>{vm.draft.base}</b></span>
-              <input type="range" min="20" max="300" step="5" value={vm.draft.base}
+              <input type="range" min="50" max="200" step="5" value={vm.draft.base}
                 onChange={(e) => vm.update('base', Number(e.target.value))} />
             </label>
 
             <label className="m14-slider">
               <span className="m14-label">Exponente <b>{vm.draft.exponent.toFixed(2)}</b></span>
-              <input type="range" min="1" max="2.5" step="0.05" value={vm.draft.exponent}
+              <input type="range" min="1.2" max="2" step="0.05" value={vm.draft.exponent}
                 onChange={(e) => vm.update('exponent', Number(e.target.value))} />
             </label>
 
@@ -43,7 +43,7 @@ export default function CurvaXpPage() {
               {DIFFICULTIES.map((d) => (
                 <label key={d.key} className="m14-input-box">
                   <small>{d.label}</small>
-                  <input type="number" min="1" value={vm.draft.difficultyPoints[d.key]}
+                  <input type="number" min="5" max="200" value={vm.draft.difficultyPoints[d.key]}
                     onChange={(e) => vm.updatePoints(d.key, Number(e.target.value))} />
                 </label>
               ))}
@@ -53,12 +53,12 @@ export default function CurvaXpPage() {
             <div className="m14-prices">
               <label className="m14-input-box m14-inline">
                 <small>Mín</small>
-                <input type="number" min="1" value={vm.draft.rewardPrice.min}
+                  <input type="number" min="10" max="2000" value={vm.draft.rewardPrice.min}
                   onChange={(e) => vm.updatePrice('min', Number(e.target.value))} />
               </label>
               <label className="m14-input-box m14-inline">
                 <small>Máx</small>
-                <input type="number" min="1" value={vm.draft.rewardPrice.max}
+                  <input type="number" min="10" max="2000" value={vm.draft.rewardPrice.max}
                   onChange={(e) => vm.updatePrice('max', Number(e.target.value))} />
               </label>
             </div>

@@ -235,7 +235,12 @@
   background: var(--bg);
   display: grid;
   place-items: center;
-  font-size: 24px;
+  overflow: hidden;
+}
+.m07-avatar-box img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
 }
 .m07-card-info {
   flex: 1;
@@ -245,6 +250,10 @@
   gap: 8px;
   margin-top: 4px;
 }
+.m07-streak { color: var(--area-fisico); font-family: var(--fuente-pixel); white-space: nowrap; }
+.m07-remove-confirm { display: flex; align-items: center; gap: 8px; margin-top: auto; }
+.m07-remove-confirm span { flex: 1; font-size: 12px; font-weight: 700; }
+.m07-empty { padding: 30px; border: 2px dashed var(--borde); border-radius: 12px; color: var(--texto-suave); text-align: center; }
 
 /* ── Perfil Espejo ── */
 .m07-grid-espejo {
@@ -258,8 +267,15 @@
   background: linear-gradient(180deg, #2e7d32 0%, #1b5e20 100%);
   display: grid;
   place-items: center;
-  font-size: 72px;
+  overflow: hidden;
 }
+.m07-escena-tamagotchi img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+.m07-level { padding: 2px 8px; border-radius: 7px; background: var(--oro); color: #241a00; font-size: 13px; white-space: nowrap; }
+.m07-cta-link { display: flex; align-items: center; justify-content: center; box-sizing: border-box; text-decoration: none; }
 .m07-privado-box {
   padding: 12px;
   border: 2px dashed var(--borde);
@@ -307,6 +323,10 @@
 .m07-status-tag.vigente { border: 1px solid var(--verde); color: var(--verde); }
 .m07-status-tag.expirada { border: 1px solid var(--texto-suave); color: var(--texto-suave); }
 .m07-status-tag.revocada { border: 1px solid var(--rojo); color: var(--rojo); }
+.m07-status-tag.expirado { border: 1px solid var(--texto-suave); color: var(--texto-suave); }
+.m07-status-tag.revocado { border: 1px solid var(--rojo); color: var(--rojo); }
+.m07-table-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.m07-table-head span { color: var(--texto-suave); font-size: 12px; font-weight: 700; }
 
 /* Layout responsivo */
 @media (max-width: 850px) {

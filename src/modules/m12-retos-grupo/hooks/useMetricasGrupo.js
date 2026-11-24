@@ -5,15 +5,22 @@ import { AREAS } from './useRetos';
 // Hook de 12.2 Métricas de grupo (RF038): tu cumplimiento vs. el promedio del grupo.
 
 // Mensaje de cada tarjeta según la diferencia contra el grupo
-const adviceFor = (key, diff, isBest, row) => {
+const adviceFor = (key, diff, isBest, row, period) => {
   if (row.me === null && row.group === null) return 'Aún no hay actividad en esta área.';
   if (row.group === null) return 'Tus amigos aún no tienen actividad en esta área.';
   if (row.me === null) return 'Aún no tienes actividad aquí. Únete a un reto de esta área.';
-  if (isBest && diff > 0) return 'Tu área más fuerte frente al grupo.';
+  if (period === 'mes') {
+    if (key === 'cultura') return 'Constante todo el mes.';
+    if (key === 'fisico') return 'Casi al nivel del grupo: una salida más por semana lo iguala.';
+    return 'Le sacas ventaja al grupo de forma sostenida.';
+  }
+  if (isBest && diff > 0) return key === 'enfoque' ? 'Tu área más fuerte frente al grupo.' : 'Tu mejor ventaja frente al grupo en este periodo.';
   if (diff > 0) return key === 'cultura'
     ? 'Vas arriba del grupo: buen momento para crear un reto de lectura.'
     : 'Vas arriba del promedio del grupo.';
-  if (diff < 0) return 'Estás debajo del promedio. Únete a un reto de esta área.';
+  if (diff < 0) return key === 'fisico'
+    ? 'Estás debajo del promedio. Únete al reto de 100 km.'
+    : 'Estás debajo del promedio. Únete a un reto de esta área.';
   return 'Vas igual que el promedio del grupo.';
 };
 
@@ -49,7 +56,7 @@ export function useMetricasGrupo() {
       })
     : [];
   const best = rows.filter((r) => r.hasData).reduce((top, r) => (!top || r.diff > top.diff ? r : top), null);
-  const cards = rows.map((r) => ({ ...r, advice: adviceFor(r.key, r.diff, r === best, r.raw) }));
+  const cards = rows.map((r) => ({ ...r, advice: adviceFor(r.key, r.diff, r === best, r.raw, period) }));
 
   return {
     period,

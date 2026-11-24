@@ -76,8 +76,18 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  font-size: 20px;
+  padding: 2px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--pet-color) 40%, var(--panel));
+  border: 2px solid color-mix(in srgb, var(--pet-color) 70%, var(--borde));
 }
+.m12-avatar img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 0 var(--pet-color)); }
+.m12-avatar--u-ana img { filter: hue-rotate(45deg) drop-shadow(0 2px 0 var(--pet-color)); }
+.m12-avatar--u-lucia img { transform: scale(.9) rotate(-4deg); filter: hue-rotate(95deg) drop-shadow(0 2px 0 var(--pet-color)); }
+.m12-avatar--u-diego img { transform: scaleX(-1); filter: hue-rotate(155deg) drop-shadow(0 2px 0 var(--pet-color)); }
+.m12-avatar--u-bruno img { transform: scale(.88) rotate(4deg); filter: hue-rotate(220deg) drop-shadow(0 2px 0 var(--pet-color)); }
+.m12-avatar--u-mateo img { transform: scale(.84); filter: grayscale(.35) drop-shadow(0 2px 0 var(--pet-color)); }
+.m12-avatar--u-camila img { transform: scale(.92) rotate(-3deg); filter: hue-rotate(285deg) drop-shadow(0 2px 0 var(--pet-color)); }
 .m12-tabs {
   display: flex;
   gap: 4px;
@@ -284,6 +294,7 @@
   font-family: var(--fuente-pixel);
   cursor: pointer;
 }
+.m12-crear.activo { border-color: var(--verde); background: var(--green-soft); color: var(--texto); }
 .m12-form {
   gap: 10px;
 }
@@ -293,6 +304,9 @@
   gap: 6px;
 }
 .m12-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   padding: 6px 10px;
   border: 2px solid var(--borde);
   border-radius: 16px;
@@ -300,6 +314,11 @@
   font-size: 13px;
   cursor: pointer;
 }
+.m12-form-derecha { min-height: 470px; }
+.m12-form-derecha .m12-label { display: grid; gap: 7px; flex: 1; }
+.m12-opciones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.m12-opciones button { padding: 10px; border: 2px solid var(--borde); border-radius: 9px; background: var(--bg); cursor: pointer; font-family: var(--fuente-pixel); }
+.m12-opciones button.activo { border-color: var(--verde); background: var(--green-soft); }
 .m12-chip input {
   position: absolute;
   opacity: 0;
@@ -525,7 +544,6 @@
   display: grid;
   place-items: center;
   height: 220px;
-  font-size: 96px;
 }
 .m12-referente-pie {
   display: grid;

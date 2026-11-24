@@ -30,7 +30,7 @@ export default function CofrePage() {
                 const tag = i.equipped ? 'Equipado' : i.exclusive ? 'Exclusivo' : qtyText(i.qty);
                 return (
                   <button key={i.id} type="button" disabled={!i.giftable} aria-pressed={active}
-                    className={!i.giftable ? 'm08-item bloqueado' : active ? 'm08-item activo' : 'm08-item'}
+                    className={`m08-item${active ? ' activo' : ''}${!i.giftable ? ' bloqueado' : ''}`}
                     onClick={() => vm.pickItem(i)}>
                     <span className="m08-item-icon" aria-hidden="true">{i.icon}</span>
                     <span className="m08-item-texto">
@@ -55,7 +55,7 @@ export default function CofrePage() {
               {vm.friends.map((f) => (
                 <button key={f.id} type="button" aria-pressed={vm.friend?.id === f.id}
                   className={vm.friend?.id === f.id ? 'm08-amigo activo' : 'm08-amigo'}
-                  onClick={() => vm.setFriendId(f.id)}>
+                  disabled={vm.sending} onClick={() => vm.pickFriend(f.id)}>
                   <Avatar person={f} size={40} />
                   {f.name}
                 </button>
@@ -81,7 +81,7 @@ export default function CofrePage() {
               onChange={(e) => vm.setMessage(e.target.value)} />
 
             <button type="submit" className="m08-btn-primario" disabled={!vm.canSend}>
-              {vm.sending ? 'Enviando…' : `Enviar a ${vm.friend?.name ?? '…'}`}
+              {vm.sending ? 'Enviando…' : vm.notice ? `¡Enviado a ${vm.friend?.name}!` : vm.selected?.qty === 0 ? 'Agotado' : `Enviar a ${vm.friend?.name ?? '…'}`}
             </button>
             <small className="texto-suave m08-centro">Sale de tu cofre y le llega una notificación push.</small>
           </form>

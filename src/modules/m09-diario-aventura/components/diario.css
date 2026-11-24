@@ -335,6 +335,15 @@ a.m09-tabla-fila:hover {
 }
 
 /* ── 9.2 Detalle ── */
+.m09-activity-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.m09-activity-header h1 { margin: 3px 0; font-size: 28px; }
+.m09-activity-header a:not(.m09-btn-secundario) { color: var(--texto-suave); font-size: 13px; font-weight: 700; text-decoration: none; }
 .m09-grid-detalle {
   display: grid;
   grid-template-columns: 420px minmax(0, 1fr);
@@ -644,18 +653,23 @@ a.m09-tabla-fila:hover {
     grid-template-columns: 1fr;
   }
   .m09-tabla-fila {
-    grid-template-columns: 72px 30px minmax(0, 1fr) 70px;
+    grid-template-columns: 72px 30px minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 10px 12px;
   }
-  .m09-tabla-fila > :nth-child(4),
-  .m09-tabla-fila > :nth-child(5),
-  .m09-tabla-fila > :nth-child(6) {
+  .m09-tabla-fila.encabezado {
     display: none;
   }
+  .m09-tabla-fila > :nth-child(4) { grid-column: 1 / 2; }
+  .m09-tabla-fila > :nth-child(5) { grid-column: 2 / 4; }
+  .m09-tabla-fila > :nth-child(6) { grid-column: 4 / 5; }
+  .m09-tabla-fila > :nth-child(7) { grid-column: 4 / 5; grid-row: 1; }
   .m09-barras {
     height: 260px;
   }
 }
 @media (max-width: 520px) {
+  .m09-activity-header { align-items: stretch; flex-direction: column; }
   .m09-nueva-nota {
     flex-direction: column;
   }

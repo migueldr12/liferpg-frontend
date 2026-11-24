@@ -25,7 +25,7 @@ export function useCurvaXp() {
     getActiveEconomy()
       .then((economy) => {
         setActive(economy);
-        setDraft({ ...economy, difficultyPoints: { ...economy.difficultyPoints }, rewardPrice: { ...economy.rewardPrice } });
+        setDraft({ ...economy, exponent: economy.version === 7 && economy.exponent === 1.55 ? 1.60 : economy.exponent, difficultyPoints: { ...economy.difficultyPoints }, rewardPrice: { ...economy.rewardPrice } });
       })
       .catch(() => setError('No se pudo cargar la economía activa.'))
       .finally(() => setLoading(false));
@@ -33,14 +33,17 @@ export function useCurvaXp() {
 
   const update = (field, value) => {
     setNotice(null);
+    setError(null);
     setDraft((d) => ({ ...d, [field]: value }));
   };
   const updatePoints = (key, value) => {
     setNotice(null);
+    setError(null);
     setDraft((d) => ({ ...d, difficultyPoints: { ...d.difficultyPoints, [key]: value } }));
   };
   const updatePrice = (key, value) => {
     setNotice(null);
+    setError(null);
     setDraft((d) => ({ ...d, rewardPrice: { ...d.rewardPrice, [key]: value } }));
   };
 
@@ -63,6 +66,22 @@ export function useCurvaXp() {
   const hasChanges = useMemo(() => JSON.stringify(draft) !== JSON.stringify(active), [draft, active]);
 
   const publish = async () => {
+    if (!(draft.base >= 50 && draft.base <= 200)) {
+      setError('La base debe estar entre 50 y 200.');
+      return;
+    }
+    if (!(draft.exponent >= 1.2 && draft.exponent <= 2)) {
+      setError('El exponente debe estar entre 1.20 y 2.00.');
+      return;
+    }
+    if (Object.values(draft.difficultyPoints).some((value) => !(value >= 5 && value <= 200))) {
+      setError('Cada dificultad debe otorgar entre 5 y 200 puntos.');
+      return;
+    }
+    if (!(draft.rewardPrice.min >= 10 && draft.rewardPrice.max <= 2000 && draft.rewardPrice.min < draft.rewardPrice.max)) {
+      setError('Los precios deben estar entre 10 y 2,000, y el mínimo debe ser menor al máximo.');
+      return;
+    }
     setSaving(true);
     setError(null);
     try {

@@ -21,13 +21,40 @@ const DAYS = [
   { id: 7, label: 'Mié · ayer', number: 7, pending: 3 },
 ];
 const TASKS_BY_DAY = {
+  1: [
+    { id: '1-L', title: 'Leer 20 páginas', kind: 'Hábito', area: 'cultura', weeklyRepeats: 4 },
+    { id: '1-I', title: 'Estudiar inglés 30 min', kind: 'Hábito', area: 'cultura', weeklyRepeats: 3 },
+  ],
+  2: [{ id: '2-M', title: 'Meditar 10 min', kind: 'Hábito', area: 'enfoque' }],
+  3: [
+    { id: '3-L', title: 'Leer 20 páginas', kind: 'Hábito', area: 'cultura', weeklyRepeats: 4 },
+    { id: '3-X', title: 'Preparar exposición', kind: 'Misión', area: 'cultura' },
+  ],
+  4: [
+    { id: '4-X', title: 'Preparar exposición', kind: 'Misión', area: 'cultura' },
+    { id: '4-L', title: 'Leer 20 páginas', kind: 'Hábito', area: 'cultura', weeklyRepeats: 4 },
+    { id: '4-E', title: 'Estirar 10 min', kind: 'Hábito', area: 'fisico' },
+  ],
+  5: [],
+  6: [
+    { id: '6-I', title: 'Estudiar inglés 30 min', kind: 'Hábito', area: 'cultura', weeklyRepeats: 3 },
+    { id: '6-E', title: 'Estirar 10 min', kind: 'Hábito', area: 'fisico' },
+  ],
   7: [
-    { id: 't1', title: 'Leer 20 páginas', kind: 'Hábito', area: 'cultura', weeklyRepeats: 4 },
-    { id: 't2', title: 'Estudiar inglés 30 min', kind: 'Hábito', area: 'cultura', weeklyRepeats: 3 },
-    { id: 't3', title: 'Ordenar escritorio', kind: 'Misión', area: 'enfoque' },
+    { id: '7-L', title: 'Leer 20 páginas', kind: 'Hábito', area: 'cultura', weeklyRepeats: 4 },
+    { id: '7-I', title: 'Estudiar inglés 30 min', kind: 'Hábito', area: 'cultura', weeklyRepeats: 3 },
+    { id: '7-O', title: 'Ordenar escritorio', kind: 'Misión', area: 'enfoque' },
   ],
 };
-const SUMMARY_BY_DAY = { 7: { dateLabel: 'Mié 7 oct', done: 3, total: 5 } };
+const SUMMARY_BY_DAY = {
+  1: { dateLabel: 'Jue 1 oct', done: 3, total: 5 },
+  2: { dateLabel: 'Vie 2 oct', done: 4, total: 5 },
+  3: { dateLabel: 'Sáb 3 oct', done: 4, total: 5 },
+  4: { dateLabel: 'Dom 4 oct', done: 3, total: 5 },
+  5: { dateLabel: 'Lun 5 oct', done: 5, total: 5 },
+  6: { dateLabel: 'Mar 6 oct', done: 3, total: 5 },
+  7: { dateLabel: 'Mié 7 oct', done: 3, total: 5 },
+};
 const WEEKLY_REPEATS = [
   { id: 'r1', title: 'Leer 20 páginas', week: [true, false, true, true, false, false, true] },
   { id: 'r2', title: 'Estudiar inglés 30 min', week: [true, false, false, false, false, true, true] },
@@ -36,11 +63,18 @@ const WEEKLY_REPEATS = [
 
 export function useProgresoPendientes() {
   const [selectedId, setSelectedId] = useState(DAYS[DAYS.length - 1].id);
+  const [resumedIds, setResumedIds] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('liferpg-m11-resumed') ?? '[]'); } catch { return []; }
+  });
   const selectedDay = DAYS.find((d) => d.id === selectedId);
-  const tasks = TASKS_BY_DAY[selectedId] ?? [];
+  const tasks = (TASKS_BY_DAY[selectedId] ?? []).map((task) => ({ ...task, resumed: resumedIds.includes(task.id) }));
   const summary = SUMMARY_BY_DAY[selectedId] ?? { dateLabel: `${selectedDay.label} ${selectedDay.number}`, done: 0, total: 0 };
 
-  const resumeTask = (task) => console.log('Retomar hoy:', task.id); // TODO: API
+  const resumeTask = (task) => setResumedIds((current) => {
+    const next = current.includes(task.id) ? current.filter((id) => id !== task.id) : [...current, task.id];
+    localStorage.setItem('liferpg-m11-resumed', JSON.stringify(next));
+    return next;
+  });
 
   return { days: DAYS, selectedDay, selectDay: setSelectedId, tasks, summary, weeklyRepeats: WEEKLY_REPEATS, resumeTask };
 }
@@ -131,8 +165,8 @@ const YEAR = 2026;
 const MONTH = 8; // septiembre (0-indexado)
 const MONTH_LABEL = 'Septiembre 2026';
 // % de hábitos cumplidos por día (día 1 = índice 0)
-const PERCENTS = [78, 40, 70, 84, 88, 35, 45, 80, 63, 64, 88, 0, 35, 66, 88, 100, 89, 88, 0, 35, 57, 66, 78, 76, 94, 0, 35, 88, 88, 66];
-const NOTES = { 6: 'Fiesta familiar', 12: 'Examen de física', 13: 'Me dormí tarde', 19: 'Viaje', 20: 'Viaje' };
+const PERCENTS = [78, 40, 70, 84, 88, 35, 45, 80, 58, 56, 88, 0, 35, 55, 88, 100, 89, 88, 0, 35, 57, 54, 78, 76, 94, 0, 35, 88, 88, 66];
+const NOTES = { 6: 'Fiesta familiar', 12: 'Examen de física', 13: 'Me dormí tarde', 19: 'Viaje', 20: 'Viaje', 26: 'Gripa', 27: 'Gripa' };
 const THRESHOLDS = [40, 50, 60];
 
 export function useDiasRojos() {
@@ -169,9 +203,9 @@ export function useDiasRojos() {
 const BEST_STREAK = 21;
 const TODAY_HABITS = { done: 3, total: 5 };
 const STREAK_STATES = {
-  active: { current: 12, todayDone: true },
-  atRisk: { current: 12, todayDone: false },
-  broken: { current: 0, todayDone: false, previous: 12 },
+  active: { current: 12, todayDone: true, secondaryLabel: 'Hoy', secondaryValue: '3 de 5' },
+  atRisk: { current: 12, todayDone: false, secondaryLabel: 'Quedan', secondaryValue: '3 h 12 min' },
+  broken: { current: 0, todayDone: false, previous: 12, secondaryLabel: 'Racha anterior', secondaryValue: '12 días' },
 };
 const FILLER = [1, 1, 0, 1, 1, 1, 0, 1, 1, 0];
 
@@ -199,6 +233,8 @@ export function useRacha() {
     checkinTime: '08:30',
     best: BEST_STREAK,
     today: TODAY_HABITS,
+    secondaryLabel: state.secondaryLabel,
+    secondaryValue: state.secondaryValue,
     history: buildHistory(state.current, state.todayDone),
     rangeLabel: '18 sep → hoy',
   };

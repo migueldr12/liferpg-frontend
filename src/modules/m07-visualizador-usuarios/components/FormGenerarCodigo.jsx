@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 // lo mismo, quien sabe si le cambio el diseño, pero ps ahorita así
-export const FormNuevoCodigo = ({ onGenerar, onCanjear }) => {
+export const FormNuevoCodigo = ({ codigo, feedback, onCopiar, onGenerar, onCanjear }) => {
   const [dias, setDias] = useState(7);
   const [usos, setUsos] = useState(3);
   const [codigoInput, setCodigoInput] = useState('');
@@ -11,8 +11,8 @@ export const FormNuevoCodigo = ({ onGenerar, onCanjear }) => {
       <section className="m07-panel">
         <h2>Nuevo código</h2>
         <div className="m07-codigo-display">
-          <span>CYA-1001</span>
-          <button className="m07-btn-secundario">Copiar</button>
+          <span>{codigo}</span>
+          <button type="button" className="m07-btn-secundario" onClick={onCopiar}>{feedback === 'Copiado' ? 'Copiado' : 'Copiar'}</button>
         </div>
 
         <div>
@@ -26,7 +26,7 @@ export const FormNuevoCodigo = ({ onGenerar, onCanjear }) => {
                 aria-pressed={dias === d}
                 onClick={() => setDias(d)}
               >
-                {d} días
+                {d === 1 ? '24 h' : `${d} días`}
               </button>
             ))}
           </div>
@@ -35,13 +35,13 @@ export const FormNuevoCodigo = ({ onGenerar, onCanjear }) => {
         <div>
           <span className="m07-label">Usos máximos</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '6px' }}>
-            <button className="m07-btn-secundario" onClick={() => setUsos(Math.max(1, usos - 1))}>-</button>
+             <button type="button" className="m07-btn-secundario" onClick={() => setUsos(Math.max(1, usos - 1))}>-</button>
             <strong>{usos}</strong>
-            <button className="m07-btn-secundario" onClick={() => setUsos(usos + 1)}>+</button>
+             <button type="button" className="m07-btn-secundario" onClick={() => setUsos(Math.min(10, usos + 1))}>+</button>
           </div>
         </div>
 
-        <button className="m07-btn-primario" onClick={() => onGenerar(dias, usos)}>
+         <button type="button" className="m07-btn-primario" onClick={() => onGenerar(dias, usos)}>
           Generar código
         </button>
       </section>
@@ -51,16 +51,16 @@ export const FormNuevoCodigo = ({ onGenerar, onCanjear }) => {
         <div style={{ display: 'flex', gap: '8px' }}>
           <input
             type="text"
-            placeholder="CYA-XXXX"
+             placeholder="DRG-XXXX"
             value={codigoInput}
             onChange={(e) => setCodigoInput(e.target.value.toUpperCase())}
           />
-          <button className="m07-btn-secundario" onClick={() => onCanjear(codigoInput)}>
+           <button type="button" className="m07-btn-secundario" onClick={() => onCanjear(codigoInput)}>
             Canjear
           </button>
         </div>
         <p style={{ fontSize: '12px', color: 'var(--texto-suave)' }}>
-          Prueba con CYA-1001. Se valida vigencia y usos.
+           {feedback || 'Prueba con ANA-93XZ. Se valida vigencia y usos.'}
         </p>
       </section>
     </div>

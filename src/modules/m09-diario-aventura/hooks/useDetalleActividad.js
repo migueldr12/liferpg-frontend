@@ -14,10 +14,8 @@ const VALIDATIONS = {
   manual: { label: 'Manual', banner: 'Validada manualmente: no hay dispositivo', icon: '✅', tone: 'cultura' },
 };
 
-// El cuarto dato depende del origen: las misiones no tienen dificultad (RDF037),
-// los hábitos sí (RDF027) y las sesiones siempre son con bloqueo.
 const fourthField = (a) => {
-  if (a.origin === 'mision') return { label: 'Validación', value: a.status === 'fallida' ? '—' : VALIDATIONS[a.validation].label };
+  if (a.origin === 'mision') return { label: 'Dificultad', value: a.difficulty ?? 'Media' };
   if (a.origin === 'habito') return { label: 'Dificultad', value: a.difficulty };
   return { label: 'Bloqueo', value: 'Sí' };
 };

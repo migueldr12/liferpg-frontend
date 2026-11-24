@@ -42,7 +42,7 @@ function PendingTaskRow({ task, onResume }) {
       {task.weeklyRepeats > 1 && (
         <span className="repeat-chip"><Icon name="refresh" size={13} />{task.weeklyRepeats}.ª vez esta semana</span>
       )}
-      <button type="button" className="btn" onClick={() => onResume(task)}>Retomar hoy</button>
+      <button type="button" className={`btn${task.resumed ? ' btn--resumed' : ''}`} aria-pressed={task.resumed} onClick={() => onResume(task)}>{task.resumed ? 'En tu lista de hoy' : 'Retomar hoy'}</button>
     </li>
   );
 }
@@ -103,7 +103,10 @@ export default function ProgresoPendientesPage() {
             {tasks.map((t) => <PendingTaskRow key={t.id} task={t} onResume={resumeTask} />)}
           </ul>
         ) : (
-          <p className="empty">{selectedDay.pending === 0 ? 'Día limpio: no quedó nada pendiente.' : 'No hay detalle de pendientes para este día.'}</p>
+          <div className="perfect-day">
+            <img src="/icons/dragon.png" alt="" />
+            <div><strong>Día perfecto</strong><span>Cerraste el día sin pendientes. 5/5 hábitos cumplidos.</span></div>
+          </div>
         )}
         <div className="side-stack">
           <DayProgressCard {...summary} />

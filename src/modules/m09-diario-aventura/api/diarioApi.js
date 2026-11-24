@@ -29,7 +29,7 @@ let activities = [
   { id: 'a-2', title: 'Meditar 10 min', type: 'enfoque', origin: 'habito', status: 'hecha', at: ago(0, 8, 30), durationMin: 10, points: 10, xp: 15, difficulty: 'Fácil' },
   { id: 'a-3', title: 'Sesión de enfoque · 25 min', type: 'enfoque', origin: 'sesion', status: 'hecha', at: ago(0, 16, 0), durationMin: 25, points: 15, xp: 23 },
   { id: 'a-4', title: 'Leer 20 páginas', type: 'cultura', origin: 'habito', status: 'pendiente', at: ago(0, 23, 59), durationMin: 30, points: 0, xp: 0, difficulty: 'Media' },
-  { id: 'a-5', title: 'Repasar álgebra', type: 'enfoque', origin: 'mision', status: 'hecha', at: ago(1, 17, 40), durationMin: 45, points: 50, xp: 75, validation: 'bloqueo' },
+  { id: 'a-5', title: 'Repasar álgebra', type: 'enfoque', origin: 'mision', status: 'hecha', at: ago(1, 17, 40), durationMin: 45, points: 50, xp: 75, difficulty: 'Media', validation: 'bloqueo' },
   { id: 'a-6', title: 'Caminar 8 000 pasos', type: 'fisico', origin: 'habito', status: 'hecha', at: ago(1, 20, 15), durationMin: 60, points: 10, xp: 15, difficulty: 'Fácil' },
   { id: 'a-7', title: 'Terminar novela', type: 'cultura', origin: 'mision', status: 'hecha', at: ago(3, 19, 22), durationMin: 60, points: 70, xp: 105, validation: 'manual' },
   { id: 'a-8', title: 'Preparar exposición', type: 'cultura', origin: 'mision', status: 'fallida', at: ago(4, 22, 10), durationMin: 50, points: 0, xp: 0, failReason: 'rendicion' },
@@ -72,7 +72,7 @@ function timelineOf(a) {
       : { label: { bloqueo: 'Completada con modo concentración', smartwatch: 'Validada con smartwatch', manual: 'Confirmada manualmente' }[a.validation], at: a.at, tone: 'bien' };
     return [
       { label: 'Creada', at: shift(a.at, -3 * 24 * 60 - 170), tone: 'bien' },
-      { label: 'Sesión iniciada', at: shift(a.at, -a.durationMin), tone: 'bien' },
+      { label: a.validation === 'bloqueo' ? 'Sesión de enfoque iniciada' : 'Sesión iniciada', at: shift(a.at, -a.durationMin), tone: 'bien' },
       end,
     ];
   }
@@ -128,43 +128,28 @@ export function deleteNote(activityId, noteId) {
 
 // ───────────── 9.3 Gráficas de actividades (RF030) ─────────────
 
-// Ruido determinista para simular el historial más allá de las actividades de arriba
-const rn = (seed, k) => {
-  const x = Math.sin(seed * 12.9898 + k * 78.233) * 43758.5453;
+// Ruido determinista del mock de referencia, estable entre ejecuciones.
+const rn = (seed, k, rangeIndex) => {
+  const x = Math.sin(seed * 12.9898 + k * 78.233 + rangeIndex * 7.7) * 43758.5453;
   return x - Math.floor(x);
 };
 const TYPES = ['cultura', 'fisico', 'enfoque'];
-const DAYS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 const MONTHS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
-const dayKey = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-
-// Actividades cumplidas en un día: las registradas más una base simulada
-function countsForDay(date) {
-  const seed = Math.floor(date.getTime() / 86_400_000);
-  const counts = Object.fromEntries(TYPES.map((t, k) => [t, Math.round(rn(seed, k) * [2.4, 1.8, 2.6][k])]));
-  activities
-    .filter((a) => a.status === 'hecha' && dayKey(new Date(a.at)) === dayKey(date))
-    .forEach((a) => { counts[a.type] += 1; });
-  return counts;
-}
-
 function buckets(range) {
-  const today = new Date();
-  today.setHours(12, 0, 0, 0);
-  if (range === 'anio') {
-    return Array.from({ length: today.getMonth() + 1 }, (_, m) => {
-      const seed = today.getFullYear() * 12 + m;
-      return { label: MONTHS[m], ...Object.fromEntries(TYPES.map((t, k) => [t, Math.round((0.5 + rn(seed, k)) * [24, 18, 26][k])])) };
-    });
-  }
-  const days = range === 'mes' ? 30 : 7;
-  return Array.from({ length: days }, (_, i) => {
-    const d = new Date(today);
-    d.setDate(today.getDate() - (days - 1 - i));
-    const label = i === days - 1 ? 'Hoy' : range === 'mes' ? (i % 5 === 0 ? String(d.getDate()) : '') : `${DAYS[d.getDay()]} ${d.getDate()}`;
-    return { label, ...countsForDay(d) };
-  });
+  const rangeIndex = { semana: 0, mes: 1, anio: 2 }[range] ?? 0;
+  const length = [7, 30, 10][rangeIndex];
+  const weekLabels = ['Vie 2', 'Sáb 3', 'Dom 4', 'Lun 5', 'Mar 6', 'Mié 7', 'Hoy'];
+  const labels = rangeIndex === 0
+    ? weekLabels
+    : rangeIndex === 1
+      ? Array.from({ length }, (_, i) => (i % 5 === 0 ? String(((i + 8) % 30) + 1) : ''))
+      : MONTHS.slice(0, length);
+  const multiplier = rangeIndex === 2 ? 16 : 1;
+  return Array.from({ length }, (_, i) => ({
+    label: labels[i],
+    ...Object.fromEntries(TYPES.map((type, k) => [type, Math.round((0.4 + rn(i, k, rangeIndex) * [2.6, 1.9, 2.9][k]) * multiplier)])),
+  }));
 }
 
 // RDF096 · consultarCumplimientoPorPeriodo — GET /api/v1/diario/graficas/cumplimiento?rango=semana|mes|anio

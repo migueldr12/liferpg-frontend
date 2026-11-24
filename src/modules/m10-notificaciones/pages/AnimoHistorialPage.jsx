@@ -10,13 +10,13 @@ const TABS = [
 ];
 
 /** Recibidos -> "Nuevo" / "Visto" · Enviados -> "Visto" / "Sin ver" */
-function MoodHistoryItem({ item }) {
+function MoodHistoryItem({ item, onSeen }) {
   const received = item.direction === 'received';
   const isNew = received && item.isNew;
-  const statusLabel = received ? (isNew ? 'Nuevo' : 'Visto') : item.seen ? 'Visto' : 'Sin ver';
+  const statusLabel = received ? (isNew ? 'Nuevo' : 'Visto') : 'Entregado';
   return (
-    <li className={`mood-item${isNew ? ' is-new' : ''}`}>
-      <PixelAvatar src={item.src} size={64} tone={item.tone} />
+    <li className={`mood-item${isNew ? ' is-new' : ''}`} onClick={() => isNew && onSeen(item.id)}>
+      <PixelAvatar size={64} tone={item.tone} variant={Number(item.id.slice(1))} />
       <div className="mood-item__body">
         <h3 className="mood-item__title">{item.title}</h3>
         <p className="mood-item__meta">{received ? 'de' : 'para'} {item.person} · {item.when}</p>
@@ -28,10 +28,10 @@ function MoodHistoryItem({ item }) {
 
 export default function AnimoHistorialPage() {
   const { user } = useLiteSession();
-  const { view, setView, items, newCount, sentCount, markAllSeen } = useHistorialAnimo();
+  const { view, setView, items, newCount, sentCount, markAllSeen, markSeen } = useHistorialAnimo();
 
   const viewTabs = [
-    { value: 'received', label: 'Recibidos', badge: newCount > 0 ? `${newCount} nuevos` : undefined },
+    { value: 'received', label: 'Recibidos', badge: newCount > 0 ? `${newCount} nuevos` : '0' },
     { value: 'sent', label: 'Enviados', badge: sentCount },
   ];
 
@@ -49,7 +49,7 @@ export default function AnimoHistorialPage() {
 
       {items.length > 0 ? (
         <ul className="history-grid" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {items.map((item) => <MoodHistoryItem key={item.id} item={item} />)}
+          {items.map((item) => <MoodHistoryItem key={item.id} item={item} onSeen={markSeen} />)}
         </ul>
       ) : (
         <p className="empty">Todavía no hay stickers aquí. Envía uno desde la pestaña Stickers.</p>

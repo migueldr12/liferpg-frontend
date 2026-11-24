@@ -1,9 +1,9 @@
 import React from 'react';
 import './lite.css';
 
-export function PixelAvatar({ src, alt = '', size = 40, tone = '#7b2cbf' }) {
-  return <span className="pixel-avatar" style={{ width: size, height: size, '--tone': tone }}>
-    {src ? <img src={src} alt={alt} /> : <span className="pixel-avatar__ph" aria-hidden="true" />}
+export function PixelAvatar({ src = '/icons/dragon.png', alt = '', size = 40, tone = '#7b2cbf', variant = 0 }) {
+  return <span className={`pixel-avatar pixel-avatar--v${variant % 3}`} style={{ width: size, height: size, '--tone': tone }}>
+    <img src={src} alt={alt} />
   </span>;
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../components/visualizador.css';
 
-//lo mismo, luego cambio icons
 export default function PerfilEspejoPage() {
   return (
     <div className="m07">
@@ -9,12 +9,12 @@ export default function PerfilEspejoPage() {
       <div className="m07-grid-espejo">
         <div className="m07-panel">
           <span className="m07-badge-solo-lectura"> Solo lectura</span>
-          <div className="m07-escena-tamagotchi">🐉</div>
+          <div className="m07-escena-tamagotchi"><img src="/icons/dragon.png" alt="Chispa, dragón de Diego" /></div>
           <div>
-            <h2>Miguel Duran</h2>
-            <p className="texto-suave">@miguel.d · Chispa (dragón) · amigos desde ago 2026</p>
+            <h2>Diego Ramírez <span className="m07-level">LV 12</span></h2>
+            <p className="texto-suave">@diego.r · Chispa (dragón) · amigos desde ago 2026</p>
             <div style={{ marginTop: '10px' }}>
-              <span>Hacia LV 19: 860 / 1400 XP</span>
+               <span>Hacia LV 13: 860 / 1400 XP</span>
               <div className="m07-barra-track" style={{ height: '8px', marginTop: '4px' }}>
                 <div className="m07-barra-fill cultura" style={{ width: '60%' }} />
               </div>
@@ -50,7 +50,7 @@ export default function PerfilEspejoPage() {
             <div className="m07-panel">
               <span className="m07-label">ROPA EQUIPADA</span>
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                <span className="m07-btn-secundario" style={{ fontSize: '11px' }}>Lentes de lectura</span>
+                 <span className="m07-btn-secundario" style={{ fontSize: '11px' }}>Lentes de lector</span>
                 <span className="m07-btn-secundario" style={{ fontSize: '11px' }}>Bufanda roja</span>
               </div>
             </div>
@@ -61,8 +61,8 @@ export default function PerfilEspejoPage() {
           </div>
 
           <div style={{ display: 'flex', gap: '12px' }}>
-            <button className="m07-btn-primario" style={{ flex: 1 }}> Enviar regalo</button>
-            <button className="m07-btn-secundario" style={{ flex: 1 }}> Mandar ánimo</button>
+             <Link className="m07-btn-primario m07-cta-link" style={{ flex: 1 }} to="/lite/botin/cofre">Enviar regalo</Link>
+             <Link className="m07-btn-secundario m07-cta-link" style={{ flex: 1 }} to="/lite/animo/stickers">Mandar ánimo</Link>
           </div>
         </div>
       </div>

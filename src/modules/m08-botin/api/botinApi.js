@@ -20,14 +20,14 @@ const ago = (days, hours = 12, minutes = 0) => {
 const minutesAgo = (minutes) => new Date(Date.now() - minutes * 60_000).toISOString();
 
 // Usuario actual y su party (los mismos amigos que usa el M12)
-export const ME = { id: 'u-me', name: 'Tú', fullName: 'Valeria', level: 14, avatar: '🐲', color: '#9c27b0' };
+export const ME = { id: 'u-me', name: 'Tú', fullName: 'Valeria', level: 14, avatar: '🐲', pet: 'dragon', color: '#9c27b0' };
 
 const FRIENDS = [
-  { id: 'u-ana', name: 'Ana', avatar: '🐳', color: '#29b6f6' },
-  { id: 'u-diego', name: 'Diego', avatar: '🦊', color: '#ff7043' },
-  { id: 'u-lucia', name: 'Lucía', avatar: '🐸', color: '#4caf50' },
-  { id: 'u-bruno', name: 'Bruno', avatar: '🦄', color: '#7e57c2' },
-  { id: 'u-mateo', name: 'Mateo', avatar: '🐺', color: '#90a4ae' },
+  { id: 'u-ana', name: 'Ana', avatar: '🐳', pet: 'gato', color: '#29b6f6' },
+  { id: 'u-diego', name: 'Diego', avatar: '🦊', pet: 'dragon', color: '#ff7043' },
+  { id: 'u-lucia', name: 'Lucía', avatar: '🐸', pet: 'leon', color: '#4caf50' },
+  { id: 'u-bruno', name: 'Bruno', avatar: '🦄', pet: 'leon', color: '#7e57c2' },
+  { id: 'u-mateo', name: 'Mateo', avatar: '🐺', pet: 'hamster', color: '#90a4ae' },
 ];
 const person = (id) => FRIENDS.find((f) => f.id === id);
 
@@ -183,6 +183,9 @@ export function getFriendChest(friendId) {
 // RDF083 · solicitarRegalo — POST /api/v1/botin/solicitudes
 export function requestGift({ friendId, itemId }) {
   if (!person(friendId)) return Promise.reject(new Error('Elige a qué amigo pedirle.'));
+  if (!(FRIEND_CHESTS[friendId] ?? []).some(([id]) => id === itemId)) {
+    return Promise.reject(new Error('Ese objeto ya no está en el cofre de tu amigo.'));
+  }
   const repeated = myRequests.some((r) => r.to === friendId && r.itemId === itemId && r.status === 'pendiente');
   if (repeated) return Promise.reject(new Error('Ya le pediste ese objeto; espera su respuesta.'));
   const request = { id: newId('p'), to: friendId, itemId, at: new Date().toISOString(), status: 'pendiente' };

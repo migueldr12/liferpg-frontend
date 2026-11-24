@@ -10,7 +10,7 @@ const ALL = { key: null, label: 'Todo' };
 // 9.1 Listado de actividades (RF028)
 export default function ActividadesPage() {
   const vm = useActividades();
-  const n = vm.rows.length;
+  const n = vm.total;
 
   return (
     <div className="m09">

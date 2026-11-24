@@ -3,6 +3,12 @@ import { METRIC_OPTIONS } from '../api/retosApi';
 import { AREAS, areaMeta, useRetos } from '../hooks/useRetos';
 import '../components/retos.css';
 
+const deadlineIn = (days) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().slice(0, 10);
+};
+
 // 12.1 Tablero de retos grupales (RF037)
 export default function RetosPage() {
   const vm = useRetos();
@@ -49,54 +55,34 @@ export default function RetosPage() {
               );
             })}
 
-            {/* Crear reto (RDF117) */}
-            {vm.form ? (
-              <form className="m12-panel m12-form" onSubmit={(e) => { e.preventDefault(); vm.saveForm(); }}>
-                <input placeholder="Nombre del reto" value={vm.form.title} autoFocus
-                  onChange={(e) => vm.setForm({ ...vm.form, title: e.target.value })} />
-                <div className="m12-fila">
-                  <select value={vm.form.type} onChange={(e) => vm.setForm({ ...vm.form, type: e.target.value })}>
-                    {AREAS.map((a) => <option key={a.key} value={a.key}>{a.label}</option>)}
-                  </select>
-                  <input type="date" value={vm.form.deadline} aria-label="Fecha límite"
-                    onChange={(e) => vm.setForm({ ...vm.form, deadline: e.target.value })} />
-                </div>
-                <div className="m12-fila">
-                  <input type="number" min="1" value={vm.form.goal} aria-label="Meta"
-                    onChange={(e) => vm.setForm({ ...vm.form, goal: e.target.value })} />
-                  <select value={vm.form.metric} aria-label="Qué se suma"
-                    onChange={(e) => vm.setForm({ ...vm.form, metric: e.target.value })}>
-                    {METRIC_OPTIONS.map((m) => <option key={m.key} value={m.key}>{m.label}</option>)}
-                  </select>
-                </div>
-                <span className="m12-label">Invitar amigos</span>
-                <div className="m12-invitados">
-                  {vm.friends.map((f) => (
-                    <label key={f.id} className={vm.form.invited.includes(f.id) ? 'm12-chip activo' : 'm12-chip'}>
-                      <input type="checkbox" checked={vm.form.invited.includes(f.id)} onChange={() => vm.toggleInvited(f.id)} />
-                      {f.avatar} {f.name}
-                    </label>
-                  ))}
-                </div>
-                <div className="m12-fila">
-                  <button type="submit" className="m12-btn-chico">Crear reto</button>
-                  <button type="button" className="m12-btn-texto" onClick={vm.closeForm}>Cancelar</button>
-                </div>
-              </form>
-            ) : (
-              <button className="m12-crear" onClick={vm.openForm}>+ Crear reto</button>
-            )}
+            <button className={vm.form ? 'm12-crear activo' : 'm12-crear'} onClick={vm.openForm}>+ Crear reto</button>
           </div>
 
           {/* Detalle del reto con la aportación de cada participante (RDF120) */}
-          {c && (
+          {vm.form ? (
+            <form className="m12-panel m12-form m12-form-derecha" onSubmit={(e) => { e.preventDefault(); vm.saveForm(); }}>
+              <div className="m12-detalle-head"><h2 className="titulo-pixel">Nuevo reto</h2><button type="button" className="m12-btn-texto" onClick={vm.closeForm}>Cancelar</button></div>
+              <label className="m12-label">Nombre<input value={vm.form.title} autoFocus onChange={(e) => vm.setForm({ ...vm.form, title: e.target.value })} /></label>
+              <div className="m12-fila">
+                <label className="m12-label">Tipo<select value={vm.form.type} onChange={(e) => vm.setForm({ ...vm.form, type: e.target.value })}>{AREAS.map((a) => <option key={a.key} value={a.key}>{a.label}</option>)}</select></label>
+                <label className="m12-label">Qué se suma<select value={vm.form.metric} onChange={(e) => vm.setForm({ ...vm.form, metric: e.target.value })}>{METRIC_OPTIONS.map((m) => <option key={m.key} value={m.key}>{m.label}</option>)}</select></label>
+              </div>
+              <span className="m12-label">Meta acumulada</span>
+              <div className="m12-opciones">{[20, 50, 100, 200].map((goal) => <button key={goal} type="button" className={Number(vm.form.goal) === goal ? 'activo' : ''} onClick={() => vm.setForm({ ...vm.form, goal })}>{goal}</button>)}</div>
+              <span className="m12-label">Plazo</span>
+              <div className="m12-opciones">{[['1 semana', 7], ['2 semanas', 14], ['1 mes', 30]].map(([label, days]) => <button key={label} type="button" className={vm.form.deadline === deadlineIn(days) ? 'activo' : ''} onClick={() => vm.setForm({ ...vm.form, deadline: deadlineIn(days) })}>{label}</button>)}</div>
+              <span className="m12-label">Invitar amigos</span>
+              <div className="m12-invitados">{vm.friends.map((f) => <label key={f.id} className={vm.form.invited.includes(f.id) ? 'm12-chip activo' : 'm12-chip'}><input type="checkbox" checked={vm.form.invited.includes(f.id)} onChange={() => vm.toggleInvited(f.id)} /><Avatar person={f} size={28} />{f.name}</label>)}</div>
+              <button type="submit" className="m12-btn-primario">Crear y enviar {vm.form.invited.length} invitaciones</button>
+            </form>
+          ) : c && (
             <section className="m12-panel">
               <div className="m12-detalle-head">
                 <div>
                   <h2 className="titulo-pixel">{c.title}</h2>
                   <p className="texto-suave">{areaMeta(c.type).label} · {c.participants.length} participantes · {c.closeText}</p>
                 </div>
-                {c.reward && <span className="m12-premio" title="Recompensa para todos al llegar a la meta (RDF121)">🎁 {c.reward}</span>}
+                {c.reward && <span className="m12-premio" title="Recompensa para todos al llegar a la meta (RDF121)">{c.reward}</span>}
               </div>
 
               <div className="m12-total">

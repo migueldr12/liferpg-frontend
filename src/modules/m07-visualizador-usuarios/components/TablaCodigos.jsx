@@ -3,7 +3,7 @@ import React from 'react';
 export const TablaCodigos = ({ codigos, onRevocar }) => {
   return (
     <section className="m07-panel">
-      <h2>Mis códigos</h2>
+      <div className="m07-table-head"><h2>Mis códigos</h2><span>{codigos.filter((item) => item.estado === 'Vigente').length} vigentes</span></div>
       <div style={{ overflowX: 'auto' }}>
         <table className="m07-tabla">
           <thead>
