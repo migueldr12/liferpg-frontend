@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { usaApi } from '../../../config/env';
 import { addNote, deleteNote, getActivity, updateNote } from '../api/diarioApi';
 import { formatDay, formatStamp, formatTime, originLabel, typeMeta } from './diarioFormat';
 
 // Hook de 9.2 Estado de actividad (RF029): detalle, recorrido y notas de seguimiento.
 
 // La última actividad abierta, para que la pestaña "Detalle" regrese a ella
-let lastViewedId = 'a-5';
+// (con datos simulados empieza en una de ejemplo; con el backend, en ninguna)
+let lastViewedId = usaApi('diario') ? null : 'a-5';
 export const getLastViewedId = () => lastViewedId;
 
 const VALIDATIONS = {
@@ -14,9 +16,13 @@ const VALIDATIONS = {
   manual: { label: 'Manual', banner: 'Validada manualmente: no hay dispositivo', icon: 'check', tone: 'cultura' },
 };
 
+const FAIL_REASONS = { rendicion: 'Te rendiste', salio_app: 'Saliste de la app' };
+
 const fourthField = (a) => {
-  if (a.origin === 'mision') return { label: 'Dificultad', value: a.difficulty ?? 'Media' };
-  if (a.origin === 'habito') return { label: 'Dificultad', value: a.difficulty };
+  // Las misiones no tienen dificultad: se muestra cómo se validaron o por qué fallaron
+  if (a.origin === 'mision' && a.status === 'fallida') return { label: 'Motivo', value: FAIL_REASONS[a.failReason] ?? '—' };
+  if (a.origin === 'mision') return { label: 'Validación', value: VALIDATIONS[a.validation]?.label ?? '—' };
+  if (a.origin === 'habito') return { label: 'Dificultad', value: a.difficulty ?? '—' };
   return { label: 'Bloqueo', value: 'Sí' };
 };
 
@@ -85,9 +91,13 @@ export function useDetalleActividad(id) {
 
   const remove = async (noteId) => {
     setError(null);
-    await deleteNote(id, noteId);
-    setNotes((list) => list.filter((n) => n.id !== noteId));
-    if (editing?.id === noteId) setEditing(null);
+    try {
+      await deleteNote(id, noteId);
+      setNotes((list) => list.filter((n) => n.id !== noteId));
+      if (editing?.id === noteId) setEditing(null);
+    } catch (e) {
+      setError(e.message);
+    }
   };
 
   const a = activity;
