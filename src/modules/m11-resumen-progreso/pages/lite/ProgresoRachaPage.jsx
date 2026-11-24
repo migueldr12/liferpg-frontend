@@ -86,7 +86,7 @@ export default function ProgresoRachaPage() {
         <div className="racha-right">
           <div className="scene" aria-label="Tu mascota">
             <p className="scene__bubble">{copy.bubble}</p>
-            <PixelAvatar size={140} tone="#8e24aa" variant={status === 'active' ? 0 : status === 'atRisk' ? 1 : 2} />
+            <PixelAvatar size="100%" name="Valeria" scene="forest" mood={status === 'active' ? 'joy' : status === 'atRisk' ? 'focus' : 'weak'} className="scene__mascot" label="Tu mascota en el bosque" />
           </div>
           <div className="stat-row">
             <div className="stat">

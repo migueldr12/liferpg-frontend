@@ -1,0 +1,1259 @@
+{
+  "schema": 1,
+  "description": "Assets de Life-RPG. Las claves son permanentes; las URLs son relativas a la raíz pública de cada cliente.",
+  "tones": {
+    "c1": "#D58BE3",
+    "c2": "#FF8A65",
+    "c3": "#4FC3F7",
+    "pt": "#D58BE3",
+    "gd": "#FFC107",
+    "ac": "#4CAF50",
+    "bd": "#36435A"
+  },
+  "colors": [
+    {
+      "key": "color.morado",
+      "name": "Morado dragón",
+      "hex": "#9C27B0",
+      "source": "mockup"
+    },
+    {
+      "key": "color.rubi",
+      "name": "Rubí",
+      "hex": "#C2185B",
+      "source": "mockup"
+    },
+    {
+      "key": "color.escarcha",
+      "name": "Escarcha",
+      "hex": "#2B8FD6",
+      "source": "mockup"
+    },
+    {
+      "key": "color.esmeralda",
+      "name": "Esmeralda",
+      "hex": "#2EA86B",
+      "source": "mockup",
+      "note": "color de Lucía; nombre nuevo"
+    },
+    {
+      "key": "color.lavanda",
+      "name": "Lavanda",
+      "hex": "#7E57C2",
+      "source": "mockup",
+      "note": "color de Bruno; nombre nuevo"
+    },
+    {
+      "key": "color.brasa",
+      "name": "Brasa",
+      "hex": "#E0533D",
+      "source": "mockup",
+      "note": "color de Diego; nombre nuevo"
+    },
+    {
+      "key": "color.ambar",
+      "name": "Ámbar",
+      "hex": "#F28C28",
+      "source": "mockup",
+      "note": "color de Mateo; nombre nuevo"
+    }
+  ],
+  "assets": [
+    {
+      "key": "mascot.dragon.morado",
+      "kind": "mascot",
+      "name": "Dragón Morado dragón",
+      "url": "/catalog/mascots/dragon-morado.svg",
+      "mimeType": "image/svg+xml",
+      "color": "#9C27B0",
+      "source": "mockup"
+    },
+    {
+      "key": "mascot.dragon.rubi",
+      "kind": "mascot",
+      "name": "Dragón Rubí",
+      "url": "/catalog/mascots/dragon-rubi.svg",
+      "mimeType": "image/svg+xml",
+      "color": "#C2185B",
+      "source": "mockup"
+    },
+    {
+      "key": "mascot.dragon.escarcha",
+      "kind": "mascot",
+      "name": "Dragón Escarcha",
+      "url": "/catalog/mascots/dragon-escarcha.svg",
+      "mimeType": "image/svg+xml",
+      "color": "#2B8FD6",
+      "source": "mockup"
+    },
+    {
+      "key": "mascot.dragon.esmeralda",
+      "kind": "mascot",
+      "name": "Dragón Esmeralda",
+      "url": "/catalog/mascots/dragon-esmeralda.svg",
+      "mimeType": "image/svg+xml",
+      "color": "#2EA86B",
+      "source": "mockup"
+    },
+    {
+      "key": "mascot.dragon.lavanda",
+      "kind": "mascot",
+      "name": "Dragón Lavanda",
+      "url": "/catalog/mascots/dragon-lavanda.svg",
+      "mimeType": "image/svg+xml",
+      "color": "#7E57C2",
+      "source": "mockup"
+    },
+    {
+      "key": "mascot.dragon.brasa",
+      "kind": "mascot",
+      "name": "Dragón Brasa",
+      "url": "/catalog/mascots/dragon-brasa.svg",
+      "mimeType": "image/svg+xml",
+      "color": "#E0533D",
+      "source": "mockup"
+    },
+    {
+      "key": "mascot.dragon.ambar",
+      "kind": "mascot",
+      "name": "Dragón Ámbar",
+      "url": "/catalog/mascots/dragon-ambar.svg",
+      "mimeType": "image/svg+xml",
+      "color": "#F28C28",
+      "source": "mockup"
+    },
+    {
+      "key": "mascot.dragon.debilitado",
+      "kind": "mascot",
+      "name": "Dragón debilitado",
+      "url": "/catalog/mascots/dragon-debilitado.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "item.boina-pintor",
+      "kind": "item-icon",
+      "name": "Boina de pintor",
+      "url": "/catalog/items/boina-pintor.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "pt",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.boina-pintor",
+      "kind": "outfit-preview",
+      "name": "Boina de pintor",
+      "url": "/catalog/outfits/boina-pintor.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.boina-pintor",
+      "source": "mockup"
+    },
+    {
+      "key": "item.lentes-lector",
+      "kind": "item-icon",
+      "name": "Lentes de lector",
+      "url": "/catalog/items/lentes-lector.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c1",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.lentes-lector",
+      "kind": "outfit-preview",
+      "name": "Lentes de lector",
+      "url": "/catalog/outfits/lentes-lector.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.lentes-lector",
+      "source": "mockup"
+    },
+    {
+      "key": "item.bufanda-roja",
+      "kind": "item-icon",
+      "name": "Bufanda roja",
+      "url": "/catalog/items/bufanda-roja.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c2",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.bufanda-roja",
+      "kind": "outfit-preview",
+      "name": "Bufanda roja",
+      "url": "/catalog/outfits/bufanda-roja.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.bufanda-roja",
+      "source": "mockup"
+    },
+    {
+      "key": "item.libro-aventuras",
+      "kind": "item-icon",
+      "name": "Libro de aventuras",
+      "url": "/catalog/items/libro-aventuras.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c1",
+      "source": "nuevo"
+    },
+    {
+      "key": "outfit.libro-aventuras",
+      "kind": "outfit-preview",
+      "name": "Libro de aventuras",
+      "url": "/catalog/outfits/libro-aventuras.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.libro-aventuras",
+      "source": "nuevo"
+    },
+    {
+      "key": "item.corona-100-dias",
+      "kind": "item-icon",
+      "name": "Corona de 100 días",
+      "url": "/catalog/items/corona-100-dias.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "gd",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.corona-100-dias",
+      "kind": "outfit-preview",
+      "name": "Corona de 100 días",
+      "url": "/catalog/outfits/corona-100-dias.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.corona-100-dias",
+      "source": "mockup"
+    },
+    {
+      "key": "item.capa-erudito",
+      "kind": "item-icon",
+      "name": "Capa de erudito",
+      "url": "/catalog/items/capa-erudito.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c1",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.capa-erudito",
+      "kind": "outfit-preview",
+      "name": "Capa de erudito",
+      "url": "/catalog/outfits/capa-erudito.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.capa-erudito",
+      "source": "mockup"
+    },
+    {
+      "key": "item.tenis-alados",
+      "kind": "item-icon",
+      "name": "Tenis alados",
+      "url": "/catalog/items/tenis-alados.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c2",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.tenis-alados",
+      "kind": "outfit-preview",
+      "name": "Tenis alados",
+      "url": "/catalog/outfits/tenis-alados.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.tenis-alados",
+      "source": "mockup"
+    },
+    {
+      "key": "item.casco-zen",
+      "kind": "item-icon",
+      "name": "Casco zen",
+      "url": "/catalog/items/casco-zen.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c3",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.casco-zen",
+      "kind": "outfit-preview",
+      "name": "Casco zen",
+      "url": "/catalog/outfits/casco-zen.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.casco-zen",
+      "source": "mockup"
+    },
+    {
+      "key": "item.capa-viento",
+      "kind": "item-icon",
+      "name": "Capa de viento",
+      "url": "/catalog/items/capa-viento.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "pt",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.capa-viento",
+      "kind": "outfit-preview",
+      "name": "Capa de viento",
+      "url": "/catalog/outfits/capa-viento.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.capa-viento",
+      "source": "mockup"
+    },
+    {
+      "key": "item.marco-dorado",
+      "kind": "item-icon",
+      "name": "Marco dorado",
+      "url": "/catalog/items/marco-dorado.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "gd",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.marco-dorado",
+      "kind": "outfit-preview",
+      "name": "Marco dorado",
+      "url": "/catalog/outfits/marco-dorado.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.marco-dorado",
+      "source": "mockup"
+    },
+    {
+      "key": "item.fondo-bosque",
+      "kind": "item-icon",
+      "name": "Bosque",
+      "url": "/catalog/items/fondo-bosque.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "ac",
+      "source": "mockup"
+    },
+    {
+      "key": "outfit.fondo-bosque",
+      "kind": "outfit-preview",
+      "name": "Bosque",
+      "url": "/catalog/outfits/fondo-bosque.svg",
+      "mimeType": "image/svg+xml",
+      "item": "item.fondo-bosque",
+      "source": "mockup"
+    },
+    {
+      "key": "item.pocion-hp",
+      "kind": "item-icon",
+      "name": "Poción de HP",
+      "url": "/catalog/items/pocion-hp.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c2",
+      "source": "mockup"
+    },
+    {
+      "key": "item.doble-xp-24h",
+      "kind": "item-icon",
+      "name": "Doble XP · 24 h",
+      "url": "/catalog/items/doble-xp-24h.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "gd",
+      "source": "mockup"
+    },
+    {
+      "key": "item.escudo-racha",
+      "kind": "item-icon",
+      "name": "Escudo de racha",
+      "url": "/catalog/items/escudo-racha.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c3",
+      "source": "mockup"
+    },
+    {
+      "key": "item.pergamino-enfoque",
+      "kind": "item-icon",
+      "name": "Pergamino de enfoque",
+      "url": "/catalog/items/pergamino-enfoque.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c3",
+      "source": "mockup"
+    },
+    {
+      "key": "item.semilla-energia",
+      "kind": "item-icon",
+      "name": "Semilla de energía",
+      "url": "/catalog/items/semilla-energia.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "ac",
+      "source": "mockup"
+    },
+    {
+      "key": "item.carta-sellada",
+      "kind": "item-icon",
+      "name": "Carta sellada",
+      "url": "/catalog/items/carta-sellada.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "bd",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.animo.tu-puedes",
+      "kind": "sticker",
+      "name": "¡Tú puedes!",
+      "url": "/catalog/stickers/animo-tu-puedes.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.animo.un-paso-mas",
+      "kind": "sticker",
+      "name": "Un paso más",
+      "url": "/catalog/stickers/animo-un-paso-mas.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.animo.te-espero-manana",
+      "kind": "sticker",
+      "name": "Te espero mañana",
+      "url": "/catalog/stickers/animo-te-espero-manana.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.animo.respira-hondo",
+      "kind": "sticker",
+      "name": "Respira hondo",
+      "url": "/catalog/stickers/animo-respira-hondo.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.animo.vamos-juntos",
+      "kind": "sticker",
+      "name": "Vamos juntos",
+      "url": "/catalog/stickers/animo-vamos-juntos.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.animo.no-te-rindas",
+      "kind": "sticker",
+      "name": "No te rindas",
+      "url": "/catalog/stickers/animo-no-te-rindas.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.celebrar.nivel-arriba",
+      "kind": "sticker",
+      "name": "¡Nivel arriba!",
+      "url": "/catalog/stickers/celebrar-nivel-arriba.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.celebrar.racha-de-fuego",
+      "kind": "sticker",
+      "name": "Racha de fuego",
+      "url": "/catalog/stickers/celebrar-racha-de-fuego.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.celebrar.que-crack",
+      "kind": "sticker",
+      "name": "Qué crack",
+      "url": "/catalog/stickers/celebrar-que-crack.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.celebrar.mision-cumplida",
+      "kind": "sticker",
+      "name": "Misión cumplida",
+      "url": "/catalog/stickers/celebrar-mision-cumplida.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.celebrar.record-nuevo",
+      "kind": "sticker",
+      "name": "Récord nuevo",
+      "url": "/catalog/stickers/celebrar-record-nuevo.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.celebrar.asi-se-hace",
+      "kind": "sticker",
+      "name": "Así se hace",
+      "url": "/catalog/stickers/celebrar-asi-se-hace.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.descanso.hoy-toca-descansar",
+      "kind": "sticker",
+      "name": "Hoy toca descansar",
+      "url": "/catalog/stickers/descanso-hoy-toca-descansar.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.descanso.manana-vuelves",
+      "kind": "sticker",
+      "name": "Mañana vuelves",
+      "url": "/catalog/stickers/descanso-manana-vuelves.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.descanso.estoy-contigo",
+      "kind": "sticker",
+      "name": "Estoy contigo",
+      "url": "/catalog/stickers/descanso-estoy-contigo.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.descanso.sin-presion",
+      "kind": "sticker",
+      "name": "Sin presión",
+      "url": "/catalog/stickers/descanso-sin-presion.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.descanso.duerme-bien",
+      "kind": "sticker",
+      "name": "Duerme bien",
+      "url": "/catalog/stickers/descanso-duerme-bien.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "sticker.descanso.un-dia-a-la-vez",
+      "kind": "sticker",
+      "name": "Un día a la vez",
+      "url": "/catalog/stickers/descanso-un-dia-a-la-vez.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.lectura",
+      "kind": "category-icon",
+      "name": "Lectura",
+      "url": "/catalog/categories/lectura.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c1",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.ejercicio",
+      "kind": "category-icon",
+      "name": "Ejercicio",
+      "url": "/catalog/categories/ejercicio.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c2",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.estudio",
+      "kind": "category-icon",
+      "name": "Estudio",
+      "url": "/catalog/categories/estudio.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c3",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.ropa",
+      "kind": "category-icon",
+      "name": "Ropa",
+      "url": "/catalog/categories/ropa.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "pt",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.consumibles",
+      "kind": "category-icon",
+      "name": "Consumibles",
+      "url": "/catalog/categories/consumibles.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c2",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.temporada-otono",
+      "kind": "category-icon",
+      "name": "Temporada otoño",
+      "url": "/catalog/categories/temporada-otono.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "bd",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.exclusivos",
+      "kind": "category-icon",
+      "name": "Exclusivos",
+      "url": "/catalog/categories/exclusivos.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "gd",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.sticker-animo",
+      "kind": "category-icon",
+      "name": "Ánimo",
+      "url": "/catalog/categories/sticker-animo.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "pt",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.sticker-celebrar",
+      "kind": "category-icon",
+      "name": "Celebrar",
+      "url": "/catalog/categories/sticker-celebrar.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "gd",
+      "source": "mockup"
+    },
+    {
+      "key": "cat.sticker-descanso",
+      "kind": "category-icon",
+      "name": "Descanso",
+      "url": "/catalog/categories/sticker-descanso.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "ac",
+      "source": "mockup"
+    },
+    {
+      "key": "area.cultura",
+      "kind": "area-icon",
+      "name": "Cultura",
+      "url": "/catalog/areas/cultura.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c1",
+      "source": "mockup"
+    },
+    {
+      "key": "area.fisico",
+      "kind": "area-icon",
+      "name": "Físico",
+      "url": "/catalog/areas/fisico.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c2",
+      "source": "mockup"
+    },
+    {
+      "key": "area.enfoque",
+      "kind": "area-icon",
+      "name": "Enfoque",
+      "url": "/catalog/areas/enfoque.svg",
+      "mimeType": "image/svg+xml",
+      "tone": "c3",
+      "source": "mockup"
+    },
+    {
+      "key": "scene.forest",
+      "kind": "scene",
+      "name": "Bosque",
+      "url": "/catalog/scenes/forest.svg",
+      "mimeType": "image/svg+xml",
+      "source": "mockup"
+    },
+    {
+      "key": "scene.gold-frame",
+      "kind": "scene",
+      "name": "Marco dorado",
+      "url": "/catalog/scenes/gold-frame.svg",
+      "mimeType": "image/svg+xml",
+      "source": "nuevo"
+    },
+    {
+      "key": "legacy.pet.dragon",
+      "kind": "legacy-pet",
+      "name": "dragon",
+      "url": "/icons/dragon.png",
+      "mimeType": "image/png",
+      "source": "app móvil"
+    },
+    {
+      "key": "legacy.pet.gato",
+      "kind": "legacy-pet",
+      "name": "gato",
+      "url": "/icons/gato.png",
+      "mimeType": "image/png",
+      "source": "app móvil"
+    },
+    {
+      "key": "legacy.pet.perro",
+      "kind": "legacy-pet",
+      "name": "perro",
+      "url": "/icons/perro.png",
+      "mimeType": "image/png",
+      "source": "app móvil"
+    },
+    {
+      "key": "legacy.pet.hamster",
+      "kind": "legacy-pet",
+      "name": "hamster",
+      "url": "/icons/hamster.png",
+      "mimeType": "image/png",
+      "source": "app móvil"
+    },
+    {
+      "key": "legacy.pet.leon",
+      "kind": "legacy-pet",
+      "name": "leon",
+      "url": "/icons/leon.png",
+      "mimeType": "image/png",
+      "source": "app móvil"
+    }
+  ],
+  "categories": [
+    {
+      "key": "cat.lectura",
+      "name": "Lectura",
+      "type": "HABIT",
+      "iconKey": "cat.lectura"
+    },
+    {
+      "key": "cat.ejercicio",
+      "name": "Ejercicio",
+      "type": "HABIT",
+      "iconKey": "cat.ejercicio"
+    },
+    {
+      "key": "cat.estudio",
+      "name": "Estudio",
+      "type": "MISSION",
+      "iconKey": "cat.estudio"
+    },
+    {
+      "key": "cat.ropa",
+      "name": "Ropa",
+      "type": "STORE",
+      "iconKey": "cat.ropa"
+    },
+    {
+      "key": "cat.consumibles",
+      "name": "Consumibles",
+      "type": "STORE",
+      "iconKey": "cat.consumibles"
+    },
+    {
+      "key": "cat.temporada-otono",
+      "name": "Temporada otoño",
+      "type": "STORE",
+      "iconKey": "cat.temporada-otono"
+    },
+    {
+      "key": "cat.exclusivos",
+      "name": "Exclusivos",
+      "type": "STORE",
+      "iconKey": "cat.exclusivos"
+    },
+    {
+      "key": "cat.sticker-animo",
+      "name": "Ánimo",
+      "type": "STICKER",
+      "iconKey": "cat.sticker-animo"
+    },
+    {
+      "key": "cat.sticker-celebrar",
+      "name": "Celebrar",
+      "type": "STICKER",
+      "iconKey": "cat.sticker-celebrar"
+    },
+    {
+      "key": "cat.sticker-descanso",
+      "name": "Descanso",
+      "type": "STICKER",
+      "iconKey": "cat.sticker-descanso"
+    }
+  ],
+  "items": [
+    {
+      "key": "item.boina-pintor",
+      "name": "Boina de pintor",
+      "categoryKey": "cat.ropa",
+      "iconKey": "item.boina-pintor",
+      "previewKey": "outfit.boina-pintor",
+      "slot": "HEAD",
+      "pointType": null,
+      "minLevel": null,
+      "price": 120,
+      "giftable": false,
+      "rarity": "Raro",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Ropa"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.lentes-lector",
+      "name": "Lentes de lector",
+      "categoryKey": "cat.ropa",
+      "iconKey": "item.lentes-lector",
+      "previewKey": "outfit.lentes-lector",
+      "slot": "FACE",
+      "pointType": null,
+      "minLevel": null,
+      "price": 90,
+      "giftable": false,
+      "rarity": "Común",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Ropa"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.bufanda-roja",
+      "name": "Bufanda roja",
+      "categoryKey": "cat.temporada-otono",
+      "iconKey": "item.bufanda-roja",
+      "previewKey": "outfit.bufanda-roja",
+      "slot": "BODY",
+      "pointType": null,
+      "minLevel": null,
+      "price": 60,
+      "giftable": true,
+      "rarity": "Común",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Ropa",
+        "Otoño"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.libro-aventuras",
+      "name": "Libro de aventuras",
+      "categoryKey": "cat.ropa",
+      "iconKey": "item.libro-aventuras",
+      "previewKey": "outfit.libro-aventuras",
+      "slot": "BODY",
+      "pointType": null,
+      "minLevel": null,
+      "price": 80,
+      "giftable": false,
+      "rarity": "Común",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Ropa"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.corona-100-dias",
+      "name": "Corona de 100 días",
+      "categoryKey": "cat.exclusivos",
+      "iconKey": "item.corona-100-dias",
+      "previewKey": "outfit.corona-100-dias",
+      "slot": "HEAD",
+      "pointType": null,
+      "minLevel": null,
+      "price": 0,
+      "giftable": false,
+      "rarity": "Legendario",
+      "unlock": "Racha 100",
+      "unlimited": false,
+      "tags": [
+        "Exclusivo",
+        "No regalable"
+      ],
+      "group": "exclusivos"
+    },
+    {
+      "key": "item.capa-erudito",
+      "name": "Capa de erudito",
+      "categoryKey": "cat.exclusivos",
+      "iconKey": "item.capa-erudito",
+      "previewKey": "outfit.capa-erudito",
+      "slot": "BODY",
+      "pointType": "CULTURE",
+      "minLevel": 20,
+      "price": 0,
+      "giftable": false,
+      "rarity": "Épico",
+      "unlock": "Cultura LV 20",
+      "unlimited": false,
+      "tags": [
+        "Exclusivo"
+      ],
+      "group": "exclusivos"
+    },
+    {
+      "key": "item.tenis-alados",
+      "name": "Tenis alados",
+      "categoryKey": "cat.exclusivos",
+      "iconKey": "item.tenis-alados",
+      "previewKey": "outfit.tenis-alados",
+      "slot": "BODY",
+      "pointType": "PHYSICAL",
+      "minLevel": 20,
+      "price": 0,
+      "giftable": false,
+      "rarity": "Épico",
+      "unlock": "Físico LV 20",
+      "unlimited": false,
+      "tags": [
+        "Exclusivo"
+      ],
+      "group": "exclusivos"
+    },
+    {
+      "key": "item.casco-zen",
+      "name": "Casco zen",
+      "categoryKey": "cat.exclusivos",
+      "iconKey": "item.casco-zen",
+      "previewKey": "outfit.casco-zen",
+      "slot": "HEAD",
+      "pointType": "FOCUS",
+      "minLevel": 20,
+      "price": 0,
+      "giftable": false,
+      "rarity": "Épico",
+      "unlock": "Enfoque LV 20",
+      "unlimited": false,
+      "tags": [
+        "Exclusivo"
+      ],
+      "group": "exclusivos"
+    },
+    {
+      "key": "item.capa-viento",
+      "name": "Capa de viento",
+      "categoryKey": "cat.exclusivos",
+      "iconKey": "item.capa-viento",
+      "previewKey": "outfit.capa-viento",
+      "slot": "BODY",
+      "pointType": null,
+      "minLevel": null,
+      "price": 0,
+      "giftable": false,
+      "rarity": "Épico",
+      "unlock": "Reto grupal",
+      "unlimited": false,
+      "tags": [
+        "Recompensa reto"
+      ],
+      "group": "exclusivos"
+    },
+    {
+      "key": "item.marco-dorado",
+      "name": "Marco dorado",
+      "categoryKey": "cat.exclusivos",
+      "iconKey": "item.marco-dorado",
+      "previewKey": "outfit.marco-dorado",
+      "slot": "BACKGROUND",
+      "pointType": null,
+      "minLevel": null,
+      "price": 0,
+      "giftable": false,
+      "rarity": "Legendario",
+      "unlock": "Top 1 semanal",
+      "unlimited": false,
+      "tags": [
+        "Exclusivo"
+      ],
+      "group": "exclusivos"
+    },
+    {
+      "key": "item.fondo-bosque",
+      "name": "Bosque",
+      "categoryKey": "cat.ropa",
+      "iconKey": "item.fondo-bosque",
+      "previewKey": "outfit.fondo-bosque",
+      "slot": "BACKGROUND",
+      "pointType": null,
+      "minLevel": null,
+      "price": 0,
+      "giftable": false,
+      "rarity": "Común",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Predeterminado"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.pocion-hp",
+      "name": "Poción de HP",
+      "categoryKey": "cat.consumibles",
+      "iconKey": "item.pocion-hp",
+      "previewKey": null,
+      "slot": null,
+      "pointType": null,
+      "minLevel": null,
+      "price": 40,
+      "giftable": true,
+      "rarity": "Común",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Consumible",
+        "Cofre"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.doble-xp-24h",
+      "name": "Doble XP · 24 h",
+      "categoryKey": "cat.consumibles",
+      "iconKey": "item.doble-xp-24h",
+      "previewKey": null,
+      "slot": null,
+      "pointType": null,
+      "minLevel": null,
+      "price": 350,
+      "giftable": true,
+      "rarity": "Épico",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Potenciador",
+        "Cofre"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.escudo-racha",
+      "name": "Escudo de racha",
+      "categoryKey": "cat.consumibles",
+      "iconKey": "item.escudo-racha",
+      "previewKey": null,
+      "slot": null,
+      "pointType": null,
+      "minLevel": null,
+      "price": 200,
+      "giftable": true,
+      "rarity": "Raro",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Consumible",
+        "Cofre"
+      ],
+      "group": "tienda"
+    },
+    {
+      "key": "item.pergamino-enfoque",
+      "name": "Pergamino de enfoque",
+      "categoryKey": "cat.consumibles",
+      "iconKey": "item.pergamino-enfoque",
+      "previewKey": null,
+      "slot": null,
+      "pointType": null,
+      "minLevel": null,
+      "price": 0,
+      "giftable": true,
+      "rarity": "Común",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Cofre"
+      ],
+      "group": "regalables"
+    },
+    {
+      "key": "item.semilla-energia",
+      "name": "Semilla de energía",
+      "categoryKey": "cat.consumibles",
+      "iconKey": "item.semilla-energia",
+      "previewKey": null,
+      "slot": null,
+      "pointType": null,
+      "minLevel": null,
+      "price": 0,
+      "giftable": true,
+      "rarity": "Común",
+      "unlock": null,
+      "unlimited": false,
+      "tags": [
+        "Cofre"
+      ],
+      "group": "regalables"
+    },
+    {
+      "key": "item.carta-sellada",
+      "name": "Carta sellada",
+      "categoryKey": null,
+      "iconKey": "item.carta-sellada",
+      "previewKey": null,
+      "slot": null,
+      "pointType": null,
+      "minLevel": null,
+      "price": 0,
+      "giftable": true,
+      "rarity": "Carta",
+      "unlock": null,
+      "unlimited": true,
+      "tags": [
+        "Ilimitado"
+      ],
+      "group": "regalables"
+    }
+  ],
+  "stickers": [
+    {
+      "key": "sticker.animo.tu-puedes",
+      "name": "¡Tú puedes!",
+      "categoryKey": "cat.sticker-animo",
+      "iconKey": "sticker.animo.tu-puedes",
+      "mood": "joy",
+      "acc": "",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.animo.un-paso-mas",
+      "name": "Un paso más",
+      "categoryKey": "cat.sticker-animo",
+      "iconKey": "sticker.animo.un-paso-mas",
+      "mood": "focus",
+      "acc": "beret",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.animo.te-espero-manana",
+      "name": "Te espero mañana",
+      "categoryKey": "cat.sticker-animo",
+      "iconKey": "sticker.animo.te-espero-manana",
+      "mood": "happy",
+      "acc": "",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.animo.respira-hondo",
+      "name": "Respira hondo",
+      "categoryKey": "cat.sticker-animo",
+      "iconKey": "sticker.animo.respira-hondo",
+      "mood": "focus",
+      "acc": "glasses",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.animo.vamos-juntos",
+      "name": "Vamos juntos",
+      "categoryKey": "cat.sticker-animo",
+      "iconKey": "sticker.animo.vamos-juntos",
+      "mood": "happy",
+      "acc": "beret",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.animo.no-te-rindas",
+      "name": "No te rindas",
+      "categoryKey": "cat.sticker-animo",
+      "iconKey": "sticker.animo.no-te-rindas",
+      "mood": "joy",
+      "acc": "book",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.celebrar.nivel-arriba",
+      "name": "¡Nivel arriba!",
+      "categoryKey": "cat.sticker-celebrar",
+      "iconKey": "sticker.celebrar.nivel-arriba",
+      "mood": "joy",
+      "acc": "beret",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.celebrar.racha-de-fuego",
+      "name": "Racha de fuego",
+      "categoryKey": "cat.sticker-celebrar",
+      "iconKey": "sticker.celebrar.racha-de-fuego",
+      "mood": "joy",
+      "acc": "",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.celebrar.que-crack",
+      "name": "Qué crack",
+      "categoryKey": "cat.sticker-celebrar",
+      "iconKey": "sticker.celebrar.que-crack",
+      "mood": "happy",
+      "acc": "glasses",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.celebrar.mision-cumplida",
+      "name": "Misión cumplida",
+      "categoryKey": "cat.sticker-celebrar",
+      "iconKey": "sticker.celebrar.mision-cumplida",
+      "mood": "happy",
+      "acc": "book",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.celebrar.record-nuevo",
+      "name": "Récord nuevo",
+      "categoryKey": "cat.sticker-celebrar",
+      "iconKey": "sticker.celebrar.record-nuevo",
+      "mood": "joy",
+      "acc": "beret glasses",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.celebrar.asi-se-hace",
+      "name": "Así se hace",
+      "categoryKey": "cat.sticker-celebrar",
+      "iconKey": "sticker.celebrar.asi-se-hace",
+      "mood": "happy",
+      "acc": "",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.descanso.hoy-toca-descansar",
+      "name": "Hoy toca descansar",
+      "categoryKey": "cat.sticker-descanso",
+      "iconKey": "sticker.descanso.hoy-toca-descansar",
+      "mood": "weak",
+      "acc": "",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.descanso.manana-vuelves",
+      "name": "Mañana vuelves",
+      "categoryKey": "cat.sticker-descanso",
+      "iconKey": "sticker.descanso.manana-vuelves",
+      "mood": "happy",
+      "acc": "beret",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.descanso.estoy-contigo",
+      "name": "Estoy contigo",
+      "categoryKey": "cat.sticker-descanso",
+      "iconKey": "sticker.descanso.estoy-contigo",
+      "mood": "happy",
+      "acc": "",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.descanso.sin-presion",
+      "name": "Sin presión",
+      "categoryKey": "cat.sticker-descanso",
+      "iconKey": "sticker.descanso.sin-presion",
+      "mood": "focus",
+      "acc": "book",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.descanso.duerme-bien",
+      "name": "Duerme bien",
+      "categoryKey": "cat.sticker-descanso",
+      "iconKey": "sticker.descanso.duerme-bien",
+      "mood": "weak",
+      "acc": "beret",
+      "group": "stickers"
+    },
+    {
+      "key": "sticker.descanso.un-dia-a-la-vez",
+      "name": "Un día a la vez",
+      "categoryKey": "cat.sticker-descanso",
+      "iconKey": "sticker.descanso.un-dia-a-la-vez",
+      "mood": "focus",
+      "acc": "",
+      "group": "stickers"
+    }
+  ]
+}

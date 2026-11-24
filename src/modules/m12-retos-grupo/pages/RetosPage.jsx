@@ -1,3 +1,4 @@
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import Avatar from '../components/Avatar';
 import { METRIC_OPTIONS } from '../api/retosApi';
 import { AREAS, areaMeta, useRetos } from '../hooks/useRetos';
@@ -45,7 +46,7 @@ export default function RetosPage() {
                 <button key={r.id} className={r.id === vm.selected?.id ? 'm12-reto activo' : 'm12-reto'}
                   onClick={() => vm.setSelectedId(r.id)}>
                   <span className="m12-reto-top">
-                    <span className="m12-area-icon" style={{ background: meta.color }}>{meta.icon}</span>
+                    <span className="m12-area-icon" style={{ background: meta.color }}><CatalogIcon icon={meta.icon} size={14} /></span>
                     <strong>{r.title}</strong>
                     <b className="titulo-pixel">{r.percent}%</b>
                   </span>

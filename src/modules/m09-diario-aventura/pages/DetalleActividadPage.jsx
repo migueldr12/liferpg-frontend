@@ -1,3 +1,5 @@
+import { Icon } from '../../../shared/components/Icon';
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import { Link, useParams } from 'react-router-dom';
 import { OriginTag, StatusTag, TypeTag } from '../components/Tags';
 import { pointsText } from '../hooks/diarioFormat';
@@ -42,7 +44,7 @@ export default function DetalleActividadPage() {
           {/* Detalle y puntos (RDF093) */}
           <section className="m09-panel">
             <div className="m09-ficha">
-              <span className="m09-icono grande" style={{ background: a.meta.color }} aria-hidden="true">{a.meta.icon}</span>
+              <span className="m09-icono grande" style={{ background: a.meta.color }} aria-hidden="true"><CatalogIcon icon={a.meta.icon} size={26} /></span>
               <div>
                 <h2 className="titulo-pixel">{a.title}</h2>
                 <div className="m09-tags">
@@ -83,7 +85,7 @@ export default function DetalleActividadPage() {
               ))}
             </ol>
 
-            <p className={`m09-aviso ${a.banner.tone}`}><span aria-hidden="true">{a.banner.icon}</span> {a.banner.text}</p>
+            <p className={`m09-aviso ${a.banner.tone}`}><span aria-hidden="true"><Icon name={a.banner.icon} size={15} /></span> {a.banner.text}</p>
           </section>
 
           {/* Notas de seguimiento (RDF094 · RDF095) */}
@@ -112,8 +114,8 @@ export default function DetalleActividadPage() {
                         <span className="titulo-pixel m09-oro">{n.when}</span>
                         {vm.editing?.id !== n.id && (
                           <span className="m09-fila">
-                            <button type="button" className="m09-btn-icono" aria-label="Editar nota" onClick={() => vm.startEdit(n)}>✏️</button>
-                            <button type="button" className="m09-btn-icono peligro" aria-label="Eliminar nota" onClick={() => vm.remove(n.id)}>🗑️</button>
+                            <button type="button" className="m09-btn-icono" aria-label="Editar nota" onClick={() => vm.startEdit(n)}><Icon name="edit" size={15} /></button>
+                            <button type="button" className="m09-btn-icono peligro" aria-label="Eliminar nota" onClick={() => vm.remove(n.id)}><Icon name="trash" size={15} /></button>
                           </span>
                         )}
                       </div>

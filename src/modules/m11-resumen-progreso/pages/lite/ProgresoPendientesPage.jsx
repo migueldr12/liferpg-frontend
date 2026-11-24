@@ -1,3 +1,5 @@
+import { PixelMascot } from '../../../../shared/components/PixelMascot';
+import { DEMO_PARTY } from '../../../../shared/assets/demoParty';
 import React from 'react';
 import { Icon } from '../../../../shared/components/Icon';
 import LiteLayout from '../../components/lite/LiteShell';
@@ -104,7 +106,7 @@ export default function ProgresoPendientesPage() {
           </ul>
         ) : (
           <div className="perfect-day">
-            <img src="/icons/dragon.png" alt="" />
+            <PixelMascot {...DEMO_PARTY.valeria} mood="joy" width={44} height={42} />
             <div><strong>Día perfecto</strong><span>Cerraste el día sin pendientes. 5/5 hábitos cumplidos.</span></div>
           </div>
         )}

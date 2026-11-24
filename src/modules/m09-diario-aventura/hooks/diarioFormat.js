@@ -1,9 +1,9 @@
 // Constantes y formatos que comparten los hooks del M09.
 
 export const TYPES = [
-  { key: 'cultura', label: 'Cultura', short: 'CUL', icon: '📖', color: 'var(--cultura)' },
-  { key: 'fisico', label: 'Físico', short: 'FÍS', icon: '🏋️', color: 'var(--fisico)' },
-  { key: 'enfoque', label: 'Enfoque', short: 'ENF', icon: '🎯', color: 'var(--enfoque)' },
+  { key: 'cultura', label: 'Cultura', short: 'CUL', icon: 'area.cultura', color: 'var(--cultura)' },
+  { key: 'fisico', label: 'Físico', short: 'FÍS', icon: 'area.fisico', color: 'var(--fisico)' },
+  { key: 'enfoque', label: 'Enfoque', short: 'ENF', icon: 'area.enfoque', color: 'var(--enfoque)' },
 ];
 export const typeMeta = (key) => TYPES.find((t) => t.key === key) ?? TYPES[0];
 

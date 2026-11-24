@@ -1,3 +1,4 @@
+import { PixelMascot } from '../../../shared/components/PixelMascot';
 import { MESSAGE_MAX, TITLE_MAX, usePush } from '../hooks/usePush';
 import '../components/economia.css';
 
@@ -54,7 +55,7 @@ export default function PushPage() {
           <div className="m14-phone-time titulo-pixel">{time}</div>
           <div className="m14-phone-date">{now.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' })}</div>
           <div className="m14-notif">
-            <span className="m14-notif-icon">🐉</span>
+            <span className="m14-notif-icon"><PixelMascot mood="joy" acc="beret" width={28} height={27} label="Life-RPG" /></span>
             <div>
               <small>LIFE-RPG · ahora</small>
               <strong>{vm.title || 'Título del aviso'}</strong>

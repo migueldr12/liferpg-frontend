@@ -1,11 +1,22 @@
 import React from 'react';
+import { PixelMascot } from '../../../shared/components/PixelMascot';
+import { demoMascot } from '../../../shared/assets/demoParty';
 import { NavLink } from 'react-router-dom';
 import './lite.css';
 
-export function PixelAvatar({ src = '/icons/dragon.png', alt = '', size = 40, tone = '#7b2cbf', variant = 0 }) {
+export function PixelAvatar({ size = 40, name, color, tone, mood, acc, scene = 'none', bg, label, className = '' }) {
+  const base = name ? demoMascot(name) : null;
   return (
-    <span className={`pixel-avatar pixel-avatar--v${variant % 6}`} style={{ width: size, height: size, '--tone': tone }}>
-      <img src={src} alt={alt} />
+    <span className={`pixel-avatar ${className}`} style={{ width: size, height: size, background: bg }}>
+      <PixelMascot
+        color={color ?? base?.color ?? tone}
+        mood={mood ?? base?.mood ?? 'happy'}
+        acc={acc ?? base?.acc ?? ''}
+        scene={scene}
+        width={scene === 'none' ? '86%' : '100%'}
+        height={scene === 'none' ? '82%' : '100%'}
+        label={label}
+      />
     </span>
   );
 }

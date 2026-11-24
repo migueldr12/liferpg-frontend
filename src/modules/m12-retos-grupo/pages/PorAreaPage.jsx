@@ -1,4 +1,6 @@
 import Avatar from '../components/Avatar';
+import { PixelMascot } from '../../../shared/components/PixelMascot';
+import { mascotFor } from '../../../shared/assets/demoParty';
 import { ME } from '../api/retosApi';
 import { AREAS, areaMeta } from '../hooks/useRetos';
 import { useActividadArea } from '../hooks/useActividadArea';
@@ -44,8 +46,8 @@ export default function PorAreaPage() {
         {vm.leader && (
           <aside className="m12-referente">
             <span className="m12-insignia">Referente en {meta.label}</span>
-            <div className="m12-escena" style={{ background: `linear-gradient(${vm.leader.color}55, var(--panel))` }}>
-              <Avatar person={vm.leader} size={120} />
+            <div className="m12-escena">
+              <PixelMascot {...mascotFor(vm.leader)} mood="joy" scene="forest" label={`Mascota de ${vm.leader.name} en el bosque`} />
             </div>
             <div className="m12-referente-pie">
               <div className="m12-detalle-head">

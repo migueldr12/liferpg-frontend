@@ -1,3 +1,5 @@
+import { Icon } from '../../../shared/components/Icon';
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import Avatar from '../components/Avatar';
 import RarityTag from '../components/RarityTag';
 import { qtyText } from '../hooks/botinFormat';
@@ -32,7 +34,7 @@ export default function CofrePage() {
                   <button key={i.id} type="button" disabled={!i.giftable} aria-pressed={active}
                     className={`m08-item${active ? ' activo' : ''}${!i.giftable ? ' bloqueado' : ''}`}
                     onClick={() => vm.pickItem(i)}>
-                    <span className="m08-item-icon" aria-hidden="true">{i.icon}</span>
+                    <CatalogIcon icon={i.icon} tile tileSize={38} />
                     <span className="m08-item-texto">
                       <strong>{i.name}</strong>
                       <span className="m08-item-tags">
@@ -48,7 +50,7 @@ export default function CofrePage() {
 
           {/* Enviar regalo (RDF082) */}
           <form className="m08-panel" onSubmit={(e) => { e.preventDefault(); vm.send(); }}>
-            <h2 className="titulo-pixel">🎁 Enviar regalo</h2>
+            <h2 className="titulo-pixel" style={{ display: 'flex', alignItems: 'center', gap: 10 }}><span className="catalog-tile" style={{ width: 32, height: 32, borderRadius: 9, background: 'var(--pu)', color: '#fff' }}><Icon name="gift" size={17} /></span>Enviar regalo</h2>
 
             <span className="m08-label" id="m08-para">Para</span>
             <div className="m08-amigos" role="group" aria-labelledby="m08-para">
@@ -65,7 +67,7 @@ export default function CofrePage() {
             <span className="m08-label">Objeto</span>
             {vm.selected ? (
               <div className="m08-objeto">
-                <span className="m08-item-icon" aria-hidden="true">{vm.selected.icon}</span>
+                <CatalogIcon icon={vm.selected.icon} tile tileSize={38} />
                 <span>
                   <strong>{vm.selected.name}</strong>
                   <small className="texto-suave">{giftNote(vm.selected)}</small>

@@ -1,16 +1,19 @@
-import { CATEGORY_TYPES, ICON_OPTIONS, ITEM_GROUPS, useCatalogo } from '../hooks/useCatalogo';
+import { Icon } from '../../../shared/components/Icon';
+import { CATEGORY_ICON_OPTIONS, CATEGORY_TYPES, ITEM_GROUPS, ITEM_ICON_OPTIONS, useCatalogo } from '../hooks/useCatalogo';
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
+import { getAsset } from '../../../shared/assets/registry';
 import '../components/economia.css';
 
 const typeLabel = (key) => CATEGORY_TYPES.find((t) => t.key === key)?.label ?? key;
 
 // Selector de ícono reutilizado por los dos formularios (RDF139)
-function IconPicker({ value, onChange }) {
+function IconPicker({ value, onChange, options }) {
   return (
     <div className="m14-icons">
-      {ICON_OPTIONS.map((icon) => (
+      {options.map((icon) => (
         <button key={icon} type="button" className={icon === value ? 'm14-icon activo' : 'm14-icon'}
-          onClick={() => onChange(icon)} aria-label={`Ícono ${icon}`}>
-          {icon}
+          onClick={() => onChange(icon)} aria-label={`Ícono ${getAsset(icon)?.name ?? icon}`} title={getAsset(icon)?.name}>
+          <CatalogIcon icon={icon} size={18} />
         </button>
       ))}
     </div>
@@ -46,7 +49,7 @@ export default function CatalogoPage() {
                   onChange={(e) => vm.setCategoryForm({ ...vm.categoryForm, type: e.target.value })}>
                   {CATEGORY_TYPES.map((t) => <option key={t.key} value={t.key}>{t.label}</option>)}
                 </select>
-                <IconPicker value={vm.categoryForm.icon} onChange={(icon) => vm.setCategoryForm({ ...vm.categoryForm, icon })} />
+                <IconPicker options={CATEGORY_ICON_OPTIONS} value={vm.categoryForm.icon} onChange={(icon) => vm.setCategoryForm({ ...vm.categoryForm, icon })} />
                 <div className="m14-row">
                   <button type="submit" className="m14-btn-chico">{vm.editingCategoryId ? 'Guardar' : 'Crear'}</button>
                   <button type="button" className="m14-btn-texto" onClick={vm.closeCategoryForm}>Cancelar</button>
@@ -57,14 +60,14 @@ export default function CatalogoPage() {
             <ul className="m14-categorias">
               {vm.categories.map((c) => (
                 <li key={c.id}>
-                  <span className="m14-cat-icon">{c.icon}</span>
+                  <CatalogIcon icon={c.icon} tile tileSize={30} size={16} />
                   <button className="m14-cat-body" onClick={() => vm.openEditCategory(c)} title="Editar">
                     <strong>{c.name}</strong>
                     <small>{typeLabel(c.type)} · {c.inUse > 0 ? `${c.inUse} en uso` : 'sin uso'}</small>
                   </button>
                   <button className="m14-btn-borrar" onClick={() => vm.removeCategory(c)} disabled={c.inUse > 0}
                     title={c.inUse > 0 ? 'No se puede eliminar: está en uso' : 'Eliminar'} aria-label={`Eliminar ${c.name}`}>
-                    🗑
+                    <Icon name="trash" size={15} />
                   </button>
                 </li>
               ))}
@@ -99,7 +102,7 @@ export default function CatalogoPage() {
                   <input placeholder="Etiqueta (p. ej. Ropa)" value={vm.itemForm.tag}
                     onChange={(e) => vm.setItemForm({ ...vm.itemForm, tag: e.target.value })} />
                 </div>
-                <IconPicker value={vm.itemForm.icon} onChange={(icon) => vm.setItemForm({ ...vm.itemForm, icon })} />
+                <IconPicker options={ITEM_ICON_OPTIONS} value={vm.itemForm.icon} onChange={(icon) => vm.setItemForm({ ...vm.itemForm, icon })} />
                 <div className="m14-row">
                   <button type="submit" className="m14-btn-chico">Agregar</button>
                   <button type="button" className="m14-btn-texto" onClick={vm.closeItemForm}>Cancelar</button>
@@ -111,10 +114,12 @@ export default function CatalogoPage() {
               {vm.visibleItems.map((item) => (
                 <article key={item.id} className={item.active ? 'm14-item' : 'm14-item inactivo'}>
                   <div className="m14-item-head">
-                    <span className="m14-item-icon">{item.icon}</span>
+                    {item.group === 'stickers'
+                      ? <span className="catalog-tile" style={{ width: 38, height: 38, borderRadius: 12, background: 'var(--surface-raised)', alignItems: 'flex-end', overflow: 'hidden' }}><CatalogIcon icon={item.icon} size={32} /></span>
+                      : <CatalogIcon icon={item.icon} tile tileSize={38} />}
                     <div>
                       <strong>{item.name}</strong>
-                      <small className="m14-precio">{item.price > 0 ? `${item.price} monedas` : 'Sin costo'}</small>
+                      <small className="m14-precio">{item.sub ?? (item.price > 0 ? `${item.price} monedas` : 'Sin costo')}</small>
                     </div>
                   </div>
                   <div className="m14-tags">

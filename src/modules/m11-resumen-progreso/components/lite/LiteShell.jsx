@@ -1,10 +1,23 @@
 import React from 'react';
+import { PixelMascot } from '../../../../shared/components/PixelMascot';
+import { demoMascot } from '../../../../shared/assets/demoParty';
 import './lite.css';
 
-export function PixelAvatar({ src = '/icons/dragon.png', alt = '', size = 40, tone = '#7b2cbf', variant = 0 }) {
-  return <span className={`pixel-avatar pixel-avatar--v${variant % 3}`} style={{ width: size, height: size, '--tone': tone }}>
-    <img src={src} alt={alt} />
-  </span>;
+export function PixelAvatar({ size = 40, name, color, tone, mood, acc, scene = 'none', bg, label, className = '' }) {
+  const base = name ? demoMascot(name) : null;
+  return (
+    <span className={`pixel-avatar ${className}`} style={{ width: size, height: size, background: bg }}>
+      <PixelMascot
+        color={color ?? base?.color ?? tone}
+        mood={mood ?? base?.mood ?? 'happy'}
+        acc={acc ?? base?.acc ?? ''}
+        scene={scene}
+        width={scene === 'none' ? '86%' : '100%'}
+        height={scene === 'none' ? '82%' : '100%'}
+        label={label}
+      />
+    </span>
+  );
 }
 
 export function SegmentedTabs({ items, value, onChange, ariaLabel, size }) {

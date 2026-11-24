@@ -1,6 +1,13 @@
 import React from 'react';
 import { Icon } from '../../../shared/components/Icon';
 import LiteLayout, { PixelAvatar, SegmentedTabs } from '../components/LiteShell';
+import { STICKERS } from '../../../shared/assets/registry';
+
+// Dibujo del sticker (estado + accesorio) con el color de la mascota de quien lo envía.
+const stickerLook = (title) => {
+  const st = STICKERS.find((x) => x.name.toLowerCase() === String(title).toLowerCase());
+  return st ? { mood: st.mood, acc: st.acc } : {};
+};
 import { useLiteSession, useHistorialAnimo } from '../hooks/useLite';
 
 const TABS = [
@@ -16,7 +23,7 @@ function MoodHistoryItem({ item, onSeen }) {
   const statusLabel = received ? (isNew ? 'Nuevo' : 'Visto') : 'Entregado';
   return (
     <li className={`mood-item${isNew ? ' is-new' : ''}`} onClick={() => isNew && onSeen(item.id)}>
-      <PixelAvatar size={64} tone={item.tone} variant={Number(item.id.slice(1))} />
+      <PixelAvatar size={64} name={item.person} {...stickerLook(item.title)} />
       <div className="mood-item__body">
         <h3 className="mood-item__title">{item.title}</h3>
         <p className="mood-item__meta">{received ? 'de' : 'para'} {item.person} · {item.when}</p>

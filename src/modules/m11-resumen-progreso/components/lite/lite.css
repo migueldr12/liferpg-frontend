@@ -26,11 +26,7 @@
 .player-badge__level { display: block; color: var(--yellow); font: 500 12px var(--font-pixel); }
 
 /* ---------- Avatar pixel ---------- */
-.pixel-avatar { display: inline-grid; place-items: center; flex: none; border-radius: 10px; border: 2px solid var(--surface-muted); background: color-mix(in srgb, var(--tone, #7b2cbf) 35%, var(--surface)); overflow: hidden; image-rendering: pixelated; }
-.pixel-avatar img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
-.pixel-avatar img { padding: 5%; filter: drop-shadow(0 4px 0 var(--tone)); }
-.pixel-avatar--v1 img { transform: scale(.9) rotate(-5deg); filter: hue-rotate(85deg) drop-shadow(0 4px 0 var(--tone)); }
-.pixel-avatar--v2 img { transform: scale(.86) translateY(6%); filter: grayscale(.7) drop-shadow(0 4px 0 var(--tone)); }
+.pixel-avatar { display: inline-flex; align-items: flex-end; justify-content: center; flex: none; border-radius: 12px; border: 2px solid var(--surface-muted); background: var(--surface-raised); overflow: hidden; box-sizing: border-box; }
 
 /* ---------- Tabs segmentadas ---------- */
 .progreso-lite .seg { display: inline-flex; gap: 4px; padding: 4px; background: var(--panel); border: 2px solid var(--line); border-radius: var(--radius); }
@@ -209,7 +205,10 @@
 .day21.is-on { background: var(--green); border-color: var(--green-deep); }
 .day21.is-today { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
-.scene { position: relative; display: grid; place-items: end center; min-height: 300px; padding-bottom: 16%; border: 2px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(#142a38 0 60%, #2f7d3a 60% 100%); }
+.scene { position: relative; min-height: 300px; border: 2px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: #24493f; }
+.scene { background: var(--surface); }
+.scene .scene__mascot { position: absolute; inset: 0 0 auto 0; width: 100% !important; height: auto !important; aspect-ratio: 64 / 36; border: 0; border-radius: 0; background: none; }
+.scene__bubble { z-index: 1; }
 .scene__bubble { position: absolute; top: 14px; left: 14px; right: 14px; padding: 10px 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--bg); font: 500 13px var(--font-pixel); }
 .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .stat { padding: 14px; border: 2px solid var(--line); border-radius: 14px; background: var(--panel); }

@@ -1,3 +1,4 @@
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import { Link } from 'react-router-dom';
 import FilterGroup from '../components/FilterGroup';
 import { OriginTag, StatusTag, TypeTag } from '../components/Tags';
@@ -44,7 +45,7 @@ export default function ActividadesPage() {
               <span className="titulo-pixel">{a.day}</span>
               <small className="texto-suave">{a.time}</small>
             </span>
-            <span className="m09-icono" style={{ background: typeMeta(a.type).color }} aria-hidden="true">{typeMeta(a.type).icon}</span>
+            <span className="m09-icono" style={{ background: typeMeta(a.type).color }} aria-hidden="true"><CatalogIcon icon={typeMeta(a.type).icon} size={16} /></span>
             <strong className="m09-titulo">{a.title}</strong>
             <span><TypeTag type={a.type} /></span>
             <span><OriginTag origin={a.origin} /></span>

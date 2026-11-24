@@ -1,3 +1,4 @@
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import { useMetricasGrupo } from '../hooks/useMetricasGrupo';
 import '../components/retos.css';
 
@@ -48,7 +49,7 @@ export default function MetricasPage() {
                     <span className="m12-col-grupo" style={{ height: `${r.group}%` }} title={`Grupo: ${r.groupText}`} />
                   </div>
                 </div>
-                <span className="m12-col-label"><span className="m12-area-icon" style={{ background: r.color }}>{r.icon}</span> {r.label}</span>
+                <span className="m12-col-label"><span className="m12-area-icon" style={{ background: r.color }}><CatalogIcon icon={r.icon} size={14} /></span> {r.label}</span>
               </div>
             ))}
           </div>
@@ -59,7 +60,7 @@ export default function MetricasPage() {
           {vm.rows.map((r) => (
             <section key={r.key} className="m12-panel m12-tarjeta">
               <div className="m12-detalle-head">
-                <strong><span className="m12-area-icon" style={{ background: r.color }}>{r.icon}</span> {r.label}</strong>
+                <strong><span className="m12-area-icon" style={{ background: r.color }}><CatalogIcon icon={r.icon} size={14} /></span> {r.label}</strong>
                 {r.hasData && (
                   <span className={r.diff >= 0 ? 'm12-pts sube' : 'm12-pts baja'}>{r.diff > 0 ? '+' : ''}{r.diff} pts</span>
                 )}

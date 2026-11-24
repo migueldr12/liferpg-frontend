@@ -1,3 +1,4 @@
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import Avatar from '../components/Avatar';
 import RarityTag from '../components/RarityTag';
 import { qtyText } from '../hooks/botinFormat';
@@ -31,7 +32,7 @@ export default function SolicitudesPage() {
                   <div className="m08-solicitud-texto">
                     <p>
                       <strong>{r.person.name}</strong> te pide{' '}
-                      <span className="m08-chip-item">{r.item.icon} {r.item.name}</span>{' '}
+                      <span className="m08-chip-item"><CatalogIcon icon={r.item.icon} size={14} /> {r.item.name}</span>{' '}
                       <small className="texto-suave">{r.when}</small>
                     </p>
                     <p className="texto-suave m08-cita">“{r.reason}”</p>
@@ -73,7 +74,7 @@ export default function SolicitudesPage() {
                 {vm.friendChest.map((i) => (
                   <label key={i.id} className={vm.askItem?.id === i.id ? 'm08-opcion activo' : 'm08-opcion'}>
                     <input type="radio" name="m08-pedir" checked={vm.askItem?.id === i.id} onChange={() => vm.setAskItemId(i.id)} />
-                    <span className="m08-item-icon chico" aria-hidden="true">{i.icon}</span>
+                    <CatalogIcon icon={i.icon} tile tileSize={30} size={16} />
                     <strong>{i.name}</strong>
                     <RarityTag rarity={i.rarity} />
                     <span className="m08-qty">{qtyText(i.qty)}</span>

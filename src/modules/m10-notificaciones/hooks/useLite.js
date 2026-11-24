@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { STICKERS as STICKER_CATALOG } from '../../../shared/assets/registry';
 
 /**
  * Hooks del perfil lite (módulo 10). Todo es MOCK por ahora:
@@ -12,15 +13,15 @@ export function useLiteSession() {
 
 // ───────────── Ánimo · Avisos ─────────────
 const OWN_ALERTS = [
-  { id: 'o1', title: 'Tu dragón te extraña', body: 'Ayer no registraste hábitos. Hoy aún puedes salvar la racha.', when: 'hoy 08:00', tone: '#9c27b0', variant: 0, pet: 'dragon', active: true },
-  { id: 'o2', title: 'Ana te mandó ánimo', body: '“¡Tú puedes!” tras tu aviso de inactividad.', when: 'hoy 09:12', tone: '#2b8fd6', variant: 1, pet: 'gato' },
-  { id: 'o3', title: 'De vuelta en ruta', body: 'Volviste a cumplir 3 de 4 hábitos. Aviso cerrado.', when: 'lun 5', tone: '#2ea86b', variant: 2, pet: 'dragon' },
+  { id: 'o1', title: 'Tu dragón te extraña', body: 'Ayer no registraste hábitos. Hoy aún puedes salvar la racha.', when: 'hoy 08:00', mood: 'weak', active: true },
+  { id: 'o2', title: 'Ana te mandó ánimo', body: '“¡Tú puedes!” tras tu aviso de inactividad.', when: 'hoy 09:12', mood: 'joy' },
+  { id: 'o3', title: 'De vuelta en ruta', body: 'Volviste a cumplir 3 de 4 hábitos. Aviso cerrado.', when: 'lun 5', mood: 'happy' },
 ];
 const QUICK_RESPONSES = ['¡Tú puedes!', 'Te espero mañana', 'Un paso más'];
 const NEEDS_SUPPORT = [
-  { id: 'camila', name: 'Camila', reason: '4 días sin registros', hint: 'Prioridad alta', tone: '#c2185b', variant: 3, pet: 'perro', week: [1, 1, 0, 0, 0, 0, 0] },
-  { id: 'mateo', name: 'Mateo', reason: '22 % de cumplimiento', hint: 'Baja actividad', tone: '#f28c28', variant: 4, pet: 'hamster', week: [1, 0, 1, 0, 0, 1, 0] },
-  { id: 'bruno', name: 'Bruno', reason: '2 días sin registros', hint: 'Sin registros recientes', tone: '#7e57c2', variant: 5, pet: 'leon', week: [1, 1, 1, 1, 1, 0, 0] },
+  { id: 'camila', name: 'Camila', reason: '4 días sin registros', hint: 'Prioridad alta', week: [1, 1, 0, 0, 0, 0, 0] },
+  { id: 'mateo', name: 'Mateo', reason: '22 % de cumplimiento', hint: 'Baja actividad', week: [1, 0, 1, 0, 0, 1, 0] },
+  { id: 'bruno', name: 'Bruno', reason: '2 días sin registros', hint: 'Sin registros recientes', week: [1, 1, 1, 1, 1, 0, 0] },
 ];
 
 export function useAvisosAnimo() {
@@ -43,18 +44,16 @@ const CATEGORIES = [
   { value: 'celebrar', label: 'Celebrar' },
   { value: 'descanso', label: 'Descanso' },
 ];
-const mk = (prefix, labels, tone) => labels.map((label, i) => ({ id: `${prefix}${i}`, label, tone, variant: i }));
-const STICKERS = {
-  animo: mk('a', ['¡Tú puedes!', 'Un paso más', 'Te espero mañana', 'Respira hondo', 'Vamos juntos', 'No te rindas'], '#9c27b0'),
-  celebrar: mk('c', ['¡Nivel arriba!', 'Racha de fuego', 'Qué crack', 'Misión cumplida', 'Récord nuevo', 'Así se hace'], '#f28c28'),
-  descanso: mk('d', ['Hoy toca descansar', 'Mañana vuelves', 'Estoy contigo', 'Sin presión', 'Duerme bien', 'Un día a la vez'], '#2b8fd6'),
-};
+// Los stickers salen del registro de assets (clave = catalogItem.icon en Mongo).
+const bySet = (set) => STICKER_CATALOG.filter((st) => st.key.startsWith(`sticker.${set}.`))
+  .map((st) => ({ id: st.key, key: st.key, label: st.name, mood: st.mood, acc: st.acc, bg: st.bg }));
+const STICKERS = { animo: bySet('animo'), celebrar: bySet('celebrar'), descanso: bySet('descanso') };
 const FRIENDS = [
-  { id: 'f1', name: 'Camila', status: 'inactiva 4 días', tone: '#c2185b', variant: 3, pet: 'perro' },
-  { id: 'f2', name: 'Mateo', status: 'baja actividad', tone: '#f28c28', variant: 4, pet: 'hamster' },
-  { id: 'f3', name: 'Ana', status: 'en línea', tone: '#2196f3', variant: 1, pet: 'gato' },
-  { id: 'f4', name: 'Diego', status: 'hace 2 h', tone: '#f4511e', variant: 2, pet: 'dragon' },
-  { id: 'f5', name: 'Lucía', status: 'en línea', tone: '#2e9e5b', variant: 5, pet: 'leon' },
+  { id: 'f1', name: 'Camila', status: 'inactiva 4 días', mood: 'weak' },
+  { id: 'f2', name: 'Mateo', status: 'baja actividad', mood: 'weak' },
+  { id: 'f3', name: 'Ana', status: 'en línea', mood: 'joy' },
+  { id: 'f4', name: 'Diego', status: 'hace 2 h', mood: 'happy' },
+  { id: 'f5', name: 'Lucía', status: 'en línea', mood: 'happy' },
 ];
 
 export function useStickersAnimo() {

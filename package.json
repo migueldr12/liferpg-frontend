@@ -7,6 +7,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "assets": "node scripts/generate-assets.mjs",
+    "prebuild": "node scripts/generate-assets.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

@@ -44,8 +44,9 @@ await withPage(async (page) => {
   await page.waitForTimeout(100);
   const after = await page.locator('.m07-card-amigo').count();
   if (after !== 5) throw new Error(`eliminar: esperaba 5, hay ${after}`);
-  const avatars = await page.locator('.m07-avatar-box img').evaluateAll((imgs) => imgs.map((i) => i.getAttribute('src')));
-  if (!avatars.some((s) => s && s.endsWith('.png'))) throw new Error('M07 sin avatares PNG');
+  // Avatares = sprite pixel-art del mockup (SVG en línea con su etiqueta).
+  const avatars = await page.locator('.m07-avatar-box svg[aria-label]').count();
+  if (avatars !== after) throw new Error(`M07 avatares pixel-art: ${avatars} de ${after}`);
 }, 'M07 filtros y eliminar amigo');
 
 // M08 · responder solicitud
@@ -63,8 +64,8 @@ await withPage(async (page) => {
   await page.waitForTimeout(300);
   const text = await page.locator('.m08').innerText();
   if (!/Enviado|Rechazada|notice|error/i.test(text)) throw new Error('sin estado tras responder');
-  const petSrc = await page.locator('.m08-avatar img').first().getAttribute('src');
-  if (!petSrc?.endsWith('.png')) throw new Error(`M08 avatar no PNG: ${petSrc}`);
+  const sprite = await page.locator('.m08-avatar svg rect').count();
+  if (sprite < 100) throw new Error(`M08 avatar sin sprite pixel-art (${sprite} rects)`);
 }, 'M08 responder solicitud');
 
 // M10 · Avisos → Stickers

@@ -1,3 +1,5 @@
+import { Icon } from '../../../shared/components/Icon';
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import Avatar from '../components/Avatar';
 import { DIRECTIONS, RANGES, useHistorialBotin } from '../hooks/useHistorialBotin';
 import '../components/botin.css';
@@ -35,7 +37,7 @@ export default function HistorialPage() {
           ))}
         </div>
         <div className="m08-tabs chicas m08-derecha" role="group" aria-label="Rango de fechas">
-          <span aria-hidden="true" className="m08-icono-filtro">📅</span>
+          <span aria-hidden="true" className="m08-icono-filtro"><Icon name="calendar" size={15} /></span>
           {RANGES.map((r) => (
             <button key={r.key} type="button" aria-pressed={vm.range === r.key}
               className={vm.range === r.key ? 'm08-tab activo' : 'm08-tab'} onClick={() => vm.setRange(r.key)}>
@@ -58,7 +60,7 @@ export default function HistorialPage() {
           <div key={h.id} className="m08-tabla-fila" role="row">
             <span role="cell" className="titulo-pixel texto-suave">{h.when}</span>
             <span role="cell"><span className={`m08-direccion ${h.direction}`}>{h.direction === 'enviado' ? '→ Enviado' : '← Recibido'}</span></span>
-            <span role="cell" className="m08-celda-item"><span className="m08-item-icon chico" aria-hidden="true">{h.item.icon}</span><strong>{h.item.name}</strong></span>
+            <span role="cell" className="m08-celda-item"><CatalogIcon icon={h.item.icon} tile tileSize={30} size={16} /><strong>{h.item.name}</strong></span>
             <span role="cell" className="m08-celda-item"><Avatar person={h.person} size={28} />{h.person.name}</span>
             <span role="cell" className="texto-suave m08-mensaje">{h.message || '—'}</span>
           </div>

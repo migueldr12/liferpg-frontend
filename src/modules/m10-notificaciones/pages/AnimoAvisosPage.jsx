@@ -4,7 +4,7 @@ import { useAvisosAnimo, useLiteSession } from '../hooks/useLite';
 function OwnAlert({ alert }) {
   return (
     <article className={`notice-card${alert.active ? ' is-active' : ''}`}>
-      <PixelAvatar size={48} tone={alert.tone} variant={alert.variant} src={`/icons/${alert.pet || 'dragon'}.png`} />
+      <PixelAvatar size={48} mood={alert.mood} />
       <div>
         <div className="notice-card__head"><strong>{alert.title}</strong><span>{alert.when}</span></div>
         <p>{alert.body}</p>
@@ -16,7 +16,7 @@ function OwnAlert({ alert }) {
 function SupportCard({ person, quickResponses, response, onRespond }) {
   return (
     <article className="support-card">
-      <PixelAvatar size={72} tone={person.tone} variant={person.variant} src={`/icons/${person.pet || 'dragon'}.png`} />
+      <PixelAvatar size={76} name={person.name} mood="weak" />
       <div className="support-card__person">
         <strong>{person.name}</strong>
         <span className="support-card__reason">{person.reason}</span>

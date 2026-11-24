@@ -23,16 +23,16 @@ contenido escondido detrás del dock o que requiere scroll.
 
 ## Diferencias transversales (afectan a todas o casi todas)
 
-1. **Avatar de cabecera**: PNG de dragón verde; el mockup usa el sprite pixel-art de "Mascota · Morado dragón".
-2. **Avatares de amigos/mascotas**: PNG (león, gato, perro, hámster); el mockup usa monstruos pixel-art de
-   colores (morado, azul, verde, rojo, naranja, gris para inactivos).
+1. ~~**Avatar de cabecera**~~ — **resuelto** (ver `docs/assets.md`): sprite "Morado dragón" con boina.
+2. ~~**Avatares de amigos/mascotas**~~ — **resuelto**: dragón pixel-art del mockup con el color,
+   accesorio y estado de cada amigo (M07, M08, M10, M11, M12).
 3. **Botón de tema (sol)** extra a la derecha de las pestañas; no existe en el mockup.
-4. **Dock inferior**: el ítem activo es un recuadro verde elevado; en el mockup todos los ítems son planos.
-   En admin el dock está desplazado a la derecha (mockup: centrado bajo el contenido).
-5. **Iconografía**: el PWA usa emojis (🧪 ⚡ 🛡️ 📖 🎯 🏋️ …) o letras ("C/F/E"); el mockup usa iconos de línea
-   dentro de un recuadro de color de la categoría.
-6. **Escenas de mascota**: el mockup pone a la mascota sobre un fondo de bosque pixel-art (02, 15, 18); el
-   PWA usa un recuadro plano.
+4. **Dock inferior** — *ambiguo*: el componente del mockup sí define el ítem activo como recuadro
+   verde elevado, pero las pantallas del mockup lo muestran plano. En admin el dock está desplazado
+   a la derecha (mockup: centrado bajo el contenido).
+5. ~~**Iconografía**~~ — **resuelto en M08, M09 y M14**: iconos de línea del mockup en recuadro de color
+   (`CatalogIcon`). Quedan letras "C/F/E" en M12.
+6. ~~**Escenas de mascota**~~ — **resuelto**: bosque pixel-art en 02, 15 y 18.
 7. **Densidad vertical**: cabecera ~10 px más alta, más padding en tarjetas → 22 de 27 pantallas exceden 714 px.
 8. **Admin (M13/M15)**: banner extra "Vista de demostración…" (~40 px) y las cifras/IP/tablas no usan la fuente
    monoespaciada del mockup.

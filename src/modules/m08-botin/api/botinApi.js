@@ -33,15 +33,15 @@ const person = (id) => FRIENDS.find((f) => f.id === id);
 
 // Catálogo de objetos regalables. En producción viene del catálogo del M14.
 const ITEMS = {
-  pocion: { name: 'Poción de HP', icon: '🧪', rarity: 'comun' },
-  doblexp: { name: 'Doble XP · 24 h', icon: '⚡', rarity: 'epico' },
-  boina: { name: 'Boina de pintor', icon: '🎨', rarity: 'raro' },
-  escudo: { name: 'Escudo de racha', icon: '🛡️', rarity: 'raro' },
-  pergamino: { name: 'Pergamino de enfoque', icon: '📜', rarity: 'comun' },
-  bufanda: { name: 'Bufanda roja', icon: '🧣', rarity: 'comun' },
-  corona: { name: 'Corona de 100 días', icon: '👑', rarity: 'legendario' },
-  semilla: { name: 'Semilla de energía', icon: '🌱', rarity: 'comun' },
-  carta: { name: 'Carta sellada', icon: '✉️', rarity: 'carta' },
+  pocion: { name: 'Poción de HP', icon: 'item.pocion-hp', rarity: 'comun' },
+  doblexp: { name: 'Doble XP · 24 h', icon: 'item.doble-xp-24h', rarity: 'epico' },
+  boina: { name: 'Boina de pintor', icon: 'item.boina-pintor', rarity: 'raro' },
+  escudo: { name: 'Escudo de racha', icon: 'item.escudo-racha', rarity: 'raro' },
+  pergamino: { name: 'Pergamino de enfoque', icon: 'item.pergamino-enfoque', rarity: 'comun' },
+  bufanda: { name: 'Bufanda roja', icon: 'item.bufanda-roja', rarity: 'comun' },
+  corona: { name: 'Corona de 100 días', icon: 'item.corona-100-dias', rarity: 'legendario' },
+  semilla: { name: 'Semilla de energía', icon: 'item.semilla-energia', rarity: 'comun' },
+  carta: { name: 'Carta sellada', icon: 'item.carta-sellada', rarity: 'carta' },
 };
 const item = (id) => ({ id, ...ITEMS[id] });
 

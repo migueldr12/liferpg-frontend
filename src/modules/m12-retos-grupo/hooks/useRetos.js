@@ -4,9 +4,9 @@ import { createChallenge, getChallenges, getFriends, getInvitations, respondInvi
 // Hook de 12.1 Tablero de retos grupales (RF037).
 
 export const AREAS = [
-  { key: 'cultura', label: 'Cultura', icon: 'C', color: 'var(--cultura)' },
-  { key: 'fisico', label: 'Físico', icon: 'F', color: 'var(--fisico)' },
-  { key: 'enfoque', label: 'Enfoque', icon: 'E', color: 'var(--enfoque)' },
+  { key: 'cultura', label: 'Cultura', icon: 'area.cultura', color: 'var(--cultura)' },
+  { key: 'fisico', label: 'Físico', icon: 'area.fisico', color: 'var(--fisico)' },
+  { key: 'enfoque', label: 'Enfoque', icon: 'area.enfoque', color: 'var(--enfoque)' },
 ];
 export const areaMeta = (key) => AREAS.find((a) => a.key === key) ?? AREAS[0];
 

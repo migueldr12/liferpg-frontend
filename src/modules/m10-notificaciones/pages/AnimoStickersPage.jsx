@@ -12,7 +12,7 @@ const TABS = [
 function StickerCard({ sticker, selected, onSelect }) {
   return (
     <button type="button" className={`sticker-card${selected ? ' is-selected' : ''}`} aria-pressed={selected} onClick={() => onSelect(sticker.id)}>
-      <PixelAvatar size={124} tone={sticker.tone} variant={sticker.variant} />
+      <PixelAvatar size={104} mood={sticker.mood} acc={sticker.acc} bg={sticker.bg} label={sticker.label} />
       {sticker.label}
     </button>
   );
@@ -26,7 +26,7 @@ function FriendRecipientList({ friends, selectedIds, onToggle }) {
         return (
           <label key={f.id} className={`friend${selected ? ' is-selected' : ''}`}>
             <input type="checkbox" checked={selected} onChange={() => onToggle(f.id)} />
-            <PixelAvatar size={38} tone={f.tone} variant={f.variant} src={`/icons/${f.pet || 'dragon'}.png`} />
+            <PixelAvatar size={36} name={f.name} mood={f.mood} />
             <span className="friend__info">
               <span className="friend__name">{f.name}</span>
               <span className="friend__status">{f.status}</span>

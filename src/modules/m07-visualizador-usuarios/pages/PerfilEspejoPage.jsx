@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../components/visualizador.css';
+import { PixelMascot } from '../../../shared/components/PixelMascot';
+import { DEMO_PARTY } from '../../../shared/assets/demoParty';
 
 export default function PerfilEspejoPage() {
   return (
@@ -9,7 +11,7 @@ export default function PerfilEspejoPage() {
       <div className="m07-grid-espejo">
         <div className="m07-panel">
           <span className="m07-badge-solo-lectura"> Solo lectura</span>
-          <div className="m07-escena-tamagotchi"><img src="/icons/dragon.png" alt="Chispa, dragón de Diego" /></div>
+          <div className="m07-escena-tamagotchi"><PixelMascot {...DEMO_PARTY.diego} scene="forest" label="Chispa, dragón de Diego, en el bosque" /></div>
           <div>
             <h2>Diego Ramírez <span className="m07-level">LV 12</span></h2>
             <p className="texto-suave">@diego.r · Chispa (dragón) · amigos desde ago 2026</p>

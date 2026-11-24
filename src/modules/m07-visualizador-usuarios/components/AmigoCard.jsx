@@ -1,4 +1,6 @@
 import React from 'react';
+import { PixelMascot } from '../../../shared/components/PixelMascot';
+import { demoMascot } from '../../../shared/assets/demoParty';
 export const AmigoCard = ({
   id,
   nombre,
@@ -6,7 +8,7 @@ export const AmigoCard = ({
   nivel,
   racha,
   estado,
-  pet = 'dragon',
+  mascot,
   stats,
   onVerPerfil,
   confirming,
@@ -17,7 +19,7 @@ export const AmigoCard = ({
   return (
     <div className="m07-card-amigo">
       <div className="m07-card-head">
-        <div className="m07-avatar-box"><img src={`/icons/${pet}.png`} alt="" /></div>
+        <div className="m07-avatar-box"><PixelMascot {...(mascot ?? demoMascot(nombre))} width={46} height={44} label={`Mascota de ${nombre}`} /></div>
         <div className="m07-card-info">
           <strong>{nombre}</strong> <span className="m07-pts sube">LV {nivel}</span>
           <p>{alias} · {estado}</p>

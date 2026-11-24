@@ -1,3 +1,4 @@
+import { CATEGORIES, ITEMS } from '../../../shared/assets/registry';
 import { useEffect, useMemo, useState } from 'react';
 import {
   createCategory,
@@ -25,11 +26,14 @@ export const ITEM_GROUPS = [
   { key: 'stickers', label: 'Stickers' },
 ];
 
-// Íconos disponibles (en producción se suben como imagen, RDF139)
-export const ICON_OPTIONS = ['📖', '🏋️', '🎯', '👕', '🧪', '⭐', '🍂', '🎨', '🛡️', '👓', '🧣', '⚡', '🎁', '💪', '🙌', '🧘', '👟', '🎵'];
+// Íconos disponibles: claves del registro de assets (RDF139). Cada clave existe como
+// `icon_assets.key` en Mongo y como archivo en `public/catalog`.
+export const CATEGORY_ICON_OPTIONS = CATEGORIES.map((c) => c.key);
+export const ITEM_ICON_OPTIONS = ITEMS.map((i) => i.key);
+export const ICON_OPTIONS = [...CATEGORY_ICON_OPTIONS, ...ITEM_ICON_OPTIONS];
 
-const emptyCategory = { name: '', type: 'habitos', icon: ICON_OPTIONS[0] };
-const emptyItem = { name: '', icon: ICON_OPTIONS[7], price: 50, tag: '' };
+const emptyCategory = { name: '', type: 'habitos', icon: CATEGORY_ICON_OPTIONS[0] };
+const emptyItem = { name: '', icon: ITEM_ICON_OPTIONS[0], price: 50, tag: '' };
 
 export function useCatalogo() {
   const [categories, setCategories] = useState([]);

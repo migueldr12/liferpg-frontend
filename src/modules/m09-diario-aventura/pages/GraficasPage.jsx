@@ -1,3 +1,4 @@
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
 import Donut from '../components/Donut';
 import StackedBars from '../components/StackedBars';
 import { TYPES } from '../hooks/diarioFormat';
@@ -45,7 +46,7 @@ export default function GraficasPage() {
           <ul className="m09-distribucion">
             {vm.dist.map((d) => (
               <li key={d.key}>
-                <span className="m09-icono" style={{ background: d.color }} aria-hidden="true">{d.icon}</span>
+                <span className="m09-icono" style={{ background: d.color }} aria-hidden="true"><CatalogIcon icon={d.icon} size={16} /></span>
                 <strong>{d.label}</strong>
                 <b className="titulo-pixel">{d.value}</b>
                 <span className="titulo-pixel texto-suave">{d.pct}%</span>

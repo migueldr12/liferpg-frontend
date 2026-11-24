@@ -1,3 +1,5 @@
+import { PixelMascot } from '../../shared/components/PixelMascot';
+import { DEMO_PARTY } from '../../shared/assets/demoParty';
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Icon } from '../../shared/components/Icon';
@@ -40,7 +42,7 @@ export function AppLayout({ variant }) {
         <header className="workspace-header">
           <div className="profile-chip">
             <span className={`profile-chip__avatar ${isAdmin ? 'profile-chip__avatar--admin' : ''}`}>
-              {isAdmin ? <Icon name="shield" size={22} /> : <img src="/icons/dragon.png" alt="" />}
+              {isAdmin ? <Icon name="shield" size={22} /> : <PixelMascot {...DEMO_PARTY.valeria} width={32} height={30} label="Tu mascota" />}
             </span>
             <span className="profile-chip__identity"><strong>{isAdmin ? 'Admin' : 'Valeria'}</strong><small>{isAdmin ? 'GAME MASTER' : 'LV 14'}</small></span>
           </div>

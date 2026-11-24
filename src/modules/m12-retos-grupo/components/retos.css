@@ -70,24 +70,18 @@
   font-size: 11px;
 }
 .m12-avatar {
-  display: inline-grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
   flex-shrink: 0;
   width: 36px;
   height: 36px;
-  border-radius: 8px;
-  padding: 2px;
+  border-radius: 10px;
   overflow: hidden;
-  background: color-mix(in srgb, var(--pet-color) 40%, var(--panel));
-  border: 2px solid color-mix(in srgb, var(--pet-color) 70%, var(--borde));
+  background: var(--surface-raised);
+  border: 2px solid var(--surface-muted);
+  box-sizing: border-box;
 }
-.m12-avatar img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 0 var(--pet-color)); }
-.m12-avatar--u-ana img { filter: hue-rotate(45deg) drop-shadow(0 2px 0 var(--pet-color)); }
-.m12-avatar--u-lucia img { transform: scale(.9) rotate(-4deg); filter: hue-rotate(95deg) drop-shadow(0 2px 0 var(--pet-color)); }
-.m12-avatar--u-diego img { transform: scaleX(-1); filter: hue-rotate(155deg) drop-shadow(0 2px 0 var(--pet-color)); }
-.m12-avatar--u-bruno img { transform: scale(.88) rotate(4deg); filter: hue-rotate(220deg) drop-shadow(0 2px 0 var(--pet-color)); }
-.m12-avatar--u-mateo img { transform: scale(.84); filter: grayscale(.35) drop-shadow(0 2px 0 var(--pet-color)); }
-.m12-avatar--u-camila img { transform: scale(.92) rotate(-3deg); filter: hue-rotate(285deg) drop-shadow(0 2px 0 var(--pet-color)); }
 .m12-tabs {
   display: flex;
   gap: 4px;
@@ -541,9 +535,8 @@
   font-size: 12px;
 }
 .m12-escena {
-  display: grid;
-  place-items: center;
   height: 220px;
+  background: #24493f;
 }
 .m12-referente-pie {
   display: grid;

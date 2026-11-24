@@ -9,9 +9,9 @@ let lastViewedId = 'a-5';
 export const getLastViewedId = () => lastViewedId;
 
 const VALIDATIONS = {
-  bloqueo: { label: 'Bloqueo', banner: 'Verificada con modo concentración', icon: '🔒', tone: 'enfoque' },
+  bloqueo: { label: 'Bloqueo', banner: 'Verificada con modo concentración', icon: 'lock', tone: 'enfoque' },
   smartwatch: { label: 'Smartwatch', banner: 'Validada con smartwatch · Health Connect', icon: '⌚', tone: 'fisico' },
-  manual: { label: 'Manual', banner: 'Validada manualmente: no hay dispositivo', icon: '✅', tone: 'cultura' },
+  manual: { label: 'Manual', banner: 'Validada manualmente: no hay dispositivo', icon: 'check', tone: 'cultura' },
 };
 
 const fourthField = (a) => {
@@ -24,13 +24,13 @@ const fourthField = (a) => {
 const bannerOf = (a) => {
   if (a.status === 'fallida') {
     return a.origin === 'habito'
-      ? { text: 'No se cumplió: se aplicó la penalización del hábito', icon: '✖', tone: 'mal' }
-      : { text: 'Sin puntos: la misión terminó como fallida', icon: '✖', tone: 'mal' };
+      ? { text: 'No se cumplió: se aplicó la penalización del hábito', icon: 'x', tone: 'mal' }
+      : { text: 'Sin puntos: la misión terminó como fallida', icon: 'x', tone: 'mal' };
   }
   if (a.status === 'pendiente') return { text: 'Aún puedes hacer check-in hoy', icon: '⏳', tone: 'pendiente' };
   if (a.origin === 'mision') return VALIDATIONS[a.validation] && { text: VALIDATIONS[a.validation].banner, icon: VALIDATIONS[a.validation].icon, tone: VALIDATIONS[a.validation].tone };
-  if (a.origin === 'habito') return { text: 'Registrado con check-in diario', icon: '✅', tone: 'bien' };
-  return { text: 'Sesión de enfoque con el celular bloqueado', icon: '🔒', tone: 'enfoque' };
+  if (a.origin === 'habito') return { text: 'Registrado con check-in diario', icon: 'check', tone: 'bien' };
+  return { text: 'Sesión de enfoque con el celular bloqueado', icon: 'lock', tone: 'enfoque' };
 };
 
 const STATUS_TEXT = { hecha: 'completada', pendiente: 'pendiente', fallida: 'fallida' };
