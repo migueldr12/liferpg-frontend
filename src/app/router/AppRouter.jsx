@@ -15,7 +15,7 @@ import CofrePage from '../../modules/m08-botin/pages/CofrePage';
 import SolicitudesPage from '../../modules/m08-botin/pages/SolicitudesPage';
 import HistorialPage from '../../modules/m08-botin/pages/HistorialPage';
 import ActividadesPage from '../../modules/m09-diario-aventura/pages/ActividadesPage';
-import DetalleActividadPage from '../../modules/m09-diario-aventura/pages/DetalleActividadPage';
+import DetalleActividadPage, { UltimaActividad } from '../../modules/m09-diario-aventura/pages/DetalleActividadPage';
 import GraficasPage from '../../modules/m09-diario-aventura/pages/GraficasPage';
 import RetosPage from '../../modules/m12-retos-grupo/pages/RetosPage';
 import MetricasPage from '../../modules/m12-retos-grupo/pages/MetricasPage';
@@ -34,7 +34,7 @@ import { adminModules, liteModules } from './modules';
 const implementedScreens = {
   m07: { '': <ListaPartyPage />, perfil: <PerfilEspejoPage />, codigos: <GestorCodigosPage /> },
   m08: { cofre: <CofrePage />, solicitudes: <SolicitudesPage />, historial: <HistorialPage /> },
-  m09: { '': <ActividadesPage />, detalle: <Navigate to="/lite/diario/a-5" replace />, graficas: <GraficasPage /> },
+  m09: { '': <ActividadesPage />, detalle: <UltimaActividad />, graficas: <GraficasPage /> },
   m10: { '': <AnimoAvisosPage />, avisos: <AnimoAvisosPage />, stickers: <AnimoStickersPage />, historial: <AnimoHistorialPage /> },
   m11: { '': <ProgresoPendientesPage />, inactividad: <ProgresoDiasRojosPage />, racha: <ProgresoRachaPage /> },
   m12: { '': <RetosPage />, metricas: <MetricasPage />, 'por-area': <PorAreaPage /> },
