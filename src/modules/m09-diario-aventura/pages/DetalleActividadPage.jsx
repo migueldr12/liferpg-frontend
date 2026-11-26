@@ -1,10 +1,16 @@
 import { Icon } from '../../../shared/components/Icon';
 import { CatalogIcon } from '../../../shared/components/CatalogIcon';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { OriginTag, StatusTag, TypeTag } from '../components/Tags';
 import { pointsText } from '../hooks/diarioFormat';
-import { useDetalleActividad } from '../hooks/useDetalleActividad';
+import { getLastViewedId, useDetalleActividad } from '../hooks/useDetalleActividad';
 import '../components/diario.css';
+
+// Pestaña "Detalle": abre la última actividad vista o, si no hay, el listado para elegir una
+export function UltimaActividad() {
+  const id = getLastViewedId();
+  return <Navigate to={id ? `/lite/diario/${id}` : '/lite/diario'} replace />;
+}
 
 // 9.2 Estado de actividad (RF029): detalle y notas de seguimiento
 export default function DetalleActividadPage() {

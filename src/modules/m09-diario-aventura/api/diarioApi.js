@@ -1,7 +1,18 @@
 // API del Módulo 9 (Diario de aventura · PWA Perfil lite).
-// Mientras no esté el backend, los datos viven en memoria y cada función
-// simula su endpoint. Al conectar la API, sustituir el cuerpo de cada
-// función por la petición indicada en su comentario usando http() de src/api/httpClient.js.
+// Con "diario" en VITE_API_MODULES cada función llama al backend; si no, usa los
+// datos simulados en memoria de abajo, con la misma forma de respuesta.
+import { http } from '../../../api/httpClient';
+import { usaApi } from '../../../config/env';
+
+const API = usaApi('diario');
+
+// Query string solo con los filtros que traen valor
+const query = (params) => {
+  const q = new URLSearchParams(Object.entries(params).filter(([, v]) => v != null && v !== ''));
+  const text = q.toString();
+  return text ? `?${text}` : '';
+};
+const path = (activityId) => `/diario/actividades/${encodeURIComponent(activityId)}`;
 
 const MOCK_LATENCY_MS = 250;
 const delay = (value) => new Promise((resolve) => setTimeout(() => resolve(value), MOCK_LATENCY_MS));
@@ -56,6 +67,7 @@ let notes = {
 // RDF091 · consultarActividades + RDF092 · filtrarActividades
 // GET /api/v1/diario/actividades?tipo=&origen=&estado=&desde=
 export function getActivities({ type = null, origin = null, status = null, since = null } = {}) {
+  if (API) return http(`/diario/actividades${query({ tipo: type, origen: origin, estado: status, desde: since })}`);
   const rows = activities
     .filter((a) => (!type || a.type === type) && (!origin || a.origin === origin) && (!status || a.status === status) && (!since || a.at >= since))
     .sort((a, b) => b.at.localeCompare(a.at));
@@ -92,6 +104,7 @@ function timelineOf(a) {
 
 // RDF093 · consultarDetalleActividad — GET /api/v1/diario/actividades/:id
 export function getActivity(id) {
+  if (API) return http(path(id));
   const a = activities.find((x) => x.id === id);
   if (!a) return Promise.reject(new Error('No encontramos esa actividad.'));
   const list = [...(notes[id] ?? [])].sort((x, y) => y.at.localeCompare(x.at));
@@ -100,6 +113,7 @@ export function getActivity(id) {
 
 // RDF094 · agregarNotaSeguimiento — POST /api/v1/diario/actividades/:id/notas
 export function addNote(activityId, text) {
+  if (API) return http(`${path(activityId)}/notas`, { method: 'POST', body: { text } });
   const clean = text.trim();
   if (!clean) return Promise.reject(new Error('Escribe algo en la nota.'));
   const note = { id: newId('n'), text: clean, at: new Date().toISOString() };
@@ -109,6 +123,7 @@ export function addNote(activityId, text) {
 
 // RDF095 · actualizarNotaSeguimiento — PUT /api/v1/diario/actividades/:id/notas/:notaId
 export function updateNote(activityId, noteId, text) {
+  if (API) return http(`${path(activityId)}/notas/${noteId}`, { method: 'PUT', body: { text } });
   const clean = text.trim();
   if (!clean) return Promise.reject(new Error('La nota no puede quedar vacía.'));
   let updated = null;
@@ -122,6 +137,7 @@ export function updateNote(activityId, noteId, text) {
 
 // RDF095 · eliminar nota — DELETE /api/v1/diario/actividades/:id/notas/:notaId
 export function deleteNote(activityId, noteId) {
+  if (API) return http(`${path(activityId)}/notas/${noteId}`, { method: 'DELETE' });
   notes = { ...notes, [activityId]: (notes[activityId] ?? []).filter((n) => n.id !== noteId) };
   return delay(null);
 }
@@ -154,11 +170,13 @@ function buckets(range) {
 
 // RDF096 · consultarCumplimientoPorPeriodo — GET /api/v1/diario/graficas/cumplimiento?rango=semana|mes|anio
 export function getCompletionByPeriod(range) {
+  if (API) return http(`/diario/graficas/cumplimiento${query({ rango: range })}`);
   return delay(copy(buckets(range)));
 }
 
 // RDF097 · consultarDistribucionPorTipo — GET /api/v1/diario/graficas/distribucion?rango=semana|mes|anio
 export function getDistributionByType(range) {
+  if (API) return http(`/diario/graficas/distribucion${query({ rango: range })}`);
   const totals = Object.fromEntries(TYPES.map((t) => [t, 0]));
   buckets(range).forEach((b) => TYPES.forEach((t) => { totals[t] += b[t]; }));
   return delay(totals);
