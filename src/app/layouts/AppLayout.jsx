@@ -5,6 +5,8 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Icon } from '../../shared/components/Icon';
 import { ModuleTabs } from '../../shared/components/ModuleScreen';
 import { adminModules, liteModules } from '../router/modules';
+import { http } from '../../api/httpClient';
+import { usaApi } from '../../config/env';
 
 function getInitialTheme() {
   try {
@@ -24,6 +26,7 @@ export function AppLayout({ variant }) {
   const screen = current.screens.find((item) => item.path === subpath)
     ?? (current.id === 'm09' && subpath ? current.screens.find((item) => item.path === 'detalle') : current.screens[0]);
   const [theme, setTheme] = useState(getInitialTheme);
+  const [miPerfil, setMiPerfil] = useState(null);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -35,6 +38,55 @@ export function AppLayout({ variant }) {
     }
   }, [theme]);
 
+  useEffect(() => {
+    if (isAdmin) return;
+    const devUserId = localStorage.getItem('userId') || import.meta.env.VITE_DEV_USER_ID;
+    const hasToken = Boolean(localStorage.getItem('token'));
+    if (!usaApi('visualizador') && !hasToken) return;
+
+    let cancelled = false;
+
+    async function cargarMiPerfil() {
+      try {
+        if (devUserId) {
+          const data = await http(`/visualizador-usuarios/perfil-espejo/${devUserId}`);
+          if (!cancelled) setMiPerfil(data);
+          return;
+        }
+        const cuenta = await http('/usuarios/me/cuenta');
+        if (!cancelled && cuenta) {
+          setMiPerfil({
+            nombre: cuenta.displayName || cuenta.alias || 'Aventurero',
+            nivel: cuenta.level ?? 1,
+            mascota: {
+              especie: cuenta.species || 'dragon',
+              color: cuenta.mascotColor || 'morado',
+            },
+            ropaEquipada: [],
+          });
+        }
+      } catch {
+        // Si el backend no responde, conserva los datos demo sin romper el layout.
+      }
+    }
+
+    cargarMiPerfil();
+    return () => {
+      cancelled = true;
+    };
+  }, [isAdmin]);
+
+  const mascotProps = miPerfil
+    ? {
+        pet: (miPerfil.mascota?.especie || 'dragon').toLowerCase(),
+        color: miPerfil.mascota?.color || 'morado',
+        equipped: miPerfil.ropaEquipada || [],
+      }
+    : DEMO_PARTY.valeria;
+
+  const displayName = isAdmin ? 'Admin' : (miPerfil?.nombre || 'Valeria');
+  const displayLevel = isAdmin ? 'GAME MASTER' : `LV ${miPerfil?.nivel ?? 14}`;
+
   return (
     <div className={`app-shell ${isAdmin ? 'app-shell--admin' : ''}`}>
       <a className="skip-link" href="#main-content">Ir al contenido</a>
@@ -42,9 +94,12 @@ export function AppLayout({ variant }) {
         <header className="workspace-header">
           <div className="profile-chip">
             <span className={`profile-chip__avatar ${isAdmin ? 'profile-chip__avatar--admin' : ''}`}>
-              {isAdmin ? <Icon name="shield" size={22} /> : <PixelMascot {...DEMO_PARTY.valeria} width={32} height={30} label="Tu mascota" />}
+              {isAdmin ? <Icon name="shield" size={22} /> : <PixelMascot {...mascotProps} width={32} height={30} label="Tu mascota" />}
             </span>
-            <span className="profile-chip__identity"><strong>{isAdmin ? 'Admin' : 'Valeria'}</strong><small>{isAdmin ? 'GAME MASTER' : 'LV 14'}</small></span>
+            <span className="profile-chip__identity">
+              <strong>{displayName}</strong>
+              <small>{displayLevel}</small>
+            </span>
           </div>
           <div className="workspace-header__title"><h1>{screen.title ?? screen.label}</h1><p>{screen.subtitle ?? current.description}</p></div>
           <div className="workspace-header__controls">
