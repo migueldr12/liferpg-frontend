@@ -1,7 +1,17 @@
 // API del Módulo 8 (Botín · regalos entre amigos · PWA Perfil lite).
-// Mientras no esté el backend, los datos viven en memoria y cada función
-// simula su endpoint. Al conectar la API, sustituir el cuerpo de cada
-// función por la petición indicada en su comentario usando http() de src/api/httpClient.js.
+// Con "botin" en VITE_API_MODULES cada función llama al backend; si no, usa los
+// datos simulados en memoria de abajo, con la misma forma de respuesta.
+import { http } from '../../../api/httpClient';
+import { usaApi } from '../../../config/env';
+
+const API = usaApi('botin');
+
+// Query string solo con los filtros que traen valor
+const query = (params) => {
+  const q = new URLSearchParams(Object.entries(params).filter(([, v]) => v != null && v !== ''));
+  const text = q.toString();
+  return text ? `?${text}` : '';
+};
 
 const MOCK_LATENCY_MS = 250;
 const delay = (value) => new Promise((resolve) => setTimeout(() => resolve(value), MOCK_LATENCY_MS));
@@ -93,7 +103,9 @@ let history = [
   { id: 'h-10', direction: 'recibido', friendId: 'u-lucia', itemId: 'carta', message: 'Feliz cumple, Vale', at: ago(34, 10) },
 ];
 
+// Amigos a quienes regalar o pedir — GET /api/v1/botin/amigos
 export function getFriends() {
+  if (API) return http('/botin/amigos');
   return delay(copy(FRIENDS));
 }
 
@@ -110,6 +122,7 @@ const chestView = (entry) => ({
 
 // RDF088 · consultarCofre — GET /api/v1/botin/cofre
 export function getMyChest() {
+  if (API) return http('/botin/cofre');
   return delay(copy(myChest.map(chestView)));
 }
 
@@ -137,6 +150,7 @@ const addHistory = (friendId, itemId, message) => {
 // RDF090 · entregarRegalo (servidor): agrega el objeto al inventario del amigo
 // en la app móvil y le manda una notificación push.
 export function sendGift({ friendId, itemId, message }) {
+  if (API) return http('/botin/regalos', { method: 'POST', body: { friendId, itemId, message } });
   if (!person(friendId)) return Promise.reject(new Error('Elige a qué amigo enviarle el regalo.'));
   const invalid = validateGiftable(itemId);
   if (invalid) return Promise.reject(new Error(invalid));
@@ -151,6 +165,7 @@ const withPerson = (key) => (r) => ({ ...r, person: person(r[key]), item: item(r
 
 // RDF084 · consultarSolicitudesRegalo — GET /api/v1/botin/solicitudes
 export function getRequests() {
+  if (API) return http('/botin/solicitudes');
   return delay(copy({
     inbox: inbox.map(withPerson('from')),
     mine: [...myRequests].sort((a, b) => b.at.localeCompare(a.at)).map(withPerson('to')),
@@ -161,6 +176,7 @@ export function getRequests() {
 // RDF085 · responderSolicitudRegalo — POST /api/v1/botin/solicitudes/:id (aceptar | rechazar)
 // Aceptar envía el regalo (RDF082) con las mismas validaciones (RDF089).
 export function respondRequest(id, accept) {
+  if (API) return http(`/botin/solicitudes/${id}`, { method: 'POST', body: { accept } });
   const request = inbox.find((r) => r.id === id);
   if (!request || request.status !== 'pendiente') return Promise.reject(new Error('La solicitud ya fue respondida.'));
   if (accept) {
@@ -176,12 +192,14 @@ export function respondRequest(id, accept) {
 // Parte de RDF083: el cofre de un amigo para elegir qué pedirle
 // GET /api/v1/botin/cofre/:amigoId
 export function getFriendChest(friendId) {
+  if (API) return http(`/botin/cofre/${friendId}`);
   const chest = FRIEND_CHESTS[friendId] ?? [];
   return delay(copy(chest.map(([itemId, qty]) => ({ ...item(itemId), qty }))));
 }
 
 // RDF083 · solicitarRegalo — POST /api/v1/botin/solicitudes
 export function requestGift({ friendId, itemId }) {
+  if (API) return http('/botin/solicitudes', { method: 'POST', body: { friendId, itemId } });
   if (!person(friendId)) return Promise.reject(new Error('Elige a qué amigo pedirle.'));
   if (!(FRIEND_CHESTS[friendId] ?? []).some(([id]) => id === itemId)) {
     return Promise.reject(new Error('Ese objeto ya no está en el cofre de tu amigo.'));
@@ -198,6 +216,7 @@ export function requestGift({ friendId, itemId }) {
 // RDF086 · consultarHistorialBotin + RDF087 · filtrarHistorialBotin
 // GET /api/v1/botin/historial?tipo=enviado|recibido&amigo=:id&desde=:fecha
 export function getHistory({ direction = null, friendId = null, since = null } = {}) {
+  if (API) return http(`/botin/historial${query({ tipo: direction, amigo: friendId, desde: since })}`);
   const rows = history
     .filter((h) => (!direction || h.direction === direction) && (!friendId || h.friendId === friendId) && (!since || h.at >= since))
     .map(withPerson('friendId'));
