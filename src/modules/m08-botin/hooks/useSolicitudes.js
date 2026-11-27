@@ -82,9 +82,7 @@ export function useSolicitudes() {
       const res = await respondRequest(request.id, accept);
       setInbox((list) => list.map((r) => (r.id === request.id ? res.request : r)));
       setChest(res.chest);
-      setNotice(accept
-        ? `Le enviaste ${request.item.name} a ${request.person.name}.`
-        : `Rechazaste la solicitud de ${request.person.name}.`);
+      setNotice({ kind: accept ? 'accepted' : 'declined', item: request.item, person: request.person.name });
     } catch (e) {
       setError(e.message);
     }
@@ -103,7 +101,7 @@ export function useSolicitudes() {
     try {
       const created = await requestGift({ friendId: requestedFriend.id, itemId: requestedItem.id });
       setMine((list) => [created, ...list]);
-      setNotice(`Le pediste ${requestedItem.name} a ${requestedFriend.name}.`);
+      setNotice({ kind: 'requested', item: requestedItem, person: requestedFriend.name });
     } catch (e) {
       setError(e.message);
     }

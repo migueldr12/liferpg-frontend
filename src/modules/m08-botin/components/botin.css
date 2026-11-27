@@ -284,26 +284,38 @@
 }
 .m08-amigos {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
+  gap: 5px;
+  max-height: 220px;
+  overflow: auto;
+  padding: 3px;
 }
 .m08-amigo {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 17px;
   align-items: center;
-  gap: 4px;
-  padding: 6px 0;
-  border: 2px solid var(--borde);
-  border-radius: 12px;
+  gap: 9px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 4px 8px;
+  border: 1px solid var(--borde);
+  border-radius: 5px;
   background: var(--bg);
-  font-size: 12px;
+  color: var(--texto);
+  text-align: left;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
 }
+.m08-amigo > span:nth-child(2) { overflow-wrap: anywhere; }
+.m08-amigo small { display: block; color: var(--muted); font-weight: 500; }
 .m08-amigo.activo {
-  border-color: var(--verde);
-  background: var(--green-soft);
+  border-color: var(--yellow);
+  background: color-mix(in srgb, var(--yellow) 9%, var(--surface-muted));
 }
+.m08-amigo > svg { color: var(--yellow); }
+.m08 .m08-parcel { border-top: 3px double var(--yellow); border-radius: 5px 5px 12px 12px; }
+.m08 .m08-parcel .m08-label { text-transform: none; letter-spacing: 0; }
+.m08 .m08-parcel textarea { background: repeating-linear-gradient(to bottom, var(--bg) 0 calc(1.6em - 1px), var(--borde) calc(1.6em - 1px) 1.6em) 0 10px / auto auto local; line-height: 1.6; }
 .m08-objeto {
   display: flex;
   align-items: center;
@@ -347,6 +359,13 @@
   display: grid;
   gap: 12px;
 }
+.m08-grid-solicitudes > section > .dispatch-receipt { margin-block: 12px; }
+.m08-empty-inbox { display: flex; align-items: center; gap: 14px; padding: 20px; border: 1px dashed var(--borde); background: var(--panel); border-radius: 6px; }
+.m08-empty-inbox svg { color: var(--yellow); flex: none; }
+.m08 .m08-empty-inbox p { margin: 5px 0 0; font-size: 13px; color: var(--muted); }
+.m08-grid-solicitudes .m08-tab { white-space: normal; overflow-wrap: anywhere; min-width: 0; min-height: 44px; }
+.m08-grid-solicitudes :is(.m08-label, .m08-btn-primario, .m08-solicitud-texto) { overflow-wrap: anywhere; }
+.m08-grid-solicitudes .m08-pedidos li > span:first-child { min-width: 0; overflow-wrap: anywhere; }
 .m08-bandeja {
   display: grid;
   gap: 10px;

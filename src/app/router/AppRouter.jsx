@@ -63,6 +63,7 @@ function moduleRoutes(modules, prefix) {
           <Route key={screen.path} path={screen.path} element={implementedScreens[module.id]?.[screen.path] ?? <ModuleScreen module={module} screen={screen} prefix={prefix} />} />
         ))}
         {module.id === 'm09' && <Route path=":activityId" element={<DetalleActividadPage />} />}
+        {module.id === 'm07' && <Route path="perfil/:friendId" element={<PerfilEspejoPage />} />}
         <Route path="*" element={<Navigate to={`${prefix}/${module.path}`} replace />} />
       </Route>
     );

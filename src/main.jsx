@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './app/router/AppRouter';
 import { SessionProvider } from './modules/m00-usuarios-autenticacion/hooks/SessionProvider';
 import './shared/styles/index.css';
+import './shared/styles/folio.css';
 
 // El tema guardado se aplica desde el arranque: también debe verse en las pantallas de acceso.
 try {

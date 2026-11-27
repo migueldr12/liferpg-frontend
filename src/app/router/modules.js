@@ -11,12 +11,12 @@ export const liteModules = [
         label: "Amigos",
         path: "",
         title: "Tu party",
-        subtitle: "Amigos que ven tu progreso y tú el suyo",
+        subtitle: "Consulta el progreso de tus amigos y añade nuevos compañeros con un código.",
       },
       {
         label: "Perfil espejo",
         path: "perfil",
-        subtitle: "El progreso de tus amigos, de un vistazo",
+        subtitle: "Consulta tu mascota, tus puntos y tu progreso.",
       },
       {
         label: "Códigos",
@@ -91,7 +91,7 @@ export const liteModules = [
         label: "Avisos",
         path: "",
         title: "Ánimo",
-        subtitle: "Quién de tu party lleva días sin moverse · un sticker basta",
+        subtitle: "Consulta tus avisos y envía un sticker para animar a tu equipo.",
       },
       {
         label: "Stickers",
@@ -118,10 +118,10 @@ export const liteModules = [
         label: "Pendientes",
         path: "",
         title: "Lo que quedó pendiente",
-        subtitle: "Generado por el cierre diario de las 23:59",
+        subtitle: "Revisa lo que quedó sin completar y elige qué retomar hoy.",
       },
       {
-        label: "Días flojos",
+        label: "Baja actividad",
         path: "inactividad",
         subtitle: "Porcentaje de hábitos cumplidos por día",
       },
@@ -179,8 +179,8 @@ export const adminModules = [
       {
         label: "Clientes",
         path: "clientes",
-        title: "Clientes conectados",
-        subtitle: "Dispositivos que consumen la API ahora mismo",
+        title: "Dispositivos registrados",
+        subtitle: "Dispositivos activos para notificaciones y su último acceso registrado",
       },
       {
         label: "Consola REST",
@@ -227,7 +227,7 @@ export const adminModules = [
     description: "Diagnóstico, respaldos y limpieza de registros.",
     screens: [
       {
-        label: "Monitor SQL",
+        label: "Monitor MongoDB",
         path: "",
         title: "Base de datos",
         subtitle: "Diagnóstico sin salir del panel",

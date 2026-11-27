@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AmigoCard } from '../components/AmigoCard';
 import { useParty } from '../hooks/useParty';
 import '../components/visualizador.css';
@@ -12,15 +12,16 @@ export default function ListaPartyPage() {
   return (
     <div className="m07">
       <div className="m07-controls-bar">
+        <label className="m07-search-label">Buscar amigos
         <input
-          type="text"
+          type="search"
           className="m07-search-input"
           placeholder="Buscar por alias o nombre"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-        />
+        /></label>
         <div className="m07-sort-group">
-          <span className="m07-label">ORDENAR:</span>
+          <span className="m07-label">Ordenar por</span>
           <div className="m07-tabs" role="group" aria-label="Ordenar amigos">
             {['Nivel', 'Racha', 'Actividad'].map((item) => (
               <button
@@ -38,8 +39,8 @@ export default function ListaPartyPage() {
         <span><strong>{total} / {limite}</strong> amigos</span>
       </div>
 
-      {error && <p className="m07-empty">{error}</p>}
-      {loading && <p className="m07-empty">Cargando party...</p>}
+      {error && <p className="m07-empty" role="alert">{error}</p>}
+      {loading && <p className="m07-empty" role="status">Cargando amigos…</p>}
 
       {!loading && !error && (
         <div className="m07-grid-party">
@@ -61,7 +62,7 @@ export default function ListaPartyPage() {
       )}
 
       {!loading && !error && amigos.length === 0 && (
-        <p className="m07-empty">No hay amigos que coincidan con la búsqueda.</p>
+        <div className="m07-empty">{search ? <><p>No encontramos amigos para «{search}».</p><button type="button" onClick={() => setSearch('')}>Borrar búsqueda</button></> : <><p>Aún no tienes amigos en tu equipo.</p><Link to="/lite/amigos/codigos">Añadir amigos con un código</Link></>}</div>
       )}
     </div>
   );

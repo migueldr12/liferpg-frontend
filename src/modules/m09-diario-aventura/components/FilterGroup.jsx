@@ -11,6 +11,9 @@ export default function FilterGroup({ label, options, value, onChange }) {
           </button>
         ))}
       </div>
+      <select className="m09-filter-select" aria-label={label} value={value ?? ''} onChange={(event) => onChange(event.target.value || null)}>
+        {options.map((o) => <option key={o.key ?? ''} value={o.key ?? ''}>{o.label}</option>)}
+      </select>
     </div>
   );
 }

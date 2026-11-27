@@ -19,7 +19,7 @@ export function useCofre() {
   const [friends, setFriends] = useState([]);
   const [itemId, setItemId] = useState(null);
   const [friendId, setFriendId] = useState(null);
-  const [message, setMessage] = useState('¡Para que no pierdas la racha! Tú puedes.');
+  const [message, setMessage] = useState('');
 
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
@@ -64,9 +64,9 @@ export function useCofre() {
     try {
       const res = await sendGift({ friendId: sentFriendId, itemId: sentItemId, message });
       setChest(res.chest);
-      // El backend dice si el aviso push salió ("enviada"); los datos simulados no traen el campo
-      const push = !res.notification || res.notification === 'enviada' ? ' Le llegará una notificación push.' : ' Ya está en su inventario.';
-      setNotice(`Enviaste ${res.item} a ${res.to}.${push}`);
+      setNotice({ item: { ...selected, name: res.item || selected.name }, recipient: res.to || friend.name, notified: res.notification === 'enviada' });
+      setItemId(null);
+      setMessage('');
     } catch (e) {
       setError(e.message);
     } finally {

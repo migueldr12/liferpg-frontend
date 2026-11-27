@@ -30,6 +30,14 @@
 .lp-nav__links a { padding: 8px 12px; border-radius: var(--radius); font: 600 15px var(--font-pixel); color: var(--muted); }
 .lp-nav__links a:hover { color: var(--text); background: var(--surface); }
 .lp-nav__actions { display: flex; align-items: center; gap: 10px; }
+.lp-nav__menu { display: none; }
+.lp-nav__menu summary { display: flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 9px; border: 1px solid var(--border); border-radius: var(--folio-control-radius); background: var(--surface); color: var(--text); font-size: 12px; font-weight: 800; cursor: pointer; list-style: none; }
+.lp-nav__menu summary::-webkit-details-marker { display: none; }
+.lp-nav__menu summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+.lp-nav__menu[open] summary svg { transform: rotate(90deg); }
+.lp-nav__menu nav { position: absolute; inset: calc(100% + 5px) var(--lp-gutter) auto auto; display: grid; gap: 2px; min-width: 176px; padding: 5px; border: 1px solid var(--border); border-radius: var(--folio-radius); background: var(--surface); box-shadow: var(--shadow-sm); }
+.lp-nav__menu nav a { display: flex; align-items: center; min-height: 44px; padding: 5px 10px; font-size: 14px; }
+.lp-nav__menu nav a:hover { background: var(--surface-raised); }
 
 /* ── Botones ── */
 .lp-btn {
@@ -54,7 +62,7 @@
 .lp-section h2 { font-size: clamp(28px, 3.6vw, 42px); line-height: 1.1; margin-bottom: 14px; }
 .lp-heading { max-width: 640px; margin-bottom: 40px; }
 .lp-heading .eyebrow { display: block; margin-bottom: 12px; }
-.lp-heading p, .lp-about__lead p, .lp-admin__intro p { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 62ch; }
+.lp-heading p, .lp-about__lead p { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 62ch; }
 
 /* ── Hero: texto a la izquierda, mascota a la derecha ── */
 .lp-hero {
@@ -169,17 +177,6 @@
 .lp-compare__note { display: flex; align-items: center; gap: 8px; margin-top: 18px !important; color: var(--muted); font-size: 14px; }
 .lp-compare__note svg { color: var(--green); flex: none; }
 
-/* ── Game Master ── */
-.lp-admin { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
-.lp-admin__intro .eyebrow { display: block; margin-bottom: 12px; }
-.lp-admin__intro p { margin-bottom: 18px; }
-.lp-admin__list { list-style: none; margin: 0; padding: 0; }
-.lp-admin__list li { display: flex; gap: 16px; padding: 20px 0; border-bottom: 2px solid var(--border); }
-.lp-admin__list li:first-child { padding-top: 4px; }
-.lp-admin__list svg { flex: none; color: var(--yellow); margin-top: 2px; }
-.lp-admin__list strong { display: block; font: 700 19px var(--font-pixel); margin-bottom: 4px; }
-.lp-admin__list p { color: var(--muted); font-size: 14px; line-height: 1.6; }
-
 /* ── Preguntas ── */
 .lp-faq { display: grid; grid-template-columns: 4fr 8fr; gap: clamp(24px, 5vw, 72px); }
 .lp-faq__list { display: grid; gap: 10px; }
@@ -198,8 +195,8 @@
   border: 2px solid var(--border); border-radius: var(--radius-lg);
   background: var(--surface); box-shadow: var(--shadow);
 }
-.lp-cta__pets { display: flex; gap: 8px; margin-bottom: 4px; }
-.lp-cta__pets img { width: 64px; height: 64px; image-rendering: pixelated; }
+.lp-cta__pets { display: grid; grid-template-columns: repeat(4, minmax(0, 64px)); gap: 8px; width: min(100%, 280px); margin-bottom: 4px; }
+.lp-cta__pets img { width: 100%; height: auto; image-rendering: pixelated; }
 .lp-cta h2 { font-size: clamp(28px, 3.6vw, 42px); margin: 0; }
 .lp-cta p { color: var(--muted); max-width: 48ch; line-height: 1.6; margin-bottom: 8px; }
 
@@ -220,15 +217,18 @@
 }
 @media (max-width: 860px) {
   .lp-nav__links { display: none; }
+  .lp-nav__menu { display: block; }
   .lp-nav__actions { margin-left: auto; }
   .lp-hero { grid-template-columns: 1fr; min-height: 0; max-height: none; padding-block: 32px 72px; }
   .lp-hud { justify-self: center; }
   .lp-hud__panel { position: relative; left: auto; top: auto; bottom: auto; width: auto; margin: -20px 14px 0; }
-  .lp-about, .lp-admin, .lp-faq { grid-template-columns: 1fr; }
+  .lp-about, .lp-faq { grid-template-columns: 1fr; }
   .lp-compare__grid { grid-template-columns: 1fr; }
   .lp-compare__col--web { border-left: 0; border-top: 2px solid var(--border); }
 }
 @media (max-width: 520px) {
+  .lp-nav { gap: 8px; }
+  .lp-nav__actions { gap: 7px; }
   .lp-loop { grid-template-columns: 1fr; }
   .lp-brand__name { display: none; }
   .lp-hero__ctas .lp-btn { flex: 1; }

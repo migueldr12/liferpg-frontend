@@ -3,10 +3,11 @@ import { Icon } from './Icon';
 import { adminApiEnabled } from '../../api/adminClient';
 
 export function DemoNotice({ error, loading, onRetry }) {
+  if (!error && !loading && adminApiEnabled) return null;
   return (
     <div className={`admin-notice ${error ? 'admin-notice--error' : ''}`} role={error ? 'alert' : 'status'}>
       <Icon name={error ? 'shield' : 'spark'} size={17} />
-      <span>{error || (adminApiEnabled ? loading ? 'Conectando con la API…' : 'Datos obtenidos del servidor' : 'Vista de demostración · el backend administrativo aún no dispone de endpoints')}</span>
+      <span>{error || (loading ? 'Cargando datos…' : 'Demostración: los cambios de esta pantalla no afectan a la base de datos.')}</span>
       {error && onRetry && <button type="button" onClick={onRetry}>Reintentar</button>}
     </div>
   );

@@ -1,59 +1,17 @@
-import LiteLayout, { PixelAvatar } from '../components/LiteShell';
-import { useAvisosAnimo, useLiteSession } from '../hooks/useLite';
-
-function OwnAlert({ alert }) {
-  return (
-    <article className={`notice-card${alert.active ? ' is-active' : ''}`}>
-      <PixelAvatar size={48} mood={alert.mood} />
-      <div>
-        <div className="notice-card__head"><strong>{alert.title}</strong><span>{alert.when}</span></div>
-        <p>{alert.body}</p>
-      </div>
-    </article>
-  );
-}
-
-function SupportCard({ person, quickResponses, response, onRespond }) {
-  return (
-    <article className="support-card">
-      <PixelAvatar size={76} name={person.name} mood="weak" />
-      <div className="support-card__person">
-        <strong>{person.name}</strong>
-        <span className="support-card__reason">{person.reason}</span>
-        <span className="support-card__week" aria-label="Actividad de los últimos siete días">
-          {person.week.map((active, index) => <i key={index} className={active ? 'is-on' : ''} />)}
-        </span>
-      </div>
-      <div className="support-card__actions">
-        <span>{response ? `Enviaste “${response}”` : person.hint}</span>
-        <div>
-          {quickResponses.map((message) => (
-            <button key={message} type="button" className={response === message ? 'is-sent' : ''} disabled={Boolean(response)} onClick={() => onRespond(person.id, message)}>{message}</button>
-          ))}
-        </div>
-      </div>
-    </article>
-  );
-}
+import React from 'react';
+import LiteLayout from '../components/LiteShell';
+import { useNotificationsResource } from '../hooks/useNotificationsResource';
+import { Link } from 'react-router-dom';
+import { PixelMascot } from '../../../shared/components/PixelMascot';
 
 export default function AnimoAvisosPage() {
-  const { user } = useLiteSession();
-  const { ownAlerts, people, quickResponses, responses, pendingCount, sentCount, respond } = useAvisosAnimo();
-  return (
-    <LiteLayout user={user}>
-      <div className="notices-grid">
-        <section className="own-notices">
-          <h2>Tus avisos</h2>
-          {ownAlerts.map((alert) => <OwnAlert key={alert.id} alert={alert} />)}
-          <p className="notice-rule">Se avisa tras <strong>2 días</strong> sin registros o con menos de <strong>40 %</strong> de cumplimiento.</p>
-        </section>
-        <section className="support-list">
-          <div className="support-list__head">
-            <h2>Necesitan ánimo</h2><span className="badge">{pendingCount}</span><span>{sentCount} enviados</span>
-          </div>
-          {people.map((person) => <SupportCard key={person.id} person={person} quickResponses={quickResponses} response={responses[person.id]} onRespond={respond} />)}
-        </section>
-      </div>
-    </LiteLayout>
-  );
+  const { data, loading, error } = useNotificationsResource('/notificaciones/avisos-inactividad');
+  return <LiteLayout><section className="panel support-page">
+    <h2>Acompaña a tus amigos</h2><p>Un mensaje puede ayudar a alguien a retomar sus hábitos.</p>
+    {loading && <p role="status">Cargando avisos…</p>}
+    {error && <p role="alert">{error}</p>}
+    {data && (data.length ? <ul className="support-feed">{data.map((alert) => <li key={alert.id}>
+      <PixelMascot pet="dragon" mood="happy" width={54} height={54} label="" /><div><strong>{alert.isOwn ? 'Tu actividad' : alert.user.displayName}</strong><p>{alert.message}</p></div>{!alert.isOwn && <Link to="/lite/animo/stickers">Enviar ánimo</Link>}
+    </li>)}</ul> : <div className="empty"><p>No hay avisos activos por ahora.</p><Link to="/lite/animo/stickers">Enviar ánimo a un amigo</Link></div>)}
+  </section></LiteLayout>;
 }

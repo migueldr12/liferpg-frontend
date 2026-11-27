@@ -85,7 +85,7 @@ export default function CrearCuentaPage() {
 
         {!loggedIn && (
           <Field label="Contraseña" error={shown('password')}>
-            <PasswordInput value={password} onChange={setPassword} placeholder="Crea tu contraseña" autoComplete="new-password" invalid={Boolean(shown('password'))} />
+            <PasswordInput value={password} onChange={setPassword} autoComplete="new-password" invalid={Boolean(shown('password'))} />
             <ul className="auth-rules">
               {PASSWORD_RULES.map((rule) => {
                 const ok = rule.test(password);

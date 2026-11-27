@@ -3,7 +3,7 @@ import { PixelMascot } from '../../../shared/components/PixelMascot';
 import { mascotFor } from '../../../shared/assets/demoParty';
 // Avatar de un integrante de la party: su mascota sobre su color.
 export default function Avatar({ person, size = 36, mood }) {
-  const mascot = mascotFor(person);
+  const mascot = person?.pet ? { pet: person.pet, color: person.color } : mascotFor(person ?? {});
   return (
     <span
       className="m08-avatar"

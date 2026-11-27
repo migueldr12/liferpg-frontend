@@ -5,7 +5,7 @@ export const API_URL =
 
 // Módulos que ya hablan con el backend real, separados por coma (p. ej. "economia,retos").
 // Los que no estén aquí siguen con sus datos simulados en memoria.
-export const API_MODULES = (import.meta.env.VITE_API_MODULES ?? "")
+export const API_MODULES = (import.meta.env.VITE_API_MODULES ?? "todos")
   .split(",")
   .map((m) => m.trim())
   .filter(Boolean);

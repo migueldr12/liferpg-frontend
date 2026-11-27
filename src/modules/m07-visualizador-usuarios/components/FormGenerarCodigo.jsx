@@ -35,9 +35,9 @@ export const FormNuevoCodigo = ({ codigo, feedback, onCopiar, onGenerar, onCanje
         <div>
           <span className="m07-label">Usos máximos</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '6px' }}>
-             <button type="button" className="m07-btn-secundario" onClick={() => setUsos(Math.max(1, usos - 1))}>-</button>
+             <button type="button" className="m07-btn-secundario" aria-label="Reducir usos máximos" onClick={() => setUsos(Math.max(1, usos - 1))}>-</button>
             <strong>{usos}</strong>
-             <button type="button" className="m07-btn-secundario" onClick={() => setUsos(Math.min(10, usos + 1))}>+</button>
+             <button type="button" className="m07-btn-secundario" aria-label="Aumentar usos máximos" onClick={() => setUsos(Math.min(10, usos + 1))}>+</button>
           </div>
         </div>
 
@@ -52,6 +52,7 @@ export const FormNuevoCodigo = ({ codigo, feedback, onCopiar, onGenerar, onCanje
           <input
             type="text"
              placeholder="DRG-XXXX"
+             aria-label="Código de amistad"
             value={codigoInput}
             onChange={(e) => setCodigoInput(e.target.value.toUpperCase())}
           />
@@ -60,7 +61,7 @@ export const FormNuevoCodigo = ({ codigo, feedback, onCopiar, onGenerar, onCanje
           </button>
         </div>
         <p style={{ fontSize: '12px', color: 'var(--texto-suave)' }}>
-           {feedback || 'Prueba con ANA-93XZ. Se valida vigencia y usos.'}
+           {feedback || 'Escribe el código que compartió tu amigo para conectar con él.'}
         </p>
       </section>
     </div>

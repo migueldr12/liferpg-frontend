@@ -15,18 +15,18 @@ export default function PushPage() {
         {/* Formulario de envío (RDF141) */}
         <form className="m14-panel m14-form" onSubmit={(e) => { e.preventDefault(); vm.send(); }}>
           <span className="m14-label">Destinatarios</span>
-          <div className="m14-tabs chicas" role="radiogroup">
-            <button type="button" role="radio" aria-checked={vm.targetKind === 'todos'}
+          <div className="m14-tabs chicas" role="group" aria-label="Destinatarios">
+            <button type="button" aria-pressed={vm.targetKind === 'todos'}
               className={vm.targetKind === 'todos' ? 'm14-tab activo' : 'm14-tab'} onClick={() => vm.setTargetKind('todos')}>
               Todos los usuarios
             </button>
-            <button type="button" role="radio" aria-checked={vm.targetKind === 'usuario'}
+            <button type="button" aria-pressed={vm.targetKind === 'usuario'}
               className={vm.targetKind === 'usuario' ? 'm14-tab activo' : 'm14-tab'} onClick={() => vm.setTargetKind('usuario')}>
               Un usuario
             </button>
           </div>
           {vm.targetKind === 'usuario' && (
-            <input placeholder="@usuario (p. ej. @camila)" value={vm.username} onChange={(e) => vm.setUsername(e.target.value)} />
+            <label className="m14-field"><span className="m14-label">Usuario destinatario</span><input placeholder="@usuario (p. ej. @camila)" value={vm.username} onChange={(e) => vm.setUsername(e.target.value)} /></label>
           )}
 
           <label className="m14-field">
@@ -42,8 +42,9 @@ export default function PushPage() {
               onChange={(e) => vm.setMessage(e.target.value)} />
           </label>
 
-          {vm.error && <p className="m14-error">{vm.error}</p>}
-          {vm.notice && <p className="m14-notice">{vm.notice}</p>}
+          {vm.error && <p className="m14-error" role="alert">{vm.error}</p>}
+          {vm.notice && <p className="m14-notice" role="status">{vm.notice}</p>}
+          {!vm.canSend && !vm.sending && <p className="texto-suave">{vm.message.length > MESSAGE_MAX ? `Reduce el mensaje a ${MESSAGE_MAX} caracteres.` : 'Completa el título, el mensaje y el destinatario para enviar el aviso.'}</p>}
 
           <button type="submit" className="m14-btn-primario" disabled={!vm.canSend}>
             {vm.sending ? 'Enviando…' : vm.recipientsText}
@@ -69,8 +70,8 @@ export default function PushPage() {
         <section className="m14-panel">
           <h2 className="titulo-pixel">Historial de envíos</h2>
           {vm.loading ? (
-            <p className="texto-suave">Cargando…</p>
-          ) : (
+            <p className="texto-suave" role="status">Cargando historial…</p>
+          ) : !vm.rows.length ? (!vm.error && <p className="texto-suave">Todavía no hay avisos enviados.</p>) : (
             <ul className="m14-historial">
               {vm.rows.map((r) => (
                 <li key={r.id}>

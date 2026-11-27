@@ -2,11 +2,16 @@
 
 Cliente PWA en React con Vite, organizado **por módulos** igual que `liferpg-backend`.
 La base compartida incluye navegación y estilos para Perfil Lite y Administración.
-M13 (Host) y M15 (Datos) tienen sus tres pantallas y controles de interfaz. Mientras el
-backend no implemente los endpoints, muestran datos de demostración identificados como tales;
-las acciones que cambiarían datos del servidor permanecen deshabilitadas.
+Los monitores de M13 (Host) y M15 (Datos) consultan el estado real de la API y MongoDB.
+M13 lista dispositivos registrados y los últimos eventos del proceso; los dispositivos no
+representan conexiones en vivo y el registro no sobrevive a reinicios. La purga sigue siendo demo.
+M15 permite descargar una exportación JSON de hasta 20 perfiles; el respaldo restaurable
+de la base completa todavía requiere configurar las herramientas y el almacenamiento del servidor.
 
 Inicio rápido: `pnpm install --frozen-lockfile` y `pnpm dev`. Abre `/admin/host` o `/admin/datos`.
+Para usar la base de demostración local, sigue `../liferpg-backend/docs/demo.md` y ejecuta `npm run dev:demo`.
+
+Para verificar el diseño en Chrome instalado, ejecuta `node tests/visual-audit.mjs` con `AUDIT_BASE_URL` apuntando al servidor local. Usa `AUDIT_AREA=lite` con la demo del jugador y `AUDIT_AREA=admin` tras iniciar `npm run dev:demo -- --admin`. `AUDIT_AREA=auth` revisa las pantallas públicas de acceso cuando Firebase está configurado y no hay sesión. Las capturas se guardan en `tests/__screenshots__/`.
 Consulta [la guía de layouts](docs/layout-pwa.md) antes de implementar un módulo.
 
 ## Carpetas de cada módulo
@@ -68,18 +73,18 @@ Para conectar el backend, crea tu archivo `.env` a partir de `.env.example` y aj
 - Los dibujos se definen en `src/shared/assets/registry.js`. `pnpm assets` genera los SVG en `public/catalog/**` y su `manifest.json`; `pnpm build` también los genera en `prebuild`. El backend usa ese manifiesto para poblar el catálogo común, pero **el seed no asigna artículos a los usuarios**.
 - Cada usuario obtiene sus propios artículos por compra, regalo o desbloqueo: el backend los relaciona con su `userId` en `inventory_entries` y guarda los looks equipados en `outfits`. El frontend debe usar el inventario/vestidor del usuario autenticado (o `VITE_DEV_USER_ID` en desarrollo), no asumir que todos los artículos del catálogo le pertenecen.
 - La API devuelve la clave `icon` de cada artículo (por ejemplo, `item.boina-pintor`). `CatalogIcon` la resuelve con el registro para mostrar objetos y stickers; `PixelMascot` recibe `color={profile.mascotColor}` y `equipped` con las **claves** de los artículos equipados para dibujar accesorios y fondo. Si el vestidor devuelve `catalogItemId`, hay que relacionarlo con los artículos del inventario para obtener esas claves.
-- Las URLs de `icon_assets` como `/catalog/items/pocion-hp.svg` apuntan a la raíz pública de la PWA, no a `VITE_API_URL`. Las pantallas que hoy usan `demoParty.js` muestran datos simulados hasta conectarse al perfil/inventario real.
+- Las URLs de `icon_assets` como `/catalog/items/pocion-hp.svg` apuntan a la raíz pública de la PWA, no a `VITE_API_URL`.
 
 Más detalles sobre claves, archivos y generación en [docs/assets.md](docs/assets.md).
 
 ### Conectar un módulo al backend real
 
 Cada módulo decide si usa la API o sus datos simulados con `VITE_API_MODULES` (separados por
-coma). Ya conectados: `economia` (M14) y `retos` (M12). Ejemplo:
+coma). Los módulos `visualizador`, `botin`, `diario`, `retos` y `economia` usan la API por defecto; para una demostración se puede seleccionar un subconjunto. M10 y M11 consultan siempre la API. Ejemplo:
 
 ```bash
 VITE_API_URL=http://localhost:3000/api/v1
-VITE_API_MODULES=economia,retos
+VITE_API_MODULES=todos
 VITE_DEV_USER_ID=<_id de MongoDB>   # mientras no exista el login (M00)
 ```
 

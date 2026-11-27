@@ -342,7 +342,7 @@ a.m09-tabla-fila:hover {
   gap: 16px;
   margin-bottom: 14px;
 }
-.m09-activity-header h1 { margin: 3px 0; font-size: 28px; }
+.m09-activity-header h2 { margin: 3px 0; font-size: 28px; }
 .m09-activity-header a:not(.m09-btn-secundario) { color: var(--texto-suave); font-size: 13px; font-weight: 700; text-decoration: none; }
 .m09-grid-detalle {
   display: grid;

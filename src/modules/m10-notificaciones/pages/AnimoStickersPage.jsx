@@ -1,71 +1,45 @@
-import React from 'react';
-import { Icon } from '../../../shared/components/Icon';
-import LiteLayout, { PixelAvatar, SegmentedTabs } from '../components/LiteShell';
-import { useLiteSession, useStickersAnimo } from '../hooks/useLite';
-
-const TABS = [
-  { to: '/lite/animo/avisos', label: 'Avisos' },
-  { to: '/lite/animo/stickers', label: 'Stickers' },
-  { to: '/lite/animo/historial', label: 'Historial' },
-];
-
-function StickerCard({ sticker, selected, onSelect }) {
-  return (
-    <button type="button" className={`sticker-card${selected ? ' is-selected' : ''}`} aria-pressed={selected} onClick={() => onSelect(sticker.id)}>
-      <PixelAvatar size={104} mood={sticker.mood} acc={sticker.acc} bg={sticker.bg} label={sticker.label} />
-      {sticker.label}
-    </button>
-  );
-}
-
-function FriendRecipientList({ friends, selectedIds, onToggle }) {
-  return (
-    <div className="friend-list" role="group" aria-label="Destinatarios">
-      {friends.map((f) => {
-        const selected = selectedIds.has(f.id);
-        return (
-          <label key={f.id} className={`friend${selected ? ' is-selected' : ''}`}>
-            <input type="checkbox" checked={selected} onChange={() => onToggle(f.id)} />
-            <PixelAvatar size={36} name={f.name} mood={f.mood} />
-            <span className="friend__info">
-              <span className="friend__name">{f.name}</span>
-              <span className="friend__status">{f.status}</span>
-            </span>
-            <span className="friend__check" aria-hidden="true" />
-          </label>
-        );
-      })}
-    </div>
-  );
-}
+import React, { useState } from 'react';
+import { http } from '../../../api/httpClient';
+import LiteLayout from '../components/LiteShell';
+import { useNotificationsResource } from '../hooks/useNotificationsResource';
+import { CatalogIcon } from '../../../shared/components/CatalogIcon';
+import { DispatchReceipt } from '../../../shared/components/DispatchReceipt';
+import { Link } from 'react-router-dom';
 
 export default function AnimoStickersPage() {
-  const { user, navBadges } = useLiteSession();
-  const {
-    categories, category, changeCategory, stickers, selectedSticker, selectSticker,
-    friends, selectedFriends, toggleFriend, canSend, sent, sendSticker,
-  } = useStickersAnimo();
-
-  return (
-    <LiteLayout user={user} title="Stickers de ánimo" subtitle="Elige uno y mándalo a uno o varios amigos" tabs={TABS} navBadges={navBadges}>
-      <div className="stickers-grid">
-        <section aria-label="Stickers">
-          <SegmentedTabs items={categories} value={category} onChange={changeCategory} ariaLabel="Categorías de stickers" size="sm" />
-          <div className="sticker-grid">
-            {stickers.map((s) => <StickerCard key={s.id} sticker={s} selected={s.id === selectedSticker.id} onSelect={selectSticker} />)}
-          </div>
-        </section>
-
-        <aside className="panel send-panel" aria-label="Enviar sticker">
-          <h2 className="send-panel__title">Enviar a</h2>
-          <FriendRecipientList friends={friends} selectedIds={selectedFriends} onToggle={toggleFriend} />
-          <button type="button" className="btn" disabled={!canSend} onClick={sendSticker}>
-            <Icon name={sent ? 'check' : 'send'} size={16} />
-            {sent ? '¡Enviado!' : `Enviar “${selectedSticker.label}” a ${selectedFriends.size}`}
-          </button>
-          <p className="send-panel__note">Les llega como notificación push.</p>
-        </aside>
-      </div>
-    </LiteLayout>
-  );
+  const catalog = useNotificationsResource('/notificaciones/stickers/catalogo');
+  const party = useNotificationsResource('/visualizador-usuarios/party');
+  const [sticker, setSticker] = useState('');
+  const [recipients, setRecipients] = useState([]);
+  const [error, setError] = useState('');
+  const [sent, setSent] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const toggle = (id) => setRecipients((current) => current.includes(id) ? current.filter((value) => value !== id) : [...current, id]);
+  async function send() {
+    const selected = catalog.data?.flatMap((group) => group.stickers).find((item) => item.id === sticker);
+    if (!selected || !recipients.length || busy) return;
+    const names = party.data.amigos.filter((friend) => recipients.includes(friend.id)).map((friend) => friend.nombre);
+    setBusy(true); setError(''); setSent(null);
+    try {
+      await http('/notificaciones/stickers', { method: 'POST', body: { catalogItemId: sticker, recipientIds: recipients } });
+      setSent({ sticker: selected, names }); setRecipients([]);
+    } catch (cause) { setError(cause.message); } finally { setBusy(false); }
+  }
+  return <LiteLayout><section className="panel sticker-composer">
+    <h2>Enviar ánimo</h2>
+    <p className="sticker-composer__intro">Elige un sticker y compártelo con tus amigos.</p>
+    {(catalog.loading || party.loading) && <p role="status">Cargando stickers y amigos…</p>}
+    {(catalog.error || party.error || error) && <p role="alert">{catalog.error || party.error || error}</p>}
+    {catalog.data && <fieldset className="sticker-composer__field" disabled={busy}><legend>1. Elige un sticker</legend>
+      {catalog.data.map((group) => <div key={group.category.id} className="sticker-group"><h3>{group.category.name}</h3><div className="sticker-grid">{group.stickers.map((item) => <button key={item.id} type="button" aria-pressed={sticker === item.id} className={`sticker-choice${sticker === item.id ? ' is-selected' : ''}`} onClick={() => { setSticker(item.id); setSent(null); }}><span aria-hidden="true"><CatalogIcon icon={item.icon} size={56} /></span><span>{item.name}</span></button>)}</div></div>)}
+      {!catalog.data.length && <p>No hay stickers disponibles.</p>}</fieldset>}
+    {party.data && <fieldset className="sticker-composer__field" disabled={busy}><legend>2. Elige a quién enviar</legend>{party.data.amigos.length ? <div className="sticker-recipients">{party.data.amigos.map((friend) => <label key={friend.id}>
+      <input type="checkbox" checked={recipients.includes(friend.id)} onChange={() => { toggle(friend.id); setSent(null); }} /> <span>{friend.nombre}</span>
+    </label>)}</div> : <p>No tienes amigos disponibles. <Link to="/lite/amigos/codigos">Añadir amigos</Link></p>}</fieldset>}
+    {!sent && <p className="sticker-composer__hint">{!sticker ? 'Elige un sticker para continuar.' : !recipients.length ? 'Elige al menos un amigo para enviarlo.' : `Se enviará a ${recipients.length} ${recipients.length === 1 ? 'amigo' : 'amigos'}.`}</p>}
+    <button className="btn" type="button" disabled={!sticker || !recipients.length || busy} onClick={send}>{busy ? 'Enviando…' : 'Enviar sticker'}</button>
+    {sent && <DispatchReceipt tone="sticker" title="Ánimo enviado" art={<CatalogIcon icon={sent.sticker.icon} size={35} />} action={<Link to="/lite/animo/historial">Ver historial de ánimo</Link>}>
+      Enviaste <b>«{sent.sticker.name}»</b> a <b>{new Intl.ListFormat('es', { type: 'conjunction' }).format(sent.names)}</b>.
+    </DispatchReceipt>}
+  </section></LiteLayout>;
 }
