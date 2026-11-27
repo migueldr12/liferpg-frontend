@@ -71,3 +71,13 @@ la app móvil traduzca la clave (con `react-native-svg` o PNG generados del mism
 - Un objeto tiene un solo `group`: Poción, Escudo y Doble XP quedan en `tienda` aunque también son
   regalables (`giftable: true`).
 - La app móvil (React Native) necesita PNG o `react-native-svg`; los SVG ya llevan colores horneados.
+
+## Mascotas de la app móvil en la PWA (actual)
+
+`PixelMascot` ya no dibuja el dragón pixel: usa **los mismos PNG de la app móvil** (`D:\LifeRPG\assets`),
+copiados a `public/mobile/mascotas` (gato, perro, dragón, hámster, león, con @2x/@3x) y
+`public/mobile/vestidor` (accesorios y fondos). Tabla y medidas en `src/shared/assets/mobilePets.js`
+(espejo de `petTypes.ts` e `itemAssets.ts`). Props: `pet`, `color` (clave móvil u hex → aura), `mood`, `acc`,
+`equipped`, `scene`. Las claves `item.*` del registro y los accesorios del mockup se traducen a prendas móviles
+(boina, lentes, bufanda, corona, casco→capucha, bosque). Sin equivalente móvil (libro, capas, tenis) no se dibujan.
+`public/catalog/**` (SVG del dragón pixel que siembra Mongo) no cambió.

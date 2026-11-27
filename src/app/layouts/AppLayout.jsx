@@ -6,7 +6,8 @@ import { Icon } from '../../shared/components/Icon';
 import { ModuleTabs } from '../../shared/components/ModuleScreen';
 import { adminModules, liteModules } from '../router/modules';
 import { http } from '../../api/httpClient';
-import { usaApi } from '../../config/env';
+import { AUTH_MODE } from '../../config/env';
+import { useSession } from '../../modules/m00-usuarios-autenticacion/hooks/SessionProvider';
 
 function getInitialTheme() {
   try {
@@ -27,6 +28,7 @@ export function AppLayout({ variant }) {
     ?? (current.id === 'm09' && subpath ? current.screens.find((item) => item.path === 'detalle') : current.screens[0]);
   const [theme, setTheme] = useState(getInitialTheme);
   const [miPerfil, setMiPerfil] = useState(null);
+  const session = useSession();
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -38,54 +40,23 @@ export function AppLayout({ variant }) {
     }
   }, [theme]);
 
+  // Mascota y nivel del jugador: GET /tamagotchi (especie, color, nivel y prendas equipadas)
   useEffect(() => {
-    if (isAdmin) return;
-    const devUserId = localStorage.getItem('userId') || import.meta.env.VITE_DEV_USER_ID;
-    const hasToken = Boolean(localStorage.getItem('token'));
-    if (!usaApi('visualizador') && !hasToken) return;
-
+    if (isAdmin || !session.user && AUTH_MODE !== 'dev') return undefined;
     let cancelled = false;
+    http('/tamagotchi').then((data) => { if (!cancelled) setMiPerfil(data); }).catch(() => {
+      // Si el backend no responde, conserva los datos demo sin romper el layout.
+    });
+    return () => { cancelled = true; };
+  }, [isAdmin, session.user]);
 
-    async function cargarMiPerfil() {
-      try {
-        if (devUserId) {
-          const data = await http(`/visualizador-usuarios/perfil-espejo/${devUserId}`);
-          if (!cancelled) setMiPerfil(data);
-          return;
-        }
-        const cuenta = await http('/usuarios/me/cuenta');
-        if (!cancelled && cuenta) {
-          setMiPerfil({
-            nombre: cuenta.displayName || cuenta.alias || 'Aventurero',
-            nivel: cuenta.level ?? 1,
-            mascota: {
-              especie: cuenta.species || 'dragon',
-              color: cuenta.mascotColor || 'morado',
-            },
-            ropaEquipada: [],
-          });
-        }
-      } catch {
-        // Si el backend no responde, conserva los datos demo sin romper el layout.
-      }
-    }
-
-    cargarMiPerfil();
-    return () => {
-      cancelled = true;
-    };
-  }, [isAdmin]);
-
+  const cuenta = session.cuenta;
   const mascotProps = miPerfil
-    ? {
-        pet: (miPerfil.mascota?.especie || 'dragon').toLowerCase(),
-        color: miPerfil.mascota?.color || 'morado',
-        equipped: miPerfil.ropaEquipada || [],
-      }
-    : DEMO_PARTY.valeria;
+    ? { pet: miPerfil.species, color: miPerfil.color, equipped: Object.values(miPerfil.equipped ?? {}) }
+    : cuenta ? { pet: cuenta.pet, color: cuenta.petColor } : DEMO_PARTY.valeria;
 
-  const displayName = isAdmin ? 'Admin' : (miPerfil?.nombre || 'Valeria');
-  const displayLevel = isAdmin ? 'GAME MASTER' : `LV ${miPerfil?.nivel ?? 14}`;
+  const displayName = isAdmin ? 'Admin' : (cuenta?.firstName || session.sesion?.displayName || 'Valeria');
+  const displayLevel = isAdmin ? 'GAME MASTER' : `LV ${miPerfil?.level ?? (session.user ? 1 : 14)}`;
 
   return (
     <div className={`app-shell ${isAdmin ? 'app-shell--admin' : ''}`}>
@@ -107,6 +78,11 @@ export function AppLayout({ variant }) {
             <button className="theme-toggle" type="button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'} title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}>
               <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={19} />
             </button>
+            {session.user && (
+              <button className="theme-toggle" type="button" onClick={() => session.logout()} aria-label="Cerrar sesión" title="Cerrar sesión">
+                <Icon name="logout" size={19} />
+              </button>
+            )}
           </div>
         </header>
         <div className="workspace__body"><Outlet /></div>

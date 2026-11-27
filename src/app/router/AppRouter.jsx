@@ -31,6 +31,13 @@ import { BackupsPage } from '../../modules/m15-gestion-bd/pages/BackupsPage';
 import { PurgePage } from '../../modules/m15-gestion-bd/pages/PurgePage';
 import LandingPage from '../../modules/m16-landing/pages/LandingPage';
 import { adminModules, liteModules } from './modules';
+import { AccessGate, RequireSession, homeFor } from '../../modules/m00-usuarios-autenticacion/hooks/useSessionRoutes';
+import { useSession } from '../../modules/m00-usuarios-autenticacion/hooks/SessionProvider';
+import LoginPage from '../../modules/m00-usuarios-autenticacion/pages/LoginPage';
+import CrearCuentaPage from '../../modules/m00-usuarios-autenticacion/pages/CrearCuentaPage';
+import RecuperarPage from '../../modules/m00-usuarios-autenticacion/pages/RecuperarPage';
+import BienvenidaPage from '../../modules/m00-usuarios-autenticacion/pages/BienvenidaPage';
+import SesionErrorPage from '../../modules/m00-usuarios-autenticacion/pages/SesionErrorPage';
 
 const implementedScreens = {
   m07: { '': <ListaPartyPage />, perfil: <PerfilEspejoPage />, codigos: <GestorCodigosPage /> },
@@ -62,20 +69,38 @@ function moduleRoutes(modules, prefix) {
   });
 }
 
+// "/" lleva al inicio que le toca (los administradores a /admin; las guardas resuelven el resto)
+function RootRedirect() {
+  const session = useSession();
+  return <Navigate to={session.status === 'ready' ? homeFor(session) : '/lite/amigos'} replace />;
+}
+
 export function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/inicio" element={<LandingPage />} />
-      <Route path="/lite" element={<AppLayout variant="lite" />}>
-        <Route index element={<Navigate to="amigos" replace />} />
-        {moduleRoutes(liteModules, '/lite')}
+      <Route path="/acceso" element={<AccessGate />}>
+        <Route index element={<Navigate to="login" replace />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="crear-cuenta" element={<CrearCuentaPage />} />
+        <Route path="recuperar" element={<RecuperarPage />} />
+        <Route path="bienvenida" element={<BienvenidaPage />} />
+        <Route path="error" element={<SesionErrorPage />} />
       </Route>
-      <Route path="/admin" element={<AppLayout variant="admin" />}>
-        <Route index element={<Navigate to="host" replace />} />
-        {moduleRoutes(adminModules, '/admin')}
+      <Route element={<RequireSession area="lite" />}>
+        <Route path="/lite" element={<AppLayout variant="lite" />}>
+          <Route index element={<Navigate to="amigos" replace />} />
+          {moduleRoutes(liteModules, '/lite')}
+        </Route>
       </Route>
-      <Route path="*" element={<Navigate to="/lite/amigos" replace />} />
+      <Route element={<RequireSession area="admin" />}>
+        <Route path="/admin" element={<AppLayout variant="admin" />}>
+          <Route index element={<Navigate to="host" replace />} />
+          {moduleRoutes(adminModules, '/admin')}
+        </Route>
+      </Route>
+      <Route path="*" element={<RootRedirect />} />
     </Routes>
   );
 }

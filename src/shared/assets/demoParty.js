@@ -2,13 +2,13 @@
 // Solo para las pantallas que aún usan datos simulados: con API, color y equipo llegan del
 // backend (PlayerProfile.mascotColor + objetos equipados) y esto no se usa.
 export const DEMO_PARTY = {
-  valeria: { color: '#9C27B0', acc: 'beret', mood: 'happy' },
-  ana: { color: '#2B8FD6', acc: 'beret', mood: 'joy' },
-  diego: { color: '#E0533D', acc: 'glasses', mood: 'happy' },
-  lucia: { color: '#2EA86B', acc: 'book', mood: 'happy' },
-  bruno: { color: '#7E57C2', acc: 'beret', mood: 'happy' },
-  mateo: { color: '#F28C28', acc: '', mood: 'focus' },
-  camila: { color: '#C2185B', acc: '', mood: 'weak' },
+  valeria: { pet: 'dragon', color: '#9C27B0', acc: 'beret', mood: 'happy' },
+  ana: { pet: 'gato', color: '#2B8FD6', acc: 'beret', mood: 'joy' },
+  diego: { pet: 'perro', color: '#E0533D', acc: 'glasses', mood: 'happy' },
+  lucia: { pet: 'hamster', color: '#2EA86B', acc: 'book', mood: 'happy' },
+  bruno: { pet: 'leon', color: '#7E57C2', acc: 'beret', mood: 'happy' },
+  mateo: { pet: 'gato', color: '#F28C28', acc: '', mood: 'focus' },
+  camila: { pet: 'perro', color: '#C2185B', acc: '', mood: 'weak' },
 };
 
 const normalize = (name = '') => String(name).trim().split(/[\s.@(]/).filter(Boolean)[0]?.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase() ?? '';
