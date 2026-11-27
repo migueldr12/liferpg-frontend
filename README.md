@@ -49,6 +49,7 @@ Flujo: `pages → hooks → api → backend`.
 | `m13-sincronizacion-red` | Sincronización local y red | Dev 5 | 1 |
 | `m14-economia-global` | Balanceo de economía global | Dev 5 | 2 |
 | `m15-gestion-bd` | Gestión de base de datos | Dev 5 | 3 |
+| `m16-landing` | Landing y tutorial de la app (móvil y web), ruta `/` | Equipo | 3 |
 
 ## Configuración
 

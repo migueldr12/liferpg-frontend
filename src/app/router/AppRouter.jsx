@@ -29,6 +29,7 @@ import PushPage from '../../modules/m14-economia-global/pages/PushPage';
 import { DatabaseMonitorPage } from '../../modules/m15-gestion-bd/pages/DatabaseMonitorPage';
 import { BackupsPage } from '../../modules/m15-gestion-bd/pages/BackupsPage';
 import { PurgePage } from '../../modules/m15-gestion-bd/pages/PurgePage';
+import LandingPage from '../../modules/m16-landing/pages/LandingPage';
 import { adminModules, liteModules } from './modules';
 import { AccessGate, RequireSession, homeFor } from '../../modules/m00-usuarios-autenticacion/hooks/useSessionRoutes';
 import { useSession } from '../../modules/m00-usuarios-autenticacion/hooks/SessionProvider';
@@ -77,7 +78,8 @@ function RootRedirect() {
 export function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element={<RootRedirect />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/inicio" element={<LandingPage />} />
       <Route path="/acceso" element={<AccessGate />}>
         <Route index element={<Navigate to="login" replace />} />
         <Route path="login" element={<LoginPage />} />
