@@ -32,5 +32,5 @@ const NEUTRAL = { acc: '', mood: 'happy' };
 export function mascotFor(person = {}) {
   if (person.mascot) return person.mascot;
   if (person.mascotColor) return { color: person.mascotColor, acc: '', mood: 'happy' };
-  return demoMascot(person.fullName ?? person.name ?? person.nombre);
+  return NEUTRAL;
 }

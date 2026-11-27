@@ -7,6 +7,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:demo": "node scripts/start-demo.mjs",
+    "test:demo": "node tests/demo-smoke.mjs",
     "assets": "node scripts/generate-assets.mjs",
     "prebuild": "node scripts/generate-assets.mjs",
     "build": "vite build",

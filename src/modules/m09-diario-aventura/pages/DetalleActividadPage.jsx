@@ -9,7 +9,11 @@ import '../components/diario.css';
 // Pestaña "Detalle": abre la última actividad vista o, si no hay, el listado para elegir una
 export function UltimaActividad() {
   const id = getLastViewedId();
-  return <Navigate to={id ? `/lite/diario/${id}` : '/lite/diario'} replace />;
+  if (id) return <Navigate to={`/lite/diario/${id}`} replace />;
+  return <div className="m09"><div className="m09-vacio">
+    <p>Abre una actividad para ver sus puntos y notas de seguimiento.</p>
+    <Link to="/lite/diario" className="m09-btn-secundario">Ver actividades</Link>
+  </div></div>;
 }
 
 // 9.2 Estado de actividad (RF029): detalle y notas de seguimiento
@@ -34,14 +38,14 @@ export default function DetalleActividadPage() {
 
       {vm.error && <p className="m09-error" role="alert">{vm.error}</p>}
 
-      {vm.loading || !a ? (
+      {vm.loading ? (
         <p className="texto-suave">Cargando actividad…</p>
-      ) : (
+      ) : a ? (
         <>
           <header className="m09-activity-header">
             <div>
               <Link to="/lite/diario">← Actividades</Link>
-              <h1 className="titulo-pixel">{a.title}</h1>
+              <h2 className="titulo-pixel">{a.title}</h2>
               <p className="texto-suave">{a.subtitle}</p>
             </div>
             <Link to="/lite/diario/graficas" className="m09-btn-secundario">Ver gráficas</Link>
@@ -146,7 +150,7 @@ export default function DetalleActividadPage() {
           </section>
           </div>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

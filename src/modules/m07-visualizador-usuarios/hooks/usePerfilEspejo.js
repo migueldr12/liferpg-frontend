@@ -1,42 +1,20 @@
 import { useState, useEffect } from 'react';
-import { getParty, getPerfilEspejo } from '../api/amigos.api';
+import { getMiPerfilEspejo, getPerfilEspejo } from '../api/amigos.api';
 
 export function usePerfilEspejo(friendId) {
-  const [perfil, setPerfil] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [state, setState] = useState(null);
+  const [version, setVersion] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
-    setError(null);
-
-    async function load() {
-      try {
-        let targetId = friendId;
-        // Si entró directo desde la pestaña "Perfil espejo" sin :friendId en la URL, carga el primer amigo
-        if (!targetId) {
-          const party = await getParty();
-          targetId = party.amigos?.[0]?.id;
-        }
-        if (!targetId) {
-          if (!cancelled) setPerfil(null);
-          return;
-        }
-        const data = await getPerfilEspejo(targetId);
-        if (!cancelled) setPerfil(data);
-      } catch (err) {
-        if (!cancelled) setError(err.message);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    load();
+    const request = friendId ? getPerfilEspejo(friendId) : getMiPerfilEspejo();
+    request.then((perfil) => { if (!cancelled) setState({ friendId, version, perfil }); })
+      .catch((error) => { if (!cancelled) setState({ friendId, version, error }); });
     return () => {
       cancelled = true;
     };
-  }, [friendId]);
+  }, [friendId, version]);
 
-  return { perfil, loading, error };
+  const ready = state?.friendId === friendId && state?.version === version;
+  return { perfil: ready ? state.perfil : null, error: ready ? state.error : null, loading: !ready, retry: () => setVersion((current) => current + 1) };
 }

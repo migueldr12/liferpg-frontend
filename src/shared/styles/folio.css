@@ -1,0 +1,89 @@
+/* Cuaderno de Life-RPG: cubiertas, folios, renglones y sellos. */
+:root {
+  --folio-radius: 5px 15px 5px 5px;
+  --folio-control-radius: 5px 9px 5px 5px;
+  --folio-gold: var(--yellow);
+  --folio-aqua: #7ed4e9;
+  --folio-violet: var(--purple);
+  --folio-rose: #f59993;
+  --folio-ink: var(--folio-gold);
+  --folio-wax: #efc773;
+  --folio-wax-text: #251a0c;
+  --folio-paper: var(--surface);
+  --folio-line: var(--border);
+  --folio-rule: 1px dashed var(--folio-line);
+  --folio-shadow: 0 3px 0 var(--surface-muted);
+  --folio-tint: color-mix(in srgb, var(--folio-ink) 9%, var(--folio-paper));
+}
+:root[data-theme='light'] { --folio-aqua: #16657c; --folio-rose: #a33547; }
+.app-shell:is([data-chapter='diario'], [data-chapter='host']) { --folio-ink: var(--folio-aqua); --folio-wax: #a3ddeb; --folio-wax-text: #11272d; }
+.app-shell:is([data-chapter='animo'], [data-chapter='economia']) { --folio-ink: var(--folio-violet); --folio-wax: #d3a7ea; --folio-wax-text: #2b1535; }
+.app-shell:is([data-chapter='progreso'], [data-chapter='datos']) { --folio-ink: var(--folio-rose); --folio-wax: #f4b1aa; --folio-wax-text: #35181b; }
+.app-shell {
+  --chapter-ink: var(--folio-ink);
+  --folio-tint: color-mix(in srgb, var(--folio-ink) 9%, var(--folio-paper));
+}
+.app-shell .chapter { border-radius: 4px 19px 5px 4px; }
+.app-shell .chapter .module-tabs { border-top: var(--folio-rule); border-bottom-right-radius: 5px; }
+.app-shell .workspace-account a.profile-chip:hover { border-color: var(--folio-ink); }
+.app-shell .bottom-dock .bottom-dock__link--active .bottom-dock__icon {
+  --bookmark-edge: color-mix(in srgb, var(--folio-wax) 55%, #242237);
+  color: var(--folio-wax-text); background: var(--folio-wax); border-color: var(--bookmark-edge);
+  border-radius: 5px 12px 5px 5px;
+  box-shadow: 0 3px 0 var(--bookmark-edge), inset 0 2px 0 #ffffff38;
+}
+
+/* Los distintos módulos comparten la misma encuadernación, conservando su estructura. */
+.app-shell :is(.m07-panel, .m08-panel, .m09-panel, .lite .panel, .progreso-lite .panel, .m12-panel, .m14-panel, .admin-surface, .admin-stat),
+.auth-page .auth-card, .m16 :is(.lp-hud__panel, .lp-hud__stage, .lp-faq__item) {
+  border-width: 1px;
+  border-radius: var(--folio-radius);
+  box-shadow: var(--folio-shadow);
+}
+.app-shell .m08 .m08-parcel { border-top: 3px double var(--folio-ink); }
+.auth-page .auth-card { border-top: 3px double var(--folio-ink); }
+.app-shell :is(.lite, .progreso-lite) .panel > h2 { font: 700 clamp(21px, 2vw, 28px)/1.15 var(--font-pixel); }
+.app-shell :is(.m14-panel-head, .admin-surface__header, .progress-page__header) { border-bottom: var(--folio-rule); padding-bottom: 11px; }
+.app-shell .admin-stat > span { color: var(--muted); letter-spacing: 0; font-weight: 700; }
+.app-shell .admin-stat > strong { overflow-wrap: anywhere; }
+.app-shell .lite { padding: 0; }
+
+/* El sello de color indica una acción; el verde queda para estados de logro. */
+.app-shell :is(.m07-btn-primario, .m08-btn-primario, .m08-btn-chico, .m09-btn-chico, .m12-btn-primario, .m12-btn-chico, .m14-btn-primario, .admin-button--primary, .lite .btn, .progreso-lite .btn):not(:disabled),
+.auth-page .auth-primary:not(:disabled), .m16 .lp-btn--primary {
+  color: var(--folio-wax-text);
+  background: var(--folio-wax);
+  border: 1px solid color-mix(in srgb, var(--folio-wax) 45%, #2e2730);
+  border-bottom-width: 3px;
+  border-radius: var(--folio-control-radius);
+  box-shadow: none;
+}
+.app-shell :is(.m07-btn-primario, .m08-btn-primario, .m08-btn-chico, .m09-btn-chico, .m12-btn-primario, .m12-btn-chico, .m14-btn-primario, .admin-button--primary, .lite .btn, .progreso-lite .btn) { min-height: 44px; white-space: normal; }
+.app-shell :is(.m07-btn-primario, .m08-btn-primario, .m14-btn-primario, .admin-button--primary, .lite .btn, .progreso-lite .btn):disabled,
+.auth-page .auth-primary:disabled {
+  color: var(--muted); background: var(--surface-muted); border: 1px dashed var(--folio-line);
+  border-radius: var(--folio-control-radius); opacity: 1; box-shadow: none;
+}
+.app-shell :is(.m07-btn-secundario, .m08-btn-secundario, .m09-btn-secundario, .m12-btn-secundario, .admin-button--secondary, .folio-action) { min-height: 44px; border-radius: var(--folio-control-radius); }
+.folio-action { display: inline-flex; gap: 7px; align-items: center; border: 1px solid var(--folio-line); background: var(--surface-raised); padding: 8px 11px; color: var(--text); font: 800 13px var(--font-body); }
+.folio-action svg { color: var(--folio-ink); }
+.folio-action:hover { border-color: var(--folio-ink); }
+.app-shell :is(.m07-tab, .m08-tab, .m09-tab, .m12-tab, .m14-tab, .admin-segments button, .seg__item):is(.activo, .is-active),
+.app-shell :is(.m08-item, .m12-reto, .lite .sticker-choice):is(.activo, .is-selected),
+.app-shell .sticker-recipients label:has(input:checked) {
+  color: var(--text); border-color: var(--folio-ink); background: var(--folio-tint); box-shadow: inset 0 -2px 0 var(--folio-ink);
+}
+.app-shell .lite .sticker-recipients input { accent-color: var(--folio-ink); }
+.app-shell :is(.progress-summary, .streak-card) { background: var(--folio-tint); border: var(--folio-rule); border-radius: var(--folio-radius); }
+.app-shell :is(.progress-summary, .streak-card) strong, .app-shell .streak-card h2 { color: var(--folio-ink); }
+.app-shell :is(.support-feed, .progress-list) { gap: 0; border-block: var(--folio-rule); }
+.app-shell :is(.support-feed, .progress-list) > li { border: 0; border-radius: 0; background: var(--folio-paper); }
+.app-shell :is(.support-feed, .progress-list) > li + li { border-top: var(--folio-rule); }
+.app-shell :is(.m08-tabla-fila, .m12-reto, .m12-invitacion, .admin-table-wrap--console) { border-radius: var(--folio-control-radius); }
+.app-shell .adventure-ledger { border-radius: var(--folio-radius); }
+.app-shell .adventure-ledger__header svg { color: var(--folio-ink); }
+.app-shell .dispatch-receipt { border-radius: var(--folio-radius); }
+
+@media (max-width: 600px) {
+  .app-shell :is(.m07-panel, .m08-panel, .m09-panel, .lite .panel, .progreso-lite .panel, .m12-panel, .m14-panel, .admin-surface) { padding-inline: 13px; }
+}

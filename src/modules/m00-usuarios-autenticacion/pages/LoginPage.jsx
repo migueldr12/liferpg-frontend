@@ -32,7 +32,7 @@ export default function LoginPage() {
   };
 
   return (
-    <AuthShell>
+    <AuthShell title="Inicia sesión" subtitle="Abre tu cuaderno para ver tu progreso y el de tus amigos.">
       <button type="button" className="auth-google" disabled={busy !== null} onClick={() => run('google', signInWithGoogle)} aria-label="Continuar con Google">
         {busy === 'google' ? <Busy busy /> : (<><span className="auth-google-badge" aria-hidden="true">G</span>Continuar con Google</>)}
       </button>
@@ -49,6 +49,8 @@ export default function LoginPage() {
         <Link className="auth-link auth-link--end" to={`/acceso/recuperar${email ? `?email=${encodeURIComponent(email)}` : ''}`}>¿Olvidaste tu contraseña?</Link>
 
         {error && <p className="auth-error" role="alert">{error}</p>}
+
+        {!canSubmit && !busy && <p className="auth-hint">Escribe un correo válido y tu contraseña para iniciar sesión.</p>}
 
         <button type="submit" className="auth-primary" disabled={!canSubmit}>
           <Busy busy={busy === 'email'}>Iniciar sesión</Busy>

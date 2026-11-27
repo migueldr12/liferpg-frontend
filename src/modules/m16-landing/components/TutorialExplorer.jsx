@@ -15,13 +15,12 @@ export function TutorialExplorer() {
 
   return (
     <div className="lp-tutorial">
-      <div className="lp-switch" role="tablist" aria-label="Plataforma del tutorial">
+      <div className="lp-switch" role="group" aria-label="Plataforma del tutorial">
         {PLATFORMS.map((p) => (
           <button
             key={p.value}
             type="button"
-            role="tab"
-            aria-selected={platform === p.value}
+            aria-pressed={platform === p.value}
             className={`lp-switch__btn ${platform === p.value ? 'is-active' : ''}`}
             onClick={() => setPlatform(p.value)}
           >

@@ -101,7 +101,7 @@ export const WEB_STEPS = [
     icon: 'friends',
     title: 'Amigos',
     path: '/lite/amigos',
-    text: 'Tu party en una lista: nivel, mascota y racha de cada amigo. Comparte tu código de amistad para sumar gente.',
+    text: 'Abre las fichas de tu party o entra a Perfil espejo para consultar tu propia mascota, tus puntos y tu racha.',
     shot: '/landing/amigos.png',
   },
   {
@@ -114,8 +114,8 @@ export const WEB_STEPS = [
   {
     icon: 'book',
     title: 'Diario',
-    path: '/lite/diario/graficas',
-    text: 'Todas tus misiones, hábitos y sesiones de enfoque juntos, con gráficas para ver tus patrones por semana o mes.',
+    path: '/lite/diario',
+    text: 'Filtra tus misiones, hábitos y sesiones de enfoque en el registro de actividades, o abre las gráficas para ver tus patrones.',
     shot: '/landing/diario.png',
   },
   {
@@ -129,7 +129,7 @@ export const WEB_STEPS = [
     icon: 'flame',
     title: 'Progreso',
     path: '/lite/progreso/racha',
-    text: 'Revisa lo que quedó pendiente, tus días flojos y el estado de tu racha: activa, en riesgo o rota.',
+    text: 'Consulta tus pendientes, los días de baja actividad y cuántos días seguidos llevas registrando avances.',
     shot: '/landing/progreso.png',
   },
   {
@@ -139,12 +139,6 @@ export const WEB_STEPS = [
     text: 'Metas compartidas que se llenan con el esfuerzo de todos y métricas para comparar cómo vas frente al grupo.',
     shot: '/landing/retos.png',
   },
-];
-
-export const ADMIN_TOOLS = [
-  { icon: 'server', title: 'Host', text: 'Estado del servidor, dispositivos conectados y consola de peticiones.' },
-  { icon: 'coins', title: 'Economía', text: 'Curva de experiencia, catálogo de objetos y avisos push.' },
-  { icon: 'database', title: 'Datos', text: 'Monitor de la base, respaldos de perfiles y purga de registros.' },
 ];
 
 export const FAQ = [

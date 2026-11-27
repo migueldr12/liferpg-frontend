@@ -31,19 +31,20 @@ export default function RetosPage() {
         </div>
       ))}
 
-      {vm.error && <p className="m12-error">{vm.error}</p>}
-      {vm.notice && <p className="m12-notice">{vm.notice}</p>}
+      {vm.error && <p className="m12-error" role="alert">{vm.error}</p>}
+      {vm.notice && <p className="m12-notice" role="status">{vm.notice}</p>}
 
       {vm.loading ? (
-        <p className="texto-suave">Cargando retos…</p>
+        <p className="texto-suave" role="status">Cargando retos…</p>
       ) : (
         <div className="m12-grid-retos">
           {/* Lista de retos activos */}
           <div className="m12-lista">
+            {!vm.error && !vm.challenges.length && <p className="texto-suave">Aún no tienes retos. Crea una meta e invita a tu equipo.</p>}
             {vm.challenges.map((r) => {
               const meta = areaMeta(r.type);
               return (
-                <button key={r.id} className={r.id === vm.selected?.id ? 'm12-reto activo' : 'm12-reto'}
+                <button type="button" key={r.id} aria-pressed={!vm.form && r.id === vm.selected?.id} className={!vm.form && r.id === vm.selected?.id ? 'm12-reto activo' : 'm12-reto'}
                   onClick={() => vm.setSelectedId(r.id)}>
                   <span className="m12-reto-top">
                     <span className="m12-area-icon" style={{ background: meta.color }}><CatalogIcon icon={meta.icon} size={14} /></span>
@@ -69,9 +70,10 @@ export default function RetosPage() {
                 <label className="m12-label">Qué se suma<select value={vm.form.metric} onChange={(e) => vm.setForm({ ...vm.form, metric: e.target.value })}>{METRIC_OPTIONS.map((m) => <option key={m.key} value={m.key}>{m.label}</option>)}</select></label>
               </div>
               <span className="m12-label">Meta acumulada</span>
-              <div className="m12-opciones">{[20, 50, 100, 200].map((goal) => <button key={goal} type="button" className={Number(vm.form.goal) === goal ? 'activo' : ''} onClick={() => vm.setForm({ ...vm.form, goal })}>{goal}</button>)}</div>
+              <div className="m12-opciones">{[20, 50, 100, 200].map((goal) => <button key={goal} type="button" aria-pressed={Number(vm.form.goal) === goal} className={Number(vm.form.goal) === goal ? 'activo' : ''} onClick={() => vm.setForm({ ...vm.form, goal })}>{goal}</button>)}</div>
               <span className="m12-label">Plazo</span>
-              <div className="m12-opciones">{[['1 semana', 7], ['2 semanas', 14], ['1 mes', 30]].map(([label, days]) => <button key={label} type="button" className={vm.form.deadline === deadlineIn(days) ? 'activo' : ''} onClick={() => vm.setForm({ ...vm.form, deadline: deadlineIn(days) })}>{label}</button>)}</div>
+              <div className="m12-opciones">{[['1 semana', 7], ['2 semanas', 14], ['1 mes', 30]].map(([label, days]) => <button key={label} type="button" aria-pressed={vm.form.deadline === deadlineIn(days)} className={vm.form.deadline === deadlineIn(days) ? 'activo' : ''} onClick={() => vm.setForm({ ...vm.form, deadline: deadlineIn(days) })}>{label}</button>)}</div>
+              <small className="texto-suave">Fecha de cierre: {vm.form.deadline}</small>
               <span className="m12-label">Invitar amigos</span>
               <div className="m12-invitados">{vm.friends.map((f) => <label key={f.id} className={vm.form.invited.includes(f.id) ? 'm12-chip activo' : 'm12-chip'}><input type="checkbox" checked={vm.form.invited.includes(f.id)} onChange={() => vm.toggleInvited(f.id)} /><Avatar person={f} size={28} />{f.name}</label>)}</div>
               <button type="submit" className="m12-btn-primario">Crear y enviar {vm.form.invited.length} invitaciones</button>

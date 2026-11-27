@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { PixelMascot } from '../../../shared/components/PixelMascot';
 import { PET_SPECIES } from '../../../shared/assets/mobilePets';
 import './auth.css';
@@ -16,8 +16,8 @@ export function AuthShell({ children, hero = true, title, subtitle }) {
                 <span key={pet.key} className={i === 2 ? 'auth-pet auth-pet--center' : 'auth-pet'}><PixelMascot pet={pet.key} mood="focus" label={pet.label} /></span>
               ))}
             </div>
-            <h1 className="auth-brand">LIFE-RPG</h1>
-            <p className="auth-tagline">Cumple tus hábitos y tu mascota crece contigo.</p>
+            {title ? <><span className="auth-brand">Life-RPG</span><h1 className="auth-title">{title}</h1></> : <h1 className="auth-brand">Life-RPG</h1>}
+            <p className="auth-tagline">{subtitle ?? 'Cumple tus hábitos y tu mascota crece contigo.'}</p>
           </header>
         )}
         {!hero && title && <h1 className="auth-title">{title}</h1>}
@@ -37,21 +37,25 @@ export function SplashScreen() {
 }
 
 export function Field({ label, error, children, hint }) {
+  const id = useId();
+  const [control, ...details] = React.Children.toArray(children);
   return (
-    <label className="auth-field">
-      <span className="auth-label">{label}</span>
-      {children}
-      {hint && <span className="auth-hint">{hint}</span>}
-      {error && <span className="auth-field-error" role="alert">{error}</span>}
-    </label>
+    <div className="auth-field">
+      <label className="auth-label" htmlFor={id}>{label}</label>
+      {React.cloneElement(control, { id, 'aria-invalid': error ? true : undefined, 'aria-describedby': [details.length && `${id}-details`, hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined })}
+      {details.length > 0 && <div id={`${id}-details`}>{details}</div>}
+      {hint && <span className="auth-hint" id={`${id}-hint`}>{hint}</span>}
+      {error && <span className="auth-field-error" role="alert" id={`${id}-error`}>{error}</span>}
+    </div>
   );
 }
 
-export function PasswordInput({ value, onChange, placeholder, autoComplete, invalid, onEnter }) {
+export function PasswordInput({ value, onChange, placeholder, autoComplete, invalid, onEnter, ...inputProps }) {
   const [visible, setVisible] = useState(false);
   return (
     <span className="auth-password">
       <input
+        {...inputProps}
         className={`auth-input ${invalid ? 'auth-input--error' : ''}`}
         type={visible ? 'text' : 'password'}
         value={value}

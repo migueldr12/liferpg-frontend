@@ -5,7 +5,7 @@ import { LandingNav } from '../components/LandingNav';
 import { HeroHud } from '../components/HeroHud';
 import { TutorialExplorer } from '../components/TutorialExplorer';
 import { useLandingTheme } from '../hooks/useLandingTheme';
-import { ADMIN_TOOLS, FAQ, GAME_LOOP, POINT_TYPES } from '../api/landingContent';
+import { FAQ, GAME_LOOP, POINT_TYPES } from '../api/landingContent';
 import '../components/landing.css';
 
 // M16 · Landing: explica qué es Life-RPG y cómo se usa en el celular y en la web.
@@ -17,14 +17,14 @@ export default function LandingPage() {
       <a className="skip-link" href="#contenido">Ir al contenido</a>
       <LandingNav theme={theme} onToggleTheme={toggle} />
 
-      <main id="contenido">
+      <main id="contenido" tabIndex={-1}>
         {/* Hero */}
         <section className="lp-hero" id="inicio">
           <div className="lp-hero__copy">
             <h1><span>Tu vida diaria,</span> <span>jugada como un RPG.</span></h1>
             <p>Cumple hábitos, gana experiencia y cuida a tu mascota. Tu party te acompaña desde el celular y la web.</p>
             <div className="lp-hero__ctas">
-              <Link className="lp-btn lp-btn--primary" to="/lite/amigos">Abrir la PWA</Link>
+              <Link className="lp-btn lp-btn--primary" to="/lite/amigos">Entrar a Life-RPG</Link>
               <a className="lp-btn lp-btn--ghost" href="#tutorial">Ver tutorial</a>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function LandingPage() {
             <article className="lp-compare__col lp-compare__col--web">
               <h3><Icon name="friends" size={20} /> En la web convives</h3>
               <ul>
-                <li>Ver a tu party y sus perfiles</li>
+                <li>Ver tu Perfil espejo y las fichas de tu party</li>
                 <li>Regalar objetos del cofre</li>
                 <li>Revisar tu diario con gráficas</li>
                 <li>Mandar stickers de ánimo</li>
@@ -107,24 +107,6 @@ export default function LandingPage() {
             </article>
           </div>
           <p className="lp-compare__note"><Icon name="refresh" size={16} /> Todo se sincroniza con el mismo servidor: lo que haces en uno aparece en el otro.</p>
-        </section>
-
-        {/* Game Master */}
-        <section className="lp-section lp-admin" aria-labelledby="admin-title">
-          <div className="lp-admin__intro">
-            <span className="eyebrow">PARA EL GAME MASTER</span>
-            <h2 id="admin-title">Un panel para quien administra el juego</h2>
-            <p>Las cuentas con rol de administrador entran a <code>/admin</code> para cuidar el servidor y balancear la economía.</p>
-            <Link className="lp-textlink" to="/admin/host">Ir al panel <Icon name="arrow" size={16} /></Link>
-          </div>
-          <ul className="lp-admin__list">
-            {ADMIN_TOOLS.map((tool) => (
-              <li key={tool.title}>
-                <Icon name={tool.icon} size={22} />
-                <div><strong>{tool.title}</strong><p>{tool.text}</p></div>
-              </li>
-            ))}
-          </ul>
         </section>
 
         {/* Preguntas */}
@@ -147,7 +129,7 @@ export default function LandingPage() {
           </div>
           <h2 id="cta-title">Tu party ya está jugando.</h2>
           <p>Entra a la PWA para ver su progreso, o abre la app móvil para hacer tu primer check-in.</p>
-          <Link className="lp-btn lp-btn--primary" to="/lite/amigos">Abrir la PWA</Link>
+          <Link className="lp-btn lp-btn--primary" to="/lite/amigos">Entrar a Life-RPG</Link>
         </section>
       </main>
 

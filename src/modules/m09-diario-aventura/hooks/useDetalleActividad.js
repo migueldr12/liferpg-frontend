@@ -51,16 +51,19 @@ export function useDetalleActividad(id) {
 
   // RDF093: detalle de la actividad elegida en el listado
   useEffect(() => {
+    let cancelled = false;
     lastViewedId = id;
     setLoading(true);
     setError(null);
     setNotFound(false);
     setEditing(null);
     setDraft('');
+    setActivity(null);
     getActivity(id)
-      .then(setActivity)
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false));
+      .then((data) => { if (!cancelled) setActivity(data); })
+      .catch((cause) => { if (!cancelled) { if (cause.status === 404) setNotFound(true); else setError(cause.message); } })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
   }, [id]);
 
   const setNotes = (fn) => setActivity((a) => ({ ...a, notes: fn(a.notes) }));

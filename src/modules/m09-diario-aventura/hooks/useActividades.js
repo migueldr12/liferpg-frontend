@@ -29,13 +29,15 @@ export function useActividades() {
 
   // RDF092: cada cambio de filtro vuelve a consultar al servidor
   useEffect(() => {
+    let active = true;
     setLoading(true);
     setError(null);
     const { type, origin, status, range } = filters;
     getActivities({ type, origin, status, since: sinceFor(RANGES.find((r) => r.key === range).days) })
-      .then(setRows)
-      .catch(() => setError('No se pudieron cargar tus actividades.'))
-      .finally(() => setLoading(false));
+      .then((items) => { if (active) setRows(items); })
+      .catch(() => { if (active) setError('No se pudieron cargar tus actividades.'); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
   }, [filters]);
 
   const setFilter = (key, value) => setFilters((f) => ({ ...f, [key]: value }));
@@ -52,7 +54,7 @@ export function useActividades() {
     setFilter,
     clearFilters: () => setFilters(emptyFilters),
     total: view.length,
-    rows: view.slice(0, 8),
+    rows: view,
     loading,
     error,
   };

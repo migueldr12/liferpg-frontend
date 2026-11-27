@@ -19,7 +19,7 @@ export function HeroHud() {
           alt="Perro, gato, dragón, hámster y león en un bosque pixel art"
           width="1400"
           height="781"
-          fetchPriority="high"
+          fetchpriority="high"
         />
       </div>
       <figcaption className="lp-hud__panel">

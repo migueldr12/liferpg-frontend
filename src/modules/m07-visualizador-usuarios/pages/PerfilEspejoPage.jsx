@@ -1,117 +1,48 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import '../components/visualizador.css';
-import { PixelMascot } from '../../../shared/components/PixelMascot';
+import { Icon } from '../../../shared/components/Icon';
+import { CompanionSheet } from '../components/CompanionSheet';
 import { usePerfilEspejo } from '../hooks/usePerfilEspejo';
+import '../components/visualizador.css';
+
+const number = new Intl.NumberFormat('es-MX');
 
 export default function PerfilEspejoPage() {
   const { friendId } = useParams();
-  const { perfil, loading, error } = usePerfilEspejo(friendId);
+  const own = !friendId;
+  const { perfil, loading, error, retry } = usePerfilEspejo(friendId);
 
-  if (loading) {
-    return <div className="m07"><p className="m07-empty">Cargando perfil espejo...</p></div>;
-  }
-
-  if (error) {
-    return <div className="m07"><p className="m07-empty">{error}</p></div>;
-  }
-
-  if (!perfil) {
-    return (
-      <div className="m07">
-        <p className="m07-empty">Aún no tienes amigos vinculados en tu party. Canjea un código para empezar.</p>
-      </div>
-    );
-  }
-
-  const petKey = (perfil.mascota?.especie || 'dragon').toLowerCase();
-  const maxStat = Math.max(
-    100,
-    perfil.estadisticas?.cultura || 0,
-    perfil.estadisticas?.fisico || 0,
-    perfil.estadisticas?.enfoque || 0
-  );
-  const primerNombre = (perfil.nombre || 'Este jugador').split(' ')[0];
-
-  return (
-    <div className="m07">
-      <div className="m07-grid-espejo">
-        <div className="m07-panel">
-          <span className="m07-badge-solo-lectura"> Solo lectura</span>
-          <div className="m07-escena-tamagotchi">
-            <PixelMascot
-              pet={petKey}
-              color={perfil.mascota?.color}
-              equipped={perfil.mascota?.equipped || perfil.ropaEquipada || []}
-              scene="forest"
-              label={`${perfil.mascota?.nombre || 'Mascota'} de ${perfil.nombre}`}
-            />
-          </div>
-          <div>
-            <h2>{perfil.nombre} <span className="m07-level">LV {perfil.nivel}</span></h2>
-            <p className="texto-suave">
-              {perfil.alias} · {perfil.mascota?.nombre} ({petKey}) · amigos desde {perfil.amigosDesde}
-            </p>
-            <div style={{ marginTop: '10px' }}>
-              <span>Hacia LV {perfil.siguienteNivel}: {perfil.xp} / {perfil.nextLevelXp} XP</span>
-              <div className="m07-barra-track" style={{ height: '8px', marginTop: '4px' }}>
-                <div className="m07-barra-fill cultura" style={{ width: `${perfil.xpPorcentaje}%` }} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <section className="m07-panel">
-            <h2>ESTADÍSTICAS · PUNTOS ACUMULADOS</h2>
-            <div className="m07-barra-stat">
-              <span className="m07-barra-label">Cultura</span>
-              <div className="m07-barra-track">
-                <div className="m07-barra-fill cultura" style={{ width: `${Math.round(((perfil.estadisticas?.cultura || 0) / maxStat) * 100)}%` }} />
-              </div>
-              <span>{perfil.estadisticas?.cultura ?? 0}</span>
-            </div>
-            <div className="m07-barra-stat">
-              <span className="m07-barra-label">Físico</span>
-              <div className="m07-barra-track">
-                <div className="m07-barra-fill fisico" style={{ width: `${Math.round(((perfil.estadisticas?.fisico || 0) / maxStat) * 100)}%` }} />
-              </div>
-              <span>{perfil.estadisticas?.fisico ?? 0}</span>
-            </div>
-            <div className="m07-barra-stat">
-              <span className="m07-barra-label">Enfoque</span>
-              <div className="m07-barra-track">
-                <div className="m07-barra-fill enfoque" style={{ width: `${Math.round(((perfil.estadisticas?.enfoque || 0) / maxStat) * 100)}%` }} />
-              </div>
-              <span>{perfil.estadisticas?.enfoque ?? 0}</span>
-            </div>
-          </section>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-            <div className="m07-panel">
-              <span className="m07-label"> {perfil.racha?.actual ?? 0} días</span>
-              <span style={{ fontSize: '12px' }}>Racha actual · mejor: {perfil.racha?.mejor ?? 0}</span>
-            </div>
-            <div className="m07-panel">
-              <span className="m07-label">ROPA EQUIPADA</span>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {(perfil.ropaEquipada?.length ? perfil.ropaEquipada : ['Sin accesorios']).map((item) => (
-                  <span key={item} className="m07-btn-secundario" style={{ fontSize: '11px' }}>{item}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="m07-privado-box">
-            <strong>Datos privados ocultos:</strong> Solo {primerNombre} puede ver sus notas de rendimiento, energía diaria y correo.
-          </div>
-
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <Link className="m07-btn-primario m07-cta-link" style={{ flex: 1 }} to="/lite/botin/cofre">Enviar regalo</Link>
-            <Link className="m07-btn-secundario m07-cta-link" style={{ flex: 1 }} to="/lite/animo/stickers">Mandar ánimo</Link>
-          </div>
-        </div>
-      </div>
+  if (loading) return <div className="m07"><p className="m07-empty" role="status">{own ? 'Cargando tu ficha…' : 'Cargando la ficha del amigo…'}</p></div>;
+  if (error || !perfil) return <section className="m07 m07-profile-state">
+    <div className="m07-panel"><p role="alert">{error?.status === 404 ? 'No encontramos este perfil.' : 'No se pudo cargar la ficha.'}</p>
+      <div className="companion-profile__links"><button className="folio-action" type="button" onClick={retry}>Reintentar</button>{!own && <Link to="/lite/amigos">Volver a Amigos</Link>}</div>
     </div>
-  );
+  </section>;
+
+  const name = perfil.nombre || 'Jugador';
+  const pet = perfil.mascota;
+  const stats = [
+    ['Experiencia', perfil.xp != null ? `${number.format(perfil.xp)} XP` : null],
+    ['XP para el próximo nivel', perfil.nextLevelXp != null ? `${number.format(perfil.nextLevelXp)} XP` : null],
+    ['Mejor racha', perfil.racha?.mejor != null ? `${number.format(perfil.racha.mejor)} ${perfil.racha.mejor === 1 ? 'día' : 'días'}` : null],
+  ].filter(([, value]) => value != null);
+
+  return <div className="m07 companion-profile">
+    <CompanionSheet expanded name={name} alias={perfil.alias} level={perfil.nivel} streak={perfil.racha?.actual} points={perfil.estadisticas}
+      caption={own ? 'Tu ficha de aventura' : 'Solo lectura'}
+      mascot={pet ? { pet: pet.especie, color: pet.color, name: pet.nombre, title: pet.titulo, equipped: pet.equipped ?? perfil.ropaEquipada } : null}>
+      {perfil.amigosDesde && <p className="companion-profile__since"><Icon name="calendar" size={16} /> En tu party desde {perfil.amigosDesde}.</p>}
+      {perfil.incompleto && <div className="companion-profile__since" role="status">Parte de tu ficha no está disponible. <button className="folio-action" type="button" onClick={retry}>Volver a cargar</button></div>}
+      <footer className="companion-profile__links">
+        {own ? <><Link className="folio-action" to="/lite/diario"><Icon name="book" size={18} /> Ver mi diario</Link><Link className="folio-action" to="/lite/progreso/racha"><Icon name="flame" size={18} /> Ver mi racha</Link></>
+          : <><Link className="folio-action" to="/lite/amigos"><Icon name="friends" size={18} /> Volver a Amigos</Link><Link className="folio-action" to="/lite/botin/cofre"><Icon name="gift" size={18} /> Ir a regalos</Link><Link className="folio-action" to="/lite/animo/stickers"><Icon name="heart" size={18} /> Ir a stickers</Link></>}
+      </footer>
+    </CompanionSheet>
+    {(stats.length > 0 || perfil.ropaEquipada) && <section className="m07-panel companion-profile__record" aria-label="Trayectoria y equipamiento">
+      <h2><Icon name="flag" size={20} /> Trayectoria</h2>
+      {stats.length > 0 && <dl>{stats.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
+      {perfil.ropaEquipada && <div className="companion-profile__wardrobe"><h3>Accesorios equipados</h3>
+        {perfil.ropaEquipada.length ? <ul>{perfil.ropaEquipada.map((item, index) => <li key={`${item}-${index}`}>{item}</li>)}</ul> : <p>Sin accesorios equipados.</p>}</div>}
+    </section>}
+  </div>;
 }

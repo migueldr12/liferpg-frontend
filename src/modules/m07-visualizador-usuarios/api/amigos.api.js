@@ -17,6 +17,7 @@ function mapAmigoToCard(item) {
   return {
     ...item,
     pet: item.pet || (item.species ? item.species.toLowerCase() : 'dragon'),
+    mascot: item.mascot ?? { pet: item.species?.toLowerCase(), color: item.mascotColor },
   };
 }
 
@@ -53,25 +54,43 @@ export async function getPerfilEspejo(friendId) {
     return http(`/visualizador-usuarios/perfil-espejo/${friendId}`);
   }
 
+  const friend = MOCK_AMIGOS.find(({ id }) => id === friendId);
+  if (!friend) throw new Error('No encontramos ese perfil de amigo.');
+  const mascot = DEMO_PARTY[friendId.split('.')[0]];
   return {
-    id: friendId || 'diego.r',
+    id: friend.id,
     soloLectura: true,
-    nombre: 'Diego Ramírez',
-    alias: '@diego.r',
+    nombre: friend.nombre,
+    alias: friend.alias,
     mascota: {
-      nombre: 'Chispa',
-      especie: DEMO_PARTY?.diego?.pet || 'dragon',
-      color: DEMO_PARTY?.diego?.color || 'rojo',
-      equipped: DEMO_PARTY?.diego?.equipped || [],
+      especie: mascot?.pet || friend.pet,
+      color: mascot?.color,
     },
     amigosDesde: 'ago 2026',
-    nivel: 12,
-    siguienteNivel: 13,
-    xp: 860,
-    nextLevelXp: 1400,
-    xpPorcentaje: 61,
-    estadisticas: { cultura: 640, fisico: 820, enfoque: 410 },
-    racha: { actual: 12, mejor: 21 },
-    ropaEquipada: ['Lentes de lector', 'Bufanda roja'],
+    nivel: friend.nivel,
+    estadisticas: friend.stats,
+    racha: { actual: friend.racha },
+  };
+}
+
+export async function getMiPerfilEspejo() {
+  const [identity, pet, points, streak] = await Promise.allSettled([
+    http('/usuarios/me'), http('/tamagotchi'), http('/usuarios/me/puntos'),
+    http(`/resumen-progreso/racha?utcOffset=${new Date().getTimezoneOffset()}`),
+  ]);
+  if (identity.status === 'rejected') throw identity.reason;
+  const mascot = pet.value;
+  const equipment = Object.entries(mascot?.equipped ?? {})
+    .filter(([slot, item]) => slot.toLowerCase() !== 'fondo' && typeof item === 'string' && !/^(ninguno|vacío|vacío\s*\/\s*ninguno)$/i.test(item.trim()));
+  return {
+    nombre: identity.value.displayName,
+    nivel: mascot?.level,
+    xp: mascot?.xp,
+    nextLevelXp: mascot?.xpForNextLevel ?? mascot?.xpNextLevel,
+    mascota: mascot ? { nombre: mascot.name, titulo: mascot.title, especie: mascot.species, color: mascot.color, equipped: Object.values(mascot.equipped ?? {}) } : null,
+    estadisticas: points.value,
+    racha: streak.value ? { actual: streak.value.rachaActual, mejor: streak.value.mejorRacha } : null,
+    ropaEquipada: mascot ? equipment.map(([, item]) => item) : null,
+    incompleto: [pet, points, streak].some((part) => part.status === 'rejected'),
   };
 }
