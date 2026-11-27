@@ -8,7 +8,8 @@ export const API_MODULES = (import.meta.env.VITE_API_MODULES ?? '')
   .map((m) => m.trim())
   .filter(Boolean);
 
-export const usaApi = (modulo) => API_MODULES.includes(modulo);
+export const usaApi = (modulo) =>
+  API_MODULES.includes('todos') || API_MODULES.includes(modulo);
 
 // PROVISIONAL mientras no exista el inicio de sesión (M00): id de MongoDB del usuario de
 // prueba que se manda en el encabezado x-user-id (el backend solo lo acepta fuera de producción).
