@@ -10,7 +10,8 @@
     "assets": "node scripts/generate-assets.mjs",
     "prebuild": "node scripts/generate-assets.mjs",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "landing:shots": "node scripts/capture-landing.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
