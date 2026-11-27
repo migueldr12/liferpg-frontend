@@ -29,6 +29,7 @@ import PushPage from '../../modules/m14-economia-global/pages/PushPage';
 import { DatabaseMonitorPage } from '../../modules/m15-gestion-bd/pages/DatabaseMonitorPage';
 import { BackupsPage } from '../../modules/m15-gestion-bd/pages/BackupsPage';
 import { PurgePage } from '../../modules/m15-gestion-bd/pages/PurgePage';
+import LandingPage from '../../modules/m16-landing/pages/LandingPage';
 import { adminModules, liteModules } from './modules';
 
 const implementedScreens = {
@@ -64,7 +65,8 @@ function moduleRoutes(modules, prefix) {
 export function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/lite/amigos" replace />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/inicio" element={<LandingPage />} />
       <Route path="/lite" element={<AppLayout variant="lite" />}>
         <Route index element={<Navigate to="amigos" replace />} />
         {moduleRoutes(liteModules, '/lite')}
