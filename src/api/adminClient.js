@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { authHeaders } from './httpClient';
 
 // Los endpoints administrativos se habilitan al implementar sus rutas en el backend.
 export const adminApiEnabled = import.meta.env.VITE_ADMIN_API_ENABLED === 'true';
@@ -7,7 +8,7 @@ const baseUrl = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/$/, '');
 export async function adminRequest(path, options = {}) {
   const response = await fetch(`${baseUrl}/admin/${path}`, {
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers },
+    headers: { 'Content-Type': 'application/json', ...(await authHeaders()), ...options.headers },
     ...options,
   });
   if (!response.ok) throw new Error(`La API respondió ${response.status}. Intenta de nuevo.`);

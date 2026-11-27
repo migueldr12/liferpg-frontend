@@ -1,45 +1,79 @@
 import React, { useMemo } from 'react';
-import { renderDragon } from '../pixel/dragon';
 import { getAsset } from '../assets/registry';
+import {
+  ACC_TO_ASSET, DEFAULT_BACKGROUND, ITEM_ASSETS, LAYER_ORDER, SCENE_TO_ASSET,
+  normalizeSpecies, petColorValue, petImageSrc, resolveAssetName, speciesLabel,
+} from '../assets/mobilePets';
+import './mascot.css';
 
 /**
- * Mascota "Mochi" dibujada en línea, idéntica al mockup.
+ * Mascota de Life-RPG con los mismos PNG de la app móvil (especie + prendas + fondo).
+ * Mantiene la API que ya usaban todas las pantallas de la PWA.
  *
  * Props:
- * - color: hex del cuerpo (PlayerProfile.mascotColor). Sin él hereda `--pu` del tema (Morado dragón).
- * - mood: happy | focus | joy | weak (se deriva del estado; no se guarda).
- * - acc: accesorios ("beret glasses") o arreglo.
- * - equipped: claves de objetos equipados según el backend (p. ej. ['item.boina-pintor']);
- *   se traducen a accesorios y escena con el registro.
- * - scene: none | forest | gold-frame (se sobrescribe si un objeto BACKGROUND está equipado).
+ * - pet | species: gato | perro | dragon | hamster | leon (PlayerProfile.mascota.especie). Por omisión, dragon.
+ * - color: clave móvil ("morado") o hex; se dibuja como aura detrás de la mascota.
+ * - mood: happy | focus | joy | weak. `weak` la apaga (como "Enfermo" en el móvil); `happy`/`joy` brincan.
+ * - acc: accesorios del mockup ("beret glasses") o arreglo; se traducen a prendas móviles.
+ * - equipped: prendas equipadas según el backend (claves `item.*`, nombres de asset o nombres visibles).
+ * - scene: none | forest | gold-frame | home; se sobrescribe si hay un fondo equipado.
  * - width/height: tamaño CSS. `size` fija ambos.
  */
 const NONE = [];
 
-export function PixelMascot({ color, mood = 'happy', acc = '', equipped = NONE, scene = 'none', size, width, height, label, className = '', style }) {
-  const drawing = useMemo(() => {
-    const accs = (Array.isArray(acc) ? acc : String(acc).split(/\s+/)).filter(Boolean);
-    let finalScene = scene;
-    for (const key of equipped) {
-      const item = getAsset(key);
-      if (item?.acc) accs.push(item.acc);
-      if (item?.scene) finalScene = item.scene;
+export function PixelMascot({ pet, species, color, mood = 'happy', acc = '', equipped = NONE, scene = 'none', size, width, height, label, className = '', style }) {
+  const kind = normalizeSpecies(species ?? pet);
+  const aura = petColorValue(color);
+
+  const { layers, background, frame } = useMemo(() => {
+    const names = [];
+    const accs = Array.isArray(acc) ? acc : String(acc).split(/\s+/);
+    for (const a of accs) if (ACC_TO_ASSET[a]) names.push(ACC_TO_ASSET[a]);
+    let bg = scene === 'home' ? DEFAULT_BACKGROUND : SCENE_TO_ASSET[scene] ?? null;
+    let gold = scene === 'gold-frame';
+    for (const entry of equipped) {
+      const fromRegistry = typeof entry === 'string' ? getAsset(entry) : null;
+      if (fromRegistry?.scene === 'gold-frame') { gold = true; continue; }
+      if (fromRegistry?.scene && SCENE_TO_ASSET[fromRegistry.scene]) { bg = SCENE_TO_ASSET[fromRegistry.scene]; continue; }
+      const name = resolveAssetName(entry) ?? (fromRegistry?.acc ? ACC_TO_ASSET[fromRegistry.acc] : null);
+      if (!name) continue;
+      if (ITEM_ASSETS[name].category === 'Fondo') bg = name;
+      else names.push(name);
     }
-    return renderDragon({ mood, acc: accs, scene: finalScene });
-  }, [mood, acc, equipped, scene]);
+    const unique = [...new Set(names)].map((n) => ({ name: n, ...ITEM_ASSETS[n] }));
+    unique.sort((a, b) => LAYER_ORDER[a.category] - LAYER_ORDER[b.category]);
+    return { layers: unique, background: bg ? ITEM_ASSETS[bg] : null, frame: gold };
+  }, [acc, equipped, scene]);
+
+  const pic = petImageSrc(kind);
+  const text = label ?? `Mascota ${speciesLabel(kind).toLowerCase()}`;
+  const moodClass = mood === 'weak' ? 'pet--weak' : mood === 'happy' || mood === 'joy' ? 'pet--bounce' : '';
 
   return (
-    <svg
-      className={className}
-      viewBox={drawing.viewBox}
-      preserveAspectRatio={drawing.preserveAspectRatio}
-      shapeRendering="crispEdges"
+    <span
+      className={`pet ${moodClass} ${frame ? 'pet--frame' : ''} ${className}`.trim()}
       role="img"
-      aria-label={label ?? drawing.label}
-      style={{ display: 'block', width: width ?? size ?? '100%', height: height ?? size ?? '100%', ...(color ? { '--pu': color } : null), ...style }}
+      aria-label={text}
+      style={{ width: width ?? size ?? '100%', height: height ?? size ?? '100%', ...style }}
     >
-      {drawing.rects.map((r, i) => <rect key={i} x={r.x} y={r.y} width={r.w} height={r.h} style={{ fill: r.fill }} />)}
-    </svg>
+      {background && <img className="pet__bg" src={background.url} alt="" draggable="false" />}
+      <span className="pet__box">
+        {aura && <span className="pet__aura" style={{ background: `radial-gradient(circle, ${aura}66 0%, ${aura}00 70%)` }} />}
+        <span className="pet__body">
+          <img className="pet__img" src={pic.src} srcSet={pic.srcSet} alt="" draggable="false" />
+          {layers.map((l) => (
+            <img
+              key={l.name}
+              className="pet__layer"
+              src={l.url}
+              alt=""
+              draggable="false"
+              style={{ left: `${(1 - l.width) * 50}%`, top: `${l.top * 100}%`, width: `${l.width * 100}%`, aspectRatio: String(l.aspect) }}
+            />
+          ))}
+        </span>
+      </span>
+    </span>
   );
 }
 

@@ -1,3 +1,4 @@
+import { authHeaders } from '../../../api/httpClient';
 import React, { useEffect, useState } from 'react';
 import { adminApiEnabled, adminRequest, useAdminResource } from '../../../api/adminClient';
 import { ActionButton, DemoNotice, Segmented, StateBadge, Surface } from '../../../shared/components/AdminUI';
@@ -68,7 +69,7 @@ export function BackupsPage() {
         return;
       }
       const url = `${(import.meta.env.VITE_API_URL || '/api/v1').replace(/\/$/, '')}/admin/data/backups/${encodeURIComponent(id)}/download`;
-      const response = await fetch(url, { credentials: 'include' });
+      const response = await fetch(url, { credentials: 'include', headers: await authHeaders() });
       if (!response.ok) throw new Error(`No se pudo descargar el respaldo (${response.status}).`);
       const blobUrl = URL.createObjectURL(await response.blob());
       const anchor = document.createElement('a');
